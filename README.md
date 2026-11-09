@@ -1,23 +1,24 @@
 # Реєстр донорів: CRUD-сервіс і вимірювання масштабованості
 
 Навчальний проєкт з дисципліни «Високопродуктивні розподілені обчислювальні системи».
-Три лабораторні роботи в одному репозиторії: кожна наступна доповнює сервіс, написаний у ЛР1,
-а не замінює його.
+Чотири лабораторні роботи в одному репозиторії: кожна наступна доповнює сервіс, написаний у
+ЛР1, а не замінює його.
 
 Стек: Python 3.12, FastAPI, psycopg 3 (пул зʼєднань), PostgreSQL 16, nginx 1.27, Prometheus,
-Docker Compose, а в ЛР3 — Kubernetes (kind), kube-prometheus-stack і HorizontalPodAutoscaler.
+Docker Compose, а з ЛР3 — Kubernetes (kind), kube-prometheus-stack і HorizontalPodAutoscaler.
+У ЛР4 додано чергу задач у PostgreSQL і пул воркерів з окремим образом.
 Генератор навантаження і всі скрипти вимірювань — лише стандартна бібліотека Python
 (matplotlib потрібен тільки для діаграм).
 
-## Три лабораторні і два варіанти
+## Чотири лабораторні і два варіанти
 
-| | Лабораторна 1 | Лабораторна 2 | Лабораторна 3 |
-|---|---|---|---|
-| Про що | спроєктувати й розгорнути CRUD-сервіс у Docker Compose, зміряти пропускну здатність | додати метрики Prometheus, зміряти X(N) на 1–4 екземплярах, визначити параметри закону масштабованості | перенести сервіс, базу і моніторинг у Kubernetes, зміряти X(N) і дисбаланс у кластері, порівняти фіксовані репліки з HorizontalPodAutoscaler |
-| Варіант | **20** | **19** | **19** |
-| Звіт | [REPORT.md](REPORT.md) | [REPORT-LAB2.md](REPORT-LAB2.md) | [REPORT-LAB3.md](REPORT-LAB3.md) |
-| Запуск | [RUN.md](RUN.md), детально [HOWTO.md](HOWTO.md) | [RUN-LAB2.md](RUN-LAB2.md) | [RUN-LAB3.md](RUN-LAB3.md), детально [HOWTO-LAB3.md](HOWTO-LAB3.md) |
-| Тег у git | `lab1` | `lab2` | `lab3` |
+| | Лабораторна 1 | Лабораторна 2 | Лабораторна 3 | Лабораторна 4 |
+|---|---|---|---|---|
+| Про що | спроєктувати й розгорнути CRUD-сервіс у Docker Compose, зміряти пропускну здатність | додати метрики Prometheus, зміряти X(N) на 1–4 екземплярах, визначити параметри закону масштабованості | перенести сервіс, базу і моніторинг у Kubernetes, зміряти X(N) і дисбаланс у кластері, порівняти фіксовані репліки з HorizontalPodAutoscaler | додати чергу задач у PostgreSQL і пул воркерів: показати дублі наївного захоплення, усунути їх блокуванням рядка, захистити задачу lease, heartbeat і fencing token, зміряти X(W) і закон Літтла |
+| Варіант | **20** | **19** | **19** | **19** |
+| Звіт | [REPORT.md](REPORT.md) | [REPORT-LAB2.md](REPORT-LAB2.md) | [REPORT-LAB3.md](REPORT-LAB3.md) | [REPORT-LAB4.md](REPORT-LAB4.md) |
+| Запуск | [RUN.md](RUN.md), детально [HOWTO.md](HOWTO.md) | [RUN-LAB2.md](RUN-LAB2.md) | [RUN-LAB3.md](RUN-LAB3.md), детально [HOWTO-LAB3.md](HOWTO-LAB3.md) | [RUN-LAB4.md](RUN-LAB4.md), детально [HOWTO-LAB4.md](HOWTO-LAB4.md) |
+| Тег у git | `lab1` | `lab2` | `lab3` | `lab4` |
 
 **Про номер варіанта.** ЛР1 виконана за варіантом 20: сутність «запис реєстру донорів», ресурс
 `/donor-registry`, фільтр за доступністю, валідація віку 18–55, ліміти контейнера 1 CPU і 512 МБ.
@@ -30,6 +31,11 @@ Docker Compose, а в ЛР3 — Kubernetes (kind), kube-prometheus-stack і Hori
 і два worker), `requests.cpu` 500m і `limits.cpu` 1, цільове використання CPU для HPA 50 %,
 рівень стрибка min(1,5·X(1), 0,9·X(R)), додаткова вимога Д1 — рівномірний розподіл подів по двох
 робочих вузлах через `topologySpreadConstraints`.
+
+ЛР4 виконана за тим самим варіантом 19: квантилі вікна яскравості 0,02 / 0,98, інтервал
+опитування черги T_poll = 50 мс, тривалість lease L = 5 с, сценарій відмови Ф3 (задачі з
+`seed = 0`, на якому крок обробки викидає виняток), додаткова вимога Д5 — LISTEN/NOTIFY замість
+опитування. R = 4 воркери взято з ЛР3, розмір зрізу S = 256 однаковий для всіх варіантів.
 
 ## Структура проєкту
 
@@ -57,6 +63,20 @@ Docker Compose, а в ЛР3 — Kubernetes (kind), kube-prometheus-stack і Hori
 | `hpa/web-hpa.yaml` | HorizontalPodAutoscaler: CPU 50 %, 1–4 репліки, вікно зменшення 30 с |
 | `monitoring/` | values для kube-prometheus-stack і postgres-exporter, PodMonitor для подів web |
 
+### Черга задач і воркер — ЛР4
+
+| Шлях | Навіщо |
+|---|---|
+| `db/schema-lab4.sql` | таблиці `tasks` і `task_results`, індекси, тригер NOTIFY для вимоги Д5 |
+| `worker/slice.py` | синтетичний зріз із seed і крок обробки за гістограмою (лише цикли Python) |
+| `worker/main.py` | воркер: захоплення задачі, три кроки задачі, lease, heartbeat, fencing token, коректна зупинка, метрики |
+| `worker/supervise.py` | наглядач процесу воркера для прогону з `FAIL_RATE` (крок 9) |
+| `worker/entry.py` | точка входу образу: воркер або наглядач |
+| `Dockerfile.worker` | власний образ воркера `donor-worker:lab4` |
+| `k8s/base/13-db-migrate-lab4-job.yaml` | Job міграції схеми ЛР4 |
+| `k8s/base/30-worker-configmap.yaml`, `31-worker-deployment.yaml` | налаштування і Deployment воркера без поля `replicas` |
+| `k8s/monitoring/worker-podmonitor.yaml` | поди `worker` у збір Prometheus |
+
 ### Генератор навантаження — `loadgen/`
 
 | Файл | Навіщо |
@@ -73,6 +93,7 @@ Docker Compose, а в ЛР3 — Kubernetes (kind), kube-prometheus-stack і Hori
 | `profile.py` | генератор ЛР3: профіль навантаження як список «тривалість, інтенсивність» |
 | `run_k8s.py` | один ступінчастий прогін у кластері: масштабування, прогін, збір метрик за сходинками |
 | `run_elastic.py` | прогони за профілем на фіксованих репліках і з HPA |
+| `tasks.py` | генератор ЛР4: створення задач обробки із заданою інтенсивністю, запис їхніх id |
 
 ### Скрипти — `scripts/`
 
@@ -87,6 +108,10 @@ Docker Compose, а в ЛР3 — Kubernetes (kind), kube-prometheus-stack і Hori
 | `k8s_up.ps1`, `k8s_down.ps1` | розгортання і повне видалення стенду ЛР3 однією командою |
 | `lab3_selfcheck.ps1` | 15 перевірок стенду ЛР3: вузли, база, проби, пароль, CRUD, Д1, метрики, HPA |
 | `lab3_tables.py`, `lab3_elastic.py`, `lab3_charts.py` | таблиці, метрики еластичності й діаграми ЛР3 |
+| `lab4_run.py` | прогони кроків 2-10 ЛР4: режими воркера, прогін, метрики, зрізи бази |
+| `lab4_selfcheck.ps1` | 17 перевірок стенду ЛР4: схема, ендпоінти, метрики, ліміти, збір Prometheus |
+| `lab4_tables.py`, `lab4_charts.py` | таблиці й діаграми ЛР4 |
+| `xcheck_slice.py` | звірка кроку обробки зрізу ЛР4 з незалежною реалізацією |
 
 ### Результати — `results/`
 
@@ -107,6 +132,9 @@ Docker Compose, а в ЛР3 — Kubernetes (kind), kube-prometheus-stack і Hori
 | `lab3/charts/` | діаграми ЛР3, зокрема порівняння C(N) двох стендів |
 | `lab3/checks.md` | протокол перевірки стенду ЛР3 з очікуваним і фактичним виводом |
 | `lab3/v1/`, `lab3/v2/` | попередні серії вимірювань — підстава для розділу «Розкид між серіями» |
+| `lab4/step2…step10*.json` | прогони кроків 2-10 ЛР4: зведення, зрізи черги, журнали воркерів, метрики |
+| `lab4/step*_gen.{json,csv}` | посекундний запис генератора задач кожного прогону |
+| `lab4/tables.md`, `lab4/charts/` | таблиці й діаграми ЛР4 |
 
 ## Базові команди
 
@@ -206,6 +234,33 @@ powershell -File scripts\k8s_down.ps1
 
 Повний порядок — у [RUN-LAB3.md](RUN-LAB3.md), перевірки з очікуваним результатом — у
 [HOWTO-LAB3.md](HOWTO-LAB3.md).
+
+### Вимірювання ЛР4
+
+Стенд той самий, що в ЛР3, плюс Deployment `worker`.
+
+```powershell
+powershell -File scripts\k8s_up.ps1
+```
+
+```powershell
+powershell -File scripts\lab4_selfcheck.ps1
+```
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.lab4_run step6
+```
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.lab4_run step7 --xr 29.1
+```
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.lab4_tables
+```
+
+Повний порядок — у [RUN-LAB4.md](RUN-LAB4.md), перевірки з очікуваним результатом — у
+[HOWTO-LAB4.md](HOWTO-LAB4.md).
 
 ### Зупинка
 
