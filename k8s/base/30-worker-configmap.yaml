@@ -1,0 +1,34 @@
+# Налаштування воркера. Параметри варіанта 19: T_poll = 50 мс, L = 5 с,
+# квантилі вікна яскравості 0,02 / 0,98. Пароля тут немає: він лише в Secret db-secret.
+#
+# Режими (CLAIM_MODE, RESULT_MODE, LEASE_MODE, WAIT_MODE) перемикаються під кожен крок
+# роботи командою kubectl set env deployment/worker, а не правкою цього файла:
+#   крок 3  CLAIM_MODE=naive       RESULT_MODE=insert LEASE_MODE=off
+#   крок 4  CLAIM_MODE=skip_locked RESULT_MODE=upsert LEASE_MODE=off, потім for_update
+#   кроки 5-9 (значення нижче)
+#   крок 10 WAIT_MODE=listen
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: worker-config
+  namespace: donors
+data:
+  WEB_BASE: http://web.donors.svc.cluster.local:8000
+  RESOURCE_PATH: /donor-registry
+  LEASE_S: "5"
+  POLL_MS: "50"
+  Q_LO: "0.02"
+  Q_HI: "0.98"
+  SLICE_SIZE: "256"
+  FAIL_RATE: "0"
+  CLAIM_MODE: skip_locked
+  RESULT_MODE: upsert
+  LEASE_MODE: "on"
+  HEARTBEAT: "on"
+  WAIT_MODE: poll
+  REAP_IN_WORKER: "0"
+  GRACE_S: "25"
+  METRICS_PORT: "9100"
+  # 1 вмикає наглядача процесу воркера (крок 9: інакше CrashLoopBackOff з паузою
+  # до 5 хвилин зупиняє пул раніше, ніж повторна обробка задач стає помітною)
+  SUPERVISE: "0"

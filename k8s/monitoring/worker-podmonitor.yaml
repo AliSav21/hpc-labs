@@ -1,0 +1,17 @@
+# Поди worker у збір Prometheus (крок 2). Порт metrics, той самий інтервал 5 с, що й у web.
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: worker
+  namespace: donors
+  labels:
+    app: worker
+spec:
+  selector:
+    matchLabels:
+      app: worker
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics
+      interval: 5s
+      scrapeTimeout: 4s

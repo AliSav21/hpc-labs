@@ -1,0 +1,97 @@
+# Поля replicas немає навмисно: кількість воркерів W задає kubectl scale (кроки 3-9).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: donors
+  labels:
+    app: worker
+spec:
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      # умова кроку 2: 30 с на коректну зупинку; сам воркер віддає задачу назад через 25 с
+      terminationGracePeriodSeconds: 30
+      initContainers:
+        # та сама причина, що й у web: на свіжому кластері база піднімається 1-2 хвилини,
+        # а воркер без бази лише крутив би невдалі захоплення
+        - name: wait-db
+          image: donor-worker:lab4
+          imagePullPolicy: IfNotPresent
+          command:
+            - python
+            - -c
+            - |
+              import os, socket, time
+              host, port = os.environ["DB_HOST"], int(os.environ["DB_PORT"])
+              while True:
+                  try:
+                      with socket.create_connection((host, port), timeout=3):
+                          print("база приймає зʼєднання", flush=True)
+                          break
+                  except OSError as e:
+                      print(f"чекаю базу: {e}", flush=True)
+                      time.sleep(2)
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef: {name: web-config, key: DB_HOST}
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef: {name: web-config, key: DB_PORT}
+          resources:
+            requests: {cpu: 10m, memory: 32Mi}
+      containers:
+        - name: worker
+          image: donor-worker:lab4
+          # образ завантажено в кластер через kind load docker-image, реєстру немає
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: metrics
+              containerPort: 9100
+            - name: sup
+              containerPort: 9101
+          envFrom:
+            - configMapRef:
+                name: worker-config
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef: {name: web-config, key: DB_HOST}
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef: {name: web-config, key: DB_PORT}
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef: {name: web-config, key: POSTGRES_USER}
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef: {name: web-config, key: POSTGRES_DB}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: db-secret, key: POSTGRES_PASSWORD}
+            # Downward API: WORKER_ID це імʼя пода
+            - name: WORKER_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            # умова кроку 2
+            requests:
+              cpu: 250m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
