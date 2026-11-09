@@ -8,6 +8,8 @@
 param(
     [string]$Cluster = "hpc",
     [string]$Image = "donor-registry:lab3",
+    # ЛР4: власний образ воркера пула обробки
+    [string]$WorkerImage = "donor-worker:lab4",
     [switch]$SkipMonitoring
 )
 
@@ -21,15 +23,26 @@ function Need-Tool($name) {
         throw "у PATH немає $name"
     }
 }
-# $ErrorActionPreference не діє на зовнішні програми: код виходу перевіряємо самі
-function Invoke-Checked($file, $arguments, $what) {
-    & $file @arguments
+# Зовнішня програма і $ErrorActionPreference = "Stop": у Windows PowerShell 5.1 кожен
+# рядок, який програма пише у stderr, стає помилкою і зупиняє скрипт. docker build пише
+# туди весь свій поступ, тож розгортання падало на першому ж образі. Тому на час виклику
+# зупинку знімаємо, а успіх перевіряємо за кодом виходу, як і раніше.
+function Invoke-Native($file, $arguments, $what) {
+    $prev = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        & $file @arguments 2>&1 | ForEach-Object { "$_" }
+    } finally {
+        $ErrorActionPreference = $prev
+    }
     if ($LASTEXITCODE -ne 0) { throw "$what завершилося з кодом $LASTEXITCODE" }
+}
+function Invoke-Checked($file, $arguments, $what) {
+    Invoke-Native $file $arguments $what
 }
 function Invoke-Kubectl($arguments) {
     # kubectl.exe з розширенням: інакше ім'я функції перекриває саму програму
-    & kubectl.exe --context $ctx @arguments
-    if ($LASTEXITCODE -ne 0) { throw "kubectl $($arguments -join ' ') завершився з кодом $LASTEXITCODE" }
+    Invoke-Native "kubectl.exe" (@("--context", $ctx) + $arguments) "kubectl $($arguments -join ' ')"
 }
 
 foreach ($t in @("docker", "kind", "kubectl", "helm")) { Need-Tool $t }
@@ -73,19 +86,33 @@ Write-Host "== збираю образ $Image"
 Invoke-Checked "docker" @("build", "-t", $Image, ".") "docker build"
 Invoke-Checked "kind" @("load", "docker-image", $Image, "--name", $Cluster) "kind load docker-image"
 
+# ЛР4: образ воркера. Тег web лишається з ЛР3 — це той самий сервіс, якому ЛР4 додала
+# ендпоінти черги задач, тому перескладання образу не змінює імені стенду.
+Write-Host "== збираю образ $WorkerImage"
+Invoke-Checked "docker" @("build", "-f", "Dockerfile.worker", "-t", $WorkerImage, ".") "docker build worker"
+Invoke-Checked "kind" @("load", "docker-image", $WorkerImage, "--name", $Cluster) "kind load worker image"
+
 # 4. namespace, Secret, схема і маніфести
 Invoke-Kubectl @("apply", "-f", "k8s/base/00-namespace.yaml")
+$ErrorActionPreference = "Continue"
 & kubectl --context $ctx create secret generic db-secret -n donors --from-literal=POSTGRES_PASSWORD=$pw `
     --dry-run=client -o yaml | kubectl --context $ctx apply -f -
+if ($LASTEXITCODE -ne 0) { $ErrorActionPreference = "Stop"; throw "не вдалось створити Secret db-secret" }
 & kubectl --context $ctx create configmap db-schema -n donors --from-file=schema.sql=db/schema.sql `
     --dry-run=client -o yaml | kubectl --context $ctx apply -f -
+& kubectl --context $ctx create configmap db-schema-lab4 -n donors --from-file=schema-lab4.sql=db/schema-lab4.sql `
+    --dry-run=client -o yaml | kubectl --context $ctx apply -f -
+if ($LASTEXITCODE -ne 0) { $ErrorActionPreference = "Stop"; throw "не вдалось створити ConfigMap db-schema-lab4" }
+$ErrorActionPreference = "Stop"
 # Job незмінний після створення, тому перед повторним застосуванням його видаляємо
 Invoke-Kubectl @("delete", "job", "db-migrate", "-n", "donors", "--ignore-not-found")
+Invoke-Kubectl @("delete", "job", "db-migrate-lab4", "-n", "donors", "--ignore-not-found")
 Invoke-Kubectl @("apply", "-f", "k8s/base")
 
 Write-Host "== чекаю базу і міграцію"
 Invoke-Kubectl @("rollout", "status", "statefulset/db", "-n", "donors", "--timeout=300s")
 Invoke-Kubectl @("wait", "--for=condition=complete", "job/db-migrate", "-n", "donors", "--timeout=300s")
+Invoke-Kubectl @("wait", "--for=condition=complete", "job/db-migrate-lab4", "-n", "donors", "--timeout=300s")
 Invoke-Kubectl @("rollout", "status", "deployment/web", "-n", "donors", "--timeout=300s")
 
 # 5. моніторинг
@@ -101,8 +128,10 @@ if (-not $SkipMonitoring) {
     Invoke-Kubectl @("rollout", "status", "deployment/metrics-server", "-n", "kube-system", "--timeout=300s")
 
     Write-Host "== kube-prometheus-stack і postgres-exporter"
-    & helm repo add prometheus-community https://prometheus-community.github.io/helm-charts | Out-Null
-    & helm repo update prometheus-community | Out-Null
+    $ErrorActionPreference = "Continue"
+    & helm repo add prometheus-community https://prometheus-community.github.io/helm-charts 2>&1 | Out-Null
+    & helm repo update prometheus-community 2>&1 | Out-Null
+    $ErrorActionPreference = "Stop"
     Invoke-Checked "helm" @("upgrade", "--install", "monitoring", "prometheus-community/kube-prometheus-stack",
         "--kube-context", $ctx, "-n", "monitoring", "--create-namespace",
         "-f", "k8s/monitoring/kube-prometheus-stack.values.yaml", "--wait", "--timeout", "15m") "helm kube-prometheus-stack"
@@ -110,6 +139,7 @@ if (-not $SkipMonitoring) {
         "--kube-context", $ctx, "-n", "donors",
         "-f", "k8s/monitoring/postgres-exporter.values.yaml", "--wait", "--timeout", "5m") "helm postgres-exporter"
     Invoke-Kubectl @("apply", "-f", "k8s/monitoring/web-podmonitor.yaml")
+    Invoke-Kubectl @("apply", "-f", "k8s/monitoring/worker-podmonitor.yaml")
 }
 
 Write-Host ""
