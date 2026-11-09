@@ -43,7 +43,10 @@ docker compose up -d --scale web=1 --wait; docker compose restart lb
 .\.venv\Scripts\python.exe -m loadgen.step --path /noop --out results/lab2/noop --label "G: /noop"
 ```
 
-`G` це `X` у `results/lab2/noop.json`. На цій машині виміряно **G = 2797 rps**.
+`G` це `X` у `results/lab2/noop.json`: автоматика видала **2797 rps** (сходинка 2800 rps).
+Прогін зупинився не через насичення, а через зупинку генератора на 305-й секунді, тож це
+**нижня оцінка**: сходинка 3000 rps трималась 14 с із досягнутою 2997 rps. Для прогонів
+N = 1…4 межа ні в якому варіанті не вмикалась — найбільша досягнута 938 rps.
 
 ## 4. Серія прогонів (крок 7)
 

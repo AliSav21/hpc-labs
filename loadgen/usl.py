@@ -1,5 +1,4 @@
-"""Універсальний закон масштабованості: оцінка σ і κ методом найменших квадратів без
-вільного члена, відносна пропускна здатність C(N) і точка максимуму N*.
+"""Універсальний закон масштабованості
 """
 import sys as _sys
 _sys.stdout.reconfigure(encoding="utf-8")  # консоль Windows: cp1252
@@ -19,6 +18,7 @@ def fit(points):
     x1 = points[1]
     rel = {n: x / x1 for n, x in sorted(points.items())}
     rows = []
+    two_p = None  # сира двопараметрична оцінка до правила
     for n, c in rel.items():
         if n <= 1:
             continue
@@ -36,6 +36,7 @@ def fit(points):
     else:
         sigma = (s["vv"] * s["uy"] - s["uv"] * s["vy"]) / det
         kappa = (s["uu"] * s["vy"] - s["uv"] * s["uy"]) / det
+        two_p = {"sigma": sigma, "kappa": kappa}
         if sigma < 0:
             sigma = 0.0
             kappa = s["vy"] / s["vv"] if s["vv"] else 0.0
@@ -46,6 +47,7 @@ def fit(points):
             note = "κ вийшла відʼємною: κ = 0, σ за однопараметричною формулою"
 
     out = {"lambda": x1, "sigma": sigma, "kappa": kappa, "note": note,
+           "two_param": two_p,
            "sums": s, "det": det, "rows": rows,
            "C": {str(n): c for n, c in rel.items()},
            "fit_points": [r["N"] for r in rows]}
@@ -63,6 +65,10 @@ def report(res):
     lines = [f"λ = X(1) = {res['lambda']:.1f} rps",
              f"σ = {res['sigma']:.6f}", f"κ = {res['kappa']:.6f}"]
     s = res["sums"]
+    if res.get("two_param"):
+        t = res["two_param"]
+        lines.append(f"двопараметрична оцінка: σ = {t['sigma']:.6f}, κ = {t['kappa']:.6f} "
+                     f"(Δ = {res['det']:.4f})")
     lines.append(f"Σu² = {s['uu']:.4f}, Σv² = {s['vv']:.4f}, Σuv = {s['uv']:.4f}, "
                  f"Σuy = {s['uy']:.6f}, Σvy = {s['vy']:.6f}")
     for r in res["rows"]:
