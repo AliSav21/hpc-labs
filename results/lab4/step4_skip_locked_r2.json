@@ -1,0 +1,321 @@
+{
+  "label": "крок 4: skip_locked, T_poll = 1 мс, повтор 2",
+  "workers": 4,
+  "rate": 100,
+  "count": 300,
+  "pre_queued": null,
+  "drained": true,
+  "gen": {
+    "base": "http://127.0.0.1:18080",
+    "resource": "/donor-registry",
+    "rate_target": 100,
+    "count": 300,
+    "duration_s": 4.716,
+    "created": 300,
+    "poisoned": 0,
+    "non2xx": 0,
+    "codes": {
+      "202": 300
+    },
+    "stale_conn_retries": 0,
+    "sent_rps_mean": 100.0,
+    "ok_rps_mean": 100.0,
+    "started_at_wall": null,
+    "label": "крок 4: skip_locked, T_poll = 1 мс, повтор 2",
+    "start_wall": 1794167932.4101915,
+    "end_wall": 1794167937.130194,
+    "started_at": "2026-11-08T21:58:52"
+  },
+  "gen_rows": [
+    {
+      "t_s": 0,
+      "sent": 100,
+      "ok": 100,
+      "non2xx": 0
+    },
+    {
+      "t_s": 1,
+      "sent": 100,
+      "ok": 100,
+      "non2xx": 0
+    },
+    {
+      "t_s": 2,
+      "sent": 100,
+      "ok": 100,
+      "non2xx": 0
+    }
+  ],
+  "run_start_wall": 1794167932.4101915,
+  "run_end_wall": 1794167950.3567655,
+  "gen_start_wall": 1794167932.4101915,
+  "gen_end_wall": 1794167937.1335366,
+  "duration_s": 17.946573972702026,
+  "tasks": {
+    "tasks_total": 300,
+    "by_status": {
+      "done": 300
+    },
+    "by_attempts": {
+      "1": 300
+    },
+    "results_rows": 300,
+    "tasks_with_result": 300,
+    "tasks_with_many_results": 0,
+    "duplicates": [],
+    "attempts_gt1": 0
+  },
+  "wait": {
+    "n": 300,
+    "mean_s": 5.71027499,
+    "p50_s": 5.4792125,
+    "p99_s": 10.31283155,
+    "min_s": 0.005387,
+    "max_s": 10.351991
+  },
+  "io_cpu": {
+    "n": 300,
+    "t_io": {
+      "mean_s": 0.04207955333333333,
+      "p50_s": 0.0162415,
+      "p99_s": 0.3447522599999999,
+      "min_s": 0.010808,
+      "max_s": 0.363276
+    },
+    "t_cpu": {
+      "mean_s": 0.12723999,
+      "p50_s": 0.101739,
+      "p99_s": 0.39279651999999965,
+      "min_s": 0.040421,
+      "max_s": 0.465692
+    }
+  },
+  "log_duplicates": {
+    "tasks_done_lines": 300,
+    "tasks_done_more_than_once": 0,
+    "of_them_by_different_workers": 0,
+    "examples": {}
+  },
+  "claim_p99": {
+    "q": 0.99,
+    "n": 4044.2059279463638,
+    "rank": 4003.7638686669,
+    "value_s": 0.020849054147636985,
+    "bucket": [
+      0.01,
+      0.025
+    ],
+    "max_error_s": 0.015000000000000001,
+    "beyond_last": false
+  },
+  "claims": {
+    "task": 300.0,
+    "empty": 6185.0
+  },
+  "db": {
+    "db_tps": 846.3220637470246,
+    "db_cpu_cores": 0.41777353085611335,
+    "worker_cpu_cores": 0.6276635325970582
+  },
+  "locks": {
+    "samples": 17,
+    "waiting_on": [
+      "object @ COMMIT"
+    ],
+    "span_s": 17.38,
+    "interval_s": 1.086,
+    "lock_waits_max": 9,
+    "lock_waits_mean": 1.588235294117647,
+    "locks_ungranted_max": 9,
+    "series": [
+      {
+        "t": 1794167932.76,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167933.85,
+        "lock_waits": 9,
+        "locks_ungranted": 9,
+        "waiting_on": "object @ COMMIT"
+      },
+      {
+        "t": 1794167934.98,
+        "lock_waits": 9,
+        "locks_ungranted": 9,
+        "waiting_on": "object @ COMMIT"
+      },
+      {
+        "t": 1794167936.02,
+        "lock_waits": 9,
+        "locks_ungranted": 9,
+        "waiting_on": "object @ COMMIT"
+      },
+      {
+        "t": 1794167937.05,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167938.07,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167939.09,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167940.11,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167941.13,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167942.15,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167943.18,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167944.51,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167946.05,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167947.08,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167948.09,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167949.11,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      },
+      {
+        "t": 1794167950.14,
+        "lock_waits": 0,
+        "locks_ungranted": 0
+      }
+    ]
+  },
+  "pods": [
+    {
+      "pod": "worker-5c47f965c9-8dv4m",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-5c47f965c9-b9jq2",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-5c47f965c9-hrl25",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-5c47f965c9-lj76h",
+      "ready": true,
+      "restarts": 0
+    }
+  ],
+  "per_second_done": [
+    {
+      "t_s": 0,
+      "done": 9
+    },
+    {
+      "t_s": 1,
+      "done": 7
+    },
+    {
+      "t_s": 2,
+      "done": 8
+    },
+    {
+      "t_s": 3,
+      "done": 15
+    },
+    {
+      "t_s": 4,
+      "done": 16
+    },
+    {
+      "t_s": 5,
+      "done": 26
+    },
+    {
+      "t_s": 6,
+      "done": 32
+    },
+    {
+      "t_s": 7,
+      "done": 25
+    },
+    {
+      "t_s": 8,
+      "done": 32
+    },
+    {
+      "t_s": 9,
+      "done": 34
+    },
+    {
+      "t_s": 10,
+      "done": 25
+    },
+    {
+      "t_s": 11,
+      "done": 21
+    },
+    {
+      "t_s": 12,
+      "done": 16
+    },
+    {
+      "t_s": 13,
+      "done": 18
+    },
+    {
+      "t_s": 14,
+      "done": 16
+    },
+    {
+      "t_s": 15,
+      "done": 0
+    },
+    {
+      "t_s": 16,
+      "done": 0
+    },
+    {
+      "t_s": 17,
+      "done": 0
+    }
+  ],
+  "D_by_results": 0.0,
+  "D_by_logs": 0.0,
+  "mode": "skip_locked",
+  "repeat": 2
+}

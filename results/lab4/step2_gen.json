@@ -1,0 +1,28 @@
+{
+  "base": "http://127.0.0.1:18080",
+  "resource": "/donor-registry",
+  "rate_target": 20,
+  "count": 20,
+  "duration_s": 0.958,
+  "created": 20,
+  "poisoned": 0,
+  "non2xx": 0,
+  "codes": {
+    "202": 20
+  },
+  "sent_rps_mean": null,
+  "ok_rps_mean": 20.0,
+  "rows": [
+    {
+      "t_s": 0,
+      "sent": 20,
+      "ok": 20,
+      "non2xx": 0
+    }
+  ],
+  "started_at_wall": null,
+  "label": "крок 2: 20 задач, W = 1",
+  "start_wall": 1794080495.4746962,
+  "end_wall": 1794080496.4364684,
+  "started_at": "2026-11-07T21:41:35"
+}

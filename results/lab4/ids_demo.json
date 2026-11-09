@@ -1,0 +1,36 @@
+{
+  "base": "http://127.0.0.1:18080",
+  "resource": "/donor-registry",
+  "rate_target": 10.0,
+  "count": 20,
+  "duration_s": 1.906,
+  "created": 20,
+  "poisoned": 0,
+  "non2xx": 0,
+  "codes": {
+    "202": 20
+  },
+  "stale_conn_retries": 0,
+  "sent_rps_mean": 10.0,
+  "ok_rps_mean": 10.0,
+  "rows": [
+    {
+      "t_s": 0,
+      "sent": 10,
+      "ok": 10,
+      "non2xx": 0
+    },
+    {
+      "t_s": 1,
+      "sent": 10,
+      "ok": 10,
+      "non2xx": 0
+    }
+  ],
+  "started_at_wall": null,
+  "label": "демонстрація запису ідентифікаторів",
+  "start_wall": 1794209002.4987752,
+  "end_wall": 1794209004.4107864,
+  "started_at": "2026-11-09T09:23:22",
+  "created_task_ids_file": "ids_demo_task_ids.json"
+}

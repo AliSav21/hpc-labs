@@ -1,0 +1,251 @@
+{
+  "label": "крок 6: W = 4, 400 задач у черзі",
+  "workers": 4,
+  "rate": 200,
+  "count": 400,
+  "pre_queued": 400,
+  "drained": true,
+  "gen": {
+    "base": "http://127.0.0.1:18080",
+    "resource": "/donor-registry",
+    "rate_target": 200,
+    "count": 400,
+    "duration_s": 2.003,
+    "created": 400,
+    "poisoned": 0,
+    "non2xx": 0,
+    "codes": {
+      "202": 400
+    },
+    "sent_rps_mean": 200.0,
+    "ok_rps_mean": 200.0,
+    "started_at_wall": null,
+    "label": "крок 6: W = 4, 400 задач у черзі",
+    "start_wall": 1794081542.8750854,
+    "end_wall": 1794081544.892724,
+    "started_at": "2026-11-07T21:59:02"
+  },
+  "gen_rows": [
+    {
+      "t_s": 0,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 1,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    }
+  ],
+  "run_start_wall": 1794081545.2444148,
+  "run_end_wall": 1794081566.8689709,
+  "gen_start_wall": 1794081542.8750854,
+  "gen_end_wall": 1794081544.8968039,
+  "duration_s": 21.624556064605713,
+  "tasks": {
+    "tasks_total": 400,
+    "by_status": {
+      "done": 400
+    },
+    "by_attempts": {
+      "1": 400
+    },
+    "results_rows": 400,
+    "tasks_with_result": 400,
+    "tasks_with_many_results": 0,
+    "duplicates": [],
+    "attempts_gt1": 0
+  },
+  "wait": {
+    "n": 400,
+    "mean_s": 12.578412227500001,
+    "p50_s": 11.985375000000001,
+    "p99_s": 17.765814069999998,
+    "min_s": 7.302303,
+    "max_s": 17.845397
+  },
+  "io_cpu": {
+    "n": 400,
+    "t_io": {
+      "mean_s": 0.0208459,
+      "p50_s": 0.012736,
+      "p99_s": 0.09192059999999996,
+      "min_s": 0.00862,
+      "max_s": 0.126928
+    },
+    "t_cpu": {
+      "mean_s": 0.091444605,
+      "p50_s": 0.0843425,
+      "p99_s": 0.24110224999999988,
+      "min_s": 0.035487,
+      "max_s": 0.295213
+    }
+  },
+  "log_duplicates": {
+    "tasks_done_lines": 400,
+    "tasks_done_more_than_once": 0,
+    "of_them_by_different_workers": 0,
+    "examples": {}
+  },
+  "claim_p99": {
+    "q": 0.99,
+    "n": 571.2362,
+    "rank": 565.5238380000001,
+    "value_s": 0.04815573699554854,
+    "bucket": [
+      0.025,
+      0.05
+    ],
+    "max_error_s": 0.025,
+    "beyond_last": false
+  },
+  "claims": {
+    "task": 397.0,
+    "empty": -494.0
+  },
+  "db": {
+    "db_tps": 67.56525019720823,
+    "db_cpu_cores": 0.11852170060331842,
+    "worker_cpu_cores": 0.6610632463437509
+  },
+  "locks": null,
+  "pods": [
+    {
+      "pod": "worker-7d859679f7-4mwwk",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-7d859679f7-6hd5h",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-7d859679f7-b2mdq",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-7d859679f7-j5hff",
+      "ready": true,
+      "restarts": 0
+    }
+  ],
+  "per_second_done": [
+    {
+      "t_s": 0,
+      "done": 0
+    },
+    {
+      "t_s": 1,
+      "done": 0
+    },
+    {
+      "t_s": 2,
+      "done": 0
+    },
+    {
+      "t_s": 3,
+      "done": 0
+    },
+    {
+      "t_s": 4,
+      "done": 5
+    },
+    {
+      "t_s": 5,
+      "done": 27
+    },
+    {
+      "t_s": 6,
+      "done": 41
+    },
+    {
+      "t_s": 7,
+      "done": 36
+    },
+    {
+      "t_s": 8,
+      "done": 40
+    },
+    {
+      "t_s": 9,
+      "done": 37
+    },
+    {
+      "t_s": 10,
+      "done": 28
+    },
+    {
+      "t_s": 11,
+      "done": 21
+    },
+    {
+      "t_s": 12,
+      "done": 29
+    },
+    {
+      "t_s": 13,
+      "done": 16
+    },
+    {
+      "t_s": 14,
+      "done": 34
+    },
+    {
+      "t_s": 15,
+      "done": 37
+    },
+    {
+      "t_s": 16,
+      "done": 38
+    },
+    {
+      "t_s": 17,
+      "done": 11
+    },
+    {
+      "t_s": 18,
+      "done": 0
+    },
+    {
+      "t_s": 19,
+      "done": 0
+    },
+    {
+      "t_s": 20,
+      "done": 0
+    },
+    {
+      "t_s": 21,
+      "done": 0
+    }
+  ],
+  "X": {
+    "X_rps": 32.0,
+    "sd": 7.850882984503312,
+    "window_s": 12,
+    "window": [
+      5,
+      16
+    ],
+    "secs": 12,
+    "drain_s": 14,
+    "requested_window_s": 30,
+    "dropped_last_partial_s": 17
+  },
+  "claim_p50": {
+    "q": 0.5,
+    "n": 571.2362,
+    "rank": 285.6181,
+    "value_s": 0.003677957617131793,
+    "bucket": [
+      0.001,
+      0.005
+    ],
+    "max_error_s": 0.004,
+    "beyond_last": false
+  }
+}

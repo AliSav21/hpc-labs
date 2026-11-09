@@ -1,0 +1,561 @@
+{
+  "label": "крок 5: lease, heartbeat і fencing token",
+  "lease_s": 5,
+  "workers": 2,
+  "pods": [
+    "worker-7d859679f7-9wbfm",
+    "worker-7d859679f7-v7jk4"
+  ],
+  "stopped_pod": "worker-7d859679f7-9wbfm",
+  "rate": 100.0,
+  "count": 100,
+  "gen": {
+    "base": "http://127.0.0.1:18080",
+    "resource": "/donor-registry",
+    "rate_target": 100.0,
+    "count": 100,
+    "duration_s": 0.999,
+    "created": 100,
+    "poisoned": 0,
+    "non2xx": 0,
+    "codes": {
+      "202": 100
+    },
+    "sent_rps_mean": null,
+    "ok_rps_mean": 100.0,
+    "started_at_wall": null,
+    "label": "крок 5: 100 задач, W = 2",
+    "start_wall": 1794081310.1006858,
+    "end_wall": 1794081311.1097233,
+    "started_at": "2026-11-07T21:55:10"
+  },
+  "run_start_wall": 1794081311.113535,
+  "stop_at_wall": 1794081324.5622768,
+  "cont_at_wall": 1794081336.2769446,
+  "run_end_wall": 1794081350.1177092,
+  "stopped_for_s": 11.714667797088623,
+  "documented_command_works": false,
+  "documented_command_output": "",
+  "stop_via": {
+    "node": "hpc-worker2",
+    "host_pid": 14694
+  },
+  "cont_how": {
+    "signal": "CONT",
+    "via": "node",
+    "node": "hpc-worker2",
+    "host_pid": 14694
+  },
+  "proc_state_after_stop": "T",
+  "queue_refills": 1,
+  "held_at_stop": [
+    {
+      "id": 123,
+      "token": 1,
+      "status": "running",
+      "attempts": 1,
+      "worker_id": "worker-7d859679f7-9wbfm",
+      "lease_until_epoch": 1794081329.780222
+    }
+  ],
+  "after_lease_expiry": [
+    {
+      "id": 123,
+      "token": 2,
+      "status": "done",
+      "results": 1,
+      "attempts": 2,
+      "worker_id": "worker-7d859679f7-v7jk4",
+      "result_worker": "worker-7d859679f7-v7jk4"
+    }
+  ],
+  "final": [
+    {
+      "id": 123,
+      "token": 2,
+      "status": "done",
+      "results": 1,
+      "attempts": 2,
+      "worker_id": "worker-7d859679f7-v7jk4",
+      "result_worker": "worker-7d859679f7-v7jk4"
+    }
+  ],
+  "zero_rows_log_lines": [
+    {
+      "ts": 1794081336.112,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "нуль оновлених рядків: задача більше не моя",
+      "task": 123,
+      "token": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    }
+  ],
+  "zero_rows_from_stopped_pod": [
+    {
+      "ts": 1794081336.112,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "нуль оновлених рядків: задача більше не моя",
+      "task": 123,
+      "token": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    }
+  ],
+  "tasks": {
+    "tasks_total": 200,
+    "by_status": {
+      "done": 200
+    },
+    "by_attempts": {
+      "1": 199,
+      "2": 1
+    },
+    "results_rows": 200,
+    "tasks_with_result": 200,
+    "tasks_with_many_results": 0,
+    "duplicates": [],
+    "attempts_gt1": 1
+  },
+  "log_duplicates": {
+    "tasks_done_lines": 200,
+    "tasks_done_more_than_once": 0,
+    "of_them_by_different_workers": 0,
+    "examples": {}
+  },
+  "lease_requeued_total": 1.0,
+  "stopped_pod_log": [
+    {
+      "ts": 1794081320.991,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 85,
+      "token": 1,
+      "t_io_s": 0.015107,
+      "t_cpu_s": 0.092082,
+      "p_lo": 81,
+      "p_hi": 4010,
+      "dropped": 2597,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081320.996,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 88,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.088,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 88,
+      "token": 1,
+      "t_io_s": 0.01336,
+      "t_cpu_s": 0.078244,
+      "p_lo": 81,
+      "p_hi": 4012,
+      "dropped": 2612,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.093,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 89,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.199,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 89,
+      "token": 1,
+      "t_io_s": 0.012658,
+      "t_cpu_s": 0.09185,
+      "p_lo": 80,
+      "p_hi": 4010,
+      "dropped": 2609,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.203,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 91,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.482,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 91,
+      "token": 1,
+      "t_io_s": 0.012642,
+      "t_cpu_s": 0.265035,
+      "p_lo": 83,
+      "p_hi": 4012,
+      "dropped": 2608,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.485,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 94,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.586,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 94,
+      "token": 1,
+      "t_io_s": 0.015784,
+      "t_cpu_s": 0.083788,
+      "p_lo": 79,
+      "p_hi": 4012,
+      "dropped": 2599,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.59,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 96,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.702,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 96,
+      "token": 1,
+      "t_io_s": 0.012026,
+      "t_cpu_s": 0.098723,
+      "p_lo": 82,
+      "p_hi": 4015,
+      "dropped": 2599,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.705,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 98,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.801,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 98,
+      "token": 1,
+      "t_io_s": 0.013276,
+      "t_cpu_s": 0.081846,
+      "p_lo": 80,
+      "p_hi": 4014,
+      "dropped": 2599,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.805,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 100,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081321.957,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 100,
+      "token": 1,
+      "t_io_s": 0.099484,
+      "t_cpu_s": 0.051286,
+      "p_lo": 83,
+      "p_hi": 4016,
+      "dropped": 2611,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081323.628,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 101,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081323.69,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 101,
+      "token": 1,
+      "t_io_s": 0.011221,
+      "t_cpu_s": 0.050202,
+      "p_lo": 77,
+      "p_hi": 4013,
+      "dropped": 2599,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081323.694,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 103,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081323.797,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 103,
+      "token": 1,
+      "t_io_s": 0.010457,
+      "t_cpu_s": 0.091734,
+      "p_lo": 81,
+      "p_hi": 4019,
+      "dropped": 2598,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081323.802,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 105,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081323.907,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 105,
+      "token": 1,
+      "t_io_s": 0.017207,
+      "t_cpu_s": 0.087291,
+      "p_lo": 79,
+      "p_hi": 4015,
+      "dropped": 2617,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081323.91,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 107,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.01,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 107,
+      "token": 1,
+      "t_io_s": 0.01111,
+      "t_cpu_s": 0.04566,
+      "p_lo": 79,
+      "p_hi": 4015,
+      "dropped": 2614,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.014,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 109,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.168,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 109,
+      "token": 1,
+      "t_io_s": 0.049005,
+      "t_cpu_s": 0.103392,
+      "p_lo": 84,
+      "p_hi": 4012,
+      "dropped": 2597,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.173,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 111,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.277,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 111,
+      "token": 1,
+      "t_io_s": 0.01212,
+      "t_cpu_s": 0.090592,
+      "p_lo": 82,
+      "p_hi": 4012,
+      "dropped": 2604,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.282,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 113,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.379,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 113,
+      "token": 1,
+      "t_io_s": 0.010508,
+      "t_cpu_s": 0.085611,
+      "p_lo": 80,
+      "p_hi": 4016,
+      "dropped": 2610,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.385,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 115,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.478,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 115,
+      "token": 1,
+      "t_io_s": 0.010725,
+      "t_cpu_s": 0.081704,
+      "p_lo": 83,
+      "p_hi": 4017,
+      "dropped": 2599,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.483,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 117,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.581,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 117,
+      "token": 1,
+      "t_io_s": 0.013753,
+      "t_cpu_s": 0.083121,
+      "p_lo": 85,
+      "p_hi": 4014,
+      "dropped": 2605,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.586,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 119,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.683,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 119,
+      "token": 1,
+      "t_io_s": 0.010801,
+      "t_cpu_s": 0.085556,
+      "p_lo": 81,
+      "p_hi": 4014,
+      "dropped": 2592,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.687,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 121,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.779,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "виконано",
+      "task": 121,
+      "token": 1,
+      "t_io_s": 0.017425,
+      "t_cpu_s": 0.074034,
+      "p_lo": 82,
+      "p_hi": 4014,
+      "dropped": 2615,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081324.785,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "захоплено",
+      "task": 123,
+      "token": 1,
+      "attempts": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081336.112,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "нуль оновлених рядків: задача більше не моя",
+      "task": 123,
+      "token": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    },
+    {
+      "ts": 1794081336.142,
+      "worker": "worker-7d859679f7-9wbfm",
+      "msg": "heartbeat оновив нуль рядків: задача більше не моя",
+      "task": 123,
+      "token": 1,
+      "pod": "worker-7d859679f7-9wbfm"
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "low": {
+    "label": "0.7·X(R)",
+    "factor": 0.7,
+    "rate_target": 20.37,
+    "duration_s": 180.0,
+    "count": 3667,
+    "gen": {
+      "base": "http://127.0.0.1:18080",
+      "resource": "/donor-registry",
+      "rate_target": 20.37,
+      "count": 3667,
+      "duration_s": 179.977,
+      "created": 3667,
+      "poisoned": 0,
+      "non2xx": 0,
+      "codes": {
+        "202": 3667
+      },
+      "stale_conn_retries": 61,
+      "sent_rps_mean": 20.374301675977655,
+      "ok_rps_mean": 20.374301675977655,
+      "started_at_wall": null,
+      "label": "крок 7: λ = 0.7·X(R) = 20.37 задач/с, 180.0 с",
+      "start_wall": 1794166576.810649,
+      "end_wall": 1794166756.7940376,
+      "started_at": "2026-11-08T21:36:16"
+    },
+    "window_wall": [
+      1794166636.7974572,
+      1794166756.7974572
+    ],
+    "window_s": 120.0,
+    "lambda_measured": 20.375,
+    "L_q_mean": 7.52,
+    "L_q_samples": 25,
+    "L_q_series": [
+      14.0,
+      0.0,
+      21.0,
+      0.0,
+      29.0,
+      0.0,
+      10.0,
+      8.0,
+      13.0,
+      1.0,
+      1.0,
+      12.0,
+      1.0,
+      0.0,
+      1.0,
+      15.0,
+      0.0,
+      2.0,
+      0.0,
+      1.0,
+      1.0,
+      23.0,
+      28.0,
+      6.0,
+      1.0
+    ],
+    "L_q_sd": 9.412403164619189,
+    "L_q_stderr": 1.8824806329238377,
+    "L_q_exact": {
+      "L_q_exact": 7.38838135,
+      "tasks_overlapping": 2445,
+      "window_s": 120.0
+    },
+    "W_q": {
+      "n": 2445,
+      "mean_s": 0.3626339423312884,
+      "p50_s": 0.104527,
+      "p99_s": 1.73390756,
+      "min_s": 0.003044,
+      "max_s": 1.996711
+    },
+    "little_lambda_Wq": 7.388666575,
+    "queue_at_end": 0,
+    "running_at_end": 0,
+    "tasks": {
+      "tasks_total": 3667,
+      "by_status": {
+        "done": 3667
+      },
+      "by_attempts": {
+        "1": 3667
+      },
+      "results_rows": 3667,
+      "tasks_with_result": 3667,
+      "tasks_with_many_results": 0,
+      "duplicates": [],
+      "attempts_gt1": 0
+    },
+    "discrepancy_pct": -1.7464551196808424,
+    "discrepancy_exact_pct": 0.003860453142417094,
+    "never_started": 0,
+    "W_q_first100": {
+      "n": 100,
+      "mean_s": 0.14128950999999998,
+      "p50_s": 0.0514295,
+      "p99_s": 0.3967098,
+      "min_s": 0.003598,
+      "max_s": 0.398472
+    },
+    "W_q_last100": {
+      "n": 100,
+      "mean_s": 0.1017985,
+      "p50_s": 0.0476505,
+      "p99_s": 0.3516294000000002,
+      "min_s": 0.00388,
+      "max_s": 0.393249
+    }
+  },
+  "high": {
+    "label": "1.3·X(R)",
+    "factor": 1.3,
+    "rate_target": 37.83,
+    "duration_s": 120.0,
+    "count": 4540,
+    "gen": {
+      "base": "http://127.0.0.1:18080",
+      "resource": "/donor-registry",
+      "rate_target": 37.83,
+      "count": 4540,
+      "duration_s": 120.072,
+      "created": 4540,
+      "poisoned": 0,
+      "non2xx": 0,
+      "codes": {
+        "202": 4540
+      },
+      "stale_conn_retries": 139,
+      "sent_rps_mean": 37.831932773109244,
+      "ok_rps_mean": 37.831932773109244,
+      "started_at_wall": null,
+      "label": "крок 7: λ = 1.3·X(R) = 37.83 задач/с, 120.0 с",
+      "start_wall": 1794166798.978364,
+      "end_wall": 1794166919.0546942,
+      "started_at": "2026-11-08T21:39:58"
+    },
+    "window_wall": [
+      1794166799.0586147,
+      1794166919.0586147
+    ],
+    "window_s": 120.0,
+    "lambda_measured": 37.81666666666667,
+    "L_q_mean": 813.08,
+    "L_q_samples": 25,
+    "L_q_series": [
+      0.0,
+      0.0,
+      8.0,
+      98.0,
+      165.0,
+      250.0,
+      291.0,
+      385.0,
+      435.0,
+      513.0,
+      579.0,
+      665.0,
+      705.0,
+      819.0,
+      883.0,
+      1008.0,
+      1115.0,
+      1262.0,
+      1342.0,
+      1467.0,
+      1525.0,
+      1606.0,
+      1663.0,
+      1738.0,
+      1805.0
+    ],
+    "L_q_sd": 603.3324760583228,
+    "L_q_stderr": 120.66649521166455,
+    "L_q_exact": {
+      "L_q_exact": 916.7970307583333,
+      "tasks_overlapping": 4540,
+      "window_s": 120.0
+    },
+    "W_q": {
+      "n": 2673,
+      "mean_s": 24.034941753086418,
+      "p50_s": 21.233305,
+      "p99_s": 49.87959944000003,
+      "min_s": 0.012623,
+      "max_s": 51.004901
+    },
+    "little_lambda_Wq": 908.9213806292181,
+    "queue_at_end": 1856,
+    "running_at_end": 4,
+    "tasks": {
+      "tasks_total": 4540,
+      "by_status": {
+        "queued": 1836,
+        "done": 2700,
+        "running": 4
+      },
+      "by_attempts": {
+        "0": 1829,
+        "1": 2711
+      },
+      "results_rows": 2731,
+      "tasks_with_result": 2739,
+      "tasks_with_many_results": 0,
+      "duplicates": [],
+      "attempts_gt1": 0
+    },
+    "discrepancy_pct": 11.787447807007682,
+    "discrepancy_exact_pct": -0.8590396636211665,
+    "never_started": 1763,
+    "W_q_first100": {
+      "n": 100,
+      "mean_s": 0.17132869,
+      "p50_s": 0.1715985,
+      "p99_s": 0.5186467500000005,
+      "min_s": 0.012623,
+      "max_s": 0.621483
+    },
+    "W_q_last100": {
+      "n": 100,
+      "mean_s": 51.70057721,
+      "p50_s": 51.6755815,
+      "p99_s": 52.46514251,
+      "min_s": 50.901305,
+      "max_s": 52.479053
+    }
+  }
+}

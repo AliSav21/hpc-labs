@@ -1,0 +1,40 @@
+{
+  "base": "http://127.0.0.1:18080",
+  "resource": "/donor-registry",
+  "rate_target": 100,
+  "count": 300,
+  "duration_s": 2.998,
+  "created": 300,
+  "poisoned": 0,
+  "non2xx": 0,
+  "codes": {
+    "202": 300
+  },
+  "sent_rps_mean": 100.0,
+  "ok_rps_mean": 100.0,
+  "rows": [
+    {
+      "t_s": 0,
+      "sent": 100,
+      "ok": 100,
+      "non2xx": 0
+    },
+    {
+      "t_s": 1,
+      "sent": 100,
+      "ok": 100,
+      "non2xx": 0
+    },
+    {
+      "t_s": 2,
+      "sent": 100,
+      "ok": 100,
+      "non2xx": 0
+    }
+  ],
+  "started_at_wall": null,
+  "label": "крок 3: наївне захоплення, T_poll = 50 мс",
+  "start_wall": 1794080535.878197,
+  "end_wall": 1794080538.8805835,
+  "started_at": "2026-11-07T21:42:15"
+}

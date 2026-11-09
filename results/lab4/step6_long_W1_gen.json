@@ -1,0 +1,71 @@
+{
+  "base": "http://127.0.0.1:18080",
+  "resource": "/donor-registry",
+  "rate_target": 200,
+  "count": 1500,
+  "duration_s": 7.5,
+  "created": 1500,
+  "poisoned": 0,
+  "non2xx": 0,
+  "codes": {
+    "202": 1500
+  },
+  "stale_conn_retries": 0,
+  "sent_rps_mean": 200.0,
+  "ok_rps_mean": 200.0,
+  "rows": [
+    {
+      "t_s": 0,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 1,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 2,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 3,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 4,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 5,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 6,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 7,
+      "sent": 100,
+      "ok": 100,
+      "non2xx": 0
+    }
+  ],
+  "started_at_wall": null,
+  "label": "крок 6: W = 1, 1500 задач у черзі",
+  "start_wall": 1794167295.31467,
+  "end_wall": 1794167302.819427,
+  "started_at": "2026-11-08T21:48:15"
+}

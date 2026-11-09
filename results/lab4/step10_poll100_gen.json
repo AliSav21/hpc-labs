@@ -1,0 +1,382 @@
+{
+  "base": "http://127.0.0.1:18080",
+  "resource": "/donor-registry",
+  "rate_target": 5.0,
+  "count": 300,
+  "duration_s": 59.809,
+  "created": 300,
+  "poisoned": 0,
+  "non2xx": 0,
+  "codes": {
+    "202": 300
+  },
+  "sent_rps_mean": 5.0,
+  "ok_rps_mean": 5.0,
+  "rows": [
+    {
+      "t_s": 0,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 1,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 2,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 3,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 4,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 5,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 6,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 7,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 8,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 9,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 10,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 11,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 12,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 13,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 14,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 15,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 16,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 17,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 18,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 19,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 20,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 21,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 22,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 23,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 24,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 25,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 26,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 27,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 28,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 29,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 30,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 31,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 32,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 33,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 34,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 35,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 36,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 37,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 38,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 39,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 40,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 41,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 42,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 43,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 44,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 45,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 46,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 47,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 48,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 49,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 50,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 51,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 52,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 53,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 54,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 55,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 56,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 57,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 58,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    },
+    {
+      "t_s": 59,
+      "sent": 5,
+      "ok": 5,
+      "non2xx": 0
+    }
+  ],
+  "started_at_wall": null,
+  "label": "крок 10 (Д5): poll, λ = 5.0 задач/с",
+  "start_wall": 1794086272.6930199,
+  "end_wall": 1794086332.5060503,
+  "started_at": "2026-11-07T23:17:52"
+}

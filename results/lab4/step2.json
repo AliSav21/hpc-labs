@@ -1,0 +1,131 @@
+{
+  "label": "крок 2: 20 задач, W = 1",
+  "workers": 1,
+  "rate": 20,
+  "count": 20,
+  "pre_queued": null,
+  "drained": true,
+  "gen": {
+    "base": "http://127.0.0.1:18080",
+    "resource": "/donor-registry",
+    "rate_target": 20,
+    "count": 20,
+    "duration_s": 0.958,
+    "created": 20,
+    "poisoned": 0,
+    "non2xx": 0,
+    "codes": {
+      "202": 20
+    },
+    "sent_rps_mean": null,
+    "ok_rps_mean": 20.0,
+    "started_at_wall": null,
+    "label": "крок 2: 20 задач, W = 1",
+    "start_wall": 1794080495.4746962,
+    "end_wall": 1794080496.4364684,
+    "started_at": "2026-11-07T21:41:35"
+  },
+  "gen_rows": [
+    {
+      "t_s": 0,
+      "sent": 20,
+      "ok": 20,
+      "non2xx": 0
+    }
+  ],
+  "run_start_wall": 1794080495.459437,
+  "run_end_wall": 1794080501.243398,
+  "gen_start_wall": 1794080495.459437,
+  "gen_end_wall": 1794080496.4386618,
+  "duration_s": 5.783961057662964,
+  "tasks": {
+    "tasks_total": 20,
+    "by_status": {
+      "done": 20
+    },
+    "by_attempts": {
+      "1": 20
+    },
+    "results_rows": 20,
+    "tasks_with_result": 20,
+    "tasks_with_many_results": 0,
+    "duplicates": [],
+    "attempts_gt1": 0
+  },
+  "wait": {
+    "n": 20,
+    "mean_s": 0.36390885,
+    "p50_s": 0.4052995,
+    "p99_s": 0.65718404,
+    "min_s": 0.048154,
+    "max_s": 0.662881
+  },
+  "io_cpu": {
+    "n": 20,
+    "t_io": {
+      "mean_s": 0.01148745,
+      "p50_s": 0.010641999999999999,
+      "p99_s": 0.021755719999999985,
+      "min_s": 0.009484,
+      "max_s": 0.023753
+    },
+    "t_cpu": {
+      "mean_s": 0.0647731,
+      "p50_s": 0.06869,
+      "p99_s": 0.1399219599999999,
+      "min_s": 0.029212,
+      "max_s": 0.153833
+    }
+  },
+  "log_duplicates": {
+    "tasks_done_lines": 20,
+    "tasks_done_more_than_once": 0,
+    "of_them_by_different_workers": 0,
+    "examples": {}
+  },
+  "claim_p99": null,
+  "claims": {
+    "task": 20.0,
+    "empty": -111.0
+  },
+  "db": {
+    "db_tps": 40.680576950007,
+    "db_cpu_cores": null,
+    "worker_cpu_cores": null
+  },
+  "locks": null,
+  "pods": [
+    {
+      "pod": "worker-7d859679f7-mhm44",
+      "ready": true,
+      "restarts": 0
+    }
+  ],
+  "per_second_done": [
+    {
+      "t_s": 0,
+      "done": 11
+    },
+    {
+      "t_s": 1,
+      "done": 7
+    },
+    {
+      "t_s": 2,
+      "done": 0
+    },
+    {
+      "t_s": 3,
+      "done": 0
+    },
+    {
+      "t_s": 4,
+      "done": 0
+    },
+    {
+      "t_s": 5,
+      "done": 0
+    }
+  ],
+  "note": "t_io = крок 1 + крок 3 задачі, t_cpu = крок 2 (обробка зрізу)"
+}

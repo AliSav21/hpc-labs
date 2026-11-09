@@ -1,0 +1,704 @@
+{
+  "label": "крок 8: коректна зупинка під прогоном",
+  "rate": 20.37,
+  "duration_s": 120.0,
+  "count": 2444,
+  "run_start_wall": 1794209833.9613698,
+  "restart_at_wall": 1794209875.9653616,
+  "run_end_wall": 1794209957.4781175,
+  "pods_before": [
+    {
+      "pod": "worker-59b4796899-cnkbr",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-59b4796899-ggv6f",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-59b4796899-hxbnj",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-59b4796899-jtz6z",
+      "ready": true,
+      "restarts": 0
+    }
+  ],
+  "pods_after": [
+    {
+      "pod": "worker-8574dcf9fc-58gnq",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-8574dcf9fc-ht4wj",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-8574dcf9fc-p4j4d",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-8574dcf9fc-rhhn7",
+      "ready": true,
+      "restarts": 0
+    }
+  ],
+  "exit_codes": [
+    {
+      "pod": "worker-59b4796899-jtz6z",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-09T07:38:05Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-59b4796899-hxbnj",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-09T07:38:06Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-59b4796899-ggv6f",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-09T07:38:14Z",
+      "restart_count": 0,
+      "from": "state"
+    }
+  ],
+  "exit_codes_old_pods": [
+    {
+      "pod": "worker-59b4796899-jtz6z",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-09T07:38:05Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-59b4796899-hxbnj",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-09T07:38:06Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-59b4796899-ggv6f",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-09T07:38:14Z",
+      "restart_count": 0,
+      "from": "state"
+    }
+  ],
+  "sigterm_lines": [
+    {
+      "ts": 1794209876.269,
+      "worker": "worker-59b4796899-cnkbr",
+      "msg": "SIGTERM: припиняю захоплення нових задач",
+      "signal": 15,
+      "pod": "worker-59b4796899-cnkbr"
+    },
+    {
+      "ts": 1794209893.809,
+      "worker": "worker-59b4796899-ggv6f",
+      "msg": "SIGTERM: припиняю захоплення нових задач",
+      "signal": 15,
+      "pod": "worker-59b4796899-ggv6f"
+    },
+    {
+      "ts": 1794209885.706,
+      "worker": "worker-59b4796899-hxbnj",
+      "msg": "SIGTERM: припиняю захоплення нових задач",
+      "signal": 15,
+      "pod": "worker-59b4796899-hxbnj"
+    },
+    {
+      "ts": 1794209885.508,
+      "worker": "worker-59b4796899-jtz6z",
+      "msg": "SIGTERM: припиняю захоплення нових задач",
+      "signal": 15,
+      "pod": "worker-59b4796899-jtz6z"
+    }
+  ],
+  "graceful_exit_lines": [
+    {
+      "ts": 1794209876.366,
+      "worker": "worker-59b4796899-cnkbr",
+      "msg": "зупинка завершена",
+      "handled": 217,
+      "graceful": true,
+      "pod": "worker-59b4796899-cnkbr"
+    },
+    {
+      "ts": 1794209893.827,
+      "worker": "worker-59b4796899-ggv6f",
+      "msg": "зупинка завершена",
+      "handled": 325,
+      "graceful": true,
+      "pod": "worker-59b4796899-ggv6f"
+    },
+    {
+      "ts": 1794209885.758,
+      "worker": "worker-59b4796899-hxbnj",
+      "msg": "зупинка завершена",
+      "handled": 275,
+      "graceful": true,
+      "pod": "worker-59b4796899-hxbnj"
+    },
+    {
+      "ts": 1794209885.511,
+      "worker": "worker-59b4796899-jtz6z",
+      "msg": "зупинка завершена",
+      "handled": 252,
+      "graceful": true,
+      "pod": "worker-59b4796899-jtz6z"
+    }
+  ],
+  "old_pod_log_lines": 2150,
+  "requeued_by_workers": 0,
+  "requeued_records": [],
+  "tasks": {
+    "tasks_total": 2444,
+    "by_status": {
+      "done": 2444
+    },
+    "by_attempts": {
+      "1": 2444
+    },
+    "results_rows": 2444,
+    "tasks_with_result": 2444,
+    "tasks_with_many_results": 0,
+    "duplicates": [],
+    "attempts_gt1": 0
+  },
+  "wait": {
+    "n": 2444,
+    "mean_s": 0.19625610188216042,
+    "p50_s": 0.0352785,
+    "p99_s": 1.0811087400000001,
+    "min_s": -0.028439,
+    "max_s": 1.178338
+  },
+  "log_duplicates": {
+    "tasks_done_lines": 2444,
+    "tasks_done_more_than_once": 0,
+    "of_them_by_different_workers": 0,
+    "examples": {}
+  },
+  "per_second_done": [
+    {
+      "t_s": 0,
+      "done": 13
+    },
+    {
+      "t_s": 1,
+      "done": 21
+    },
+    {
+      "t_s": 2,
+      "done": 21
+    },
+    {
+      "t_s": 3,
+      "done": 15
+    },
+    {
+      "t_s": 4,
+      "done": 16
+    },
+    {
+      "t_s": 5,
+      "done": 10
+    },
+    {
+      "t_s": 6,
+      "done": 23
+    },
+    {
+      "t_s": 7,
+      "done": 34
+    },
+    {
+      "t_s": 8,
+      "done": 27
+    },
+    {
+      "t_s": 9,
+      "done": 21
+    },
+    {
+      "t_s": 10,
+      "done": 22
+    },
+    {
+      "t_s": 11,
+      "done": 20
+    },
+    {
+      "t_s": 12,
+      "done": 21
+    },
+    {
+      "t_s": 13,
+      "done": 20
+    },
+    {
+      "t_s": 14,
+      "done": 10
+    },
+    {
+      "t_s": 15,
+      "done": 15
+    },
+    {
+      "t_s": 16,
+      "done": 33
+    },
+    {
+      "t_s": 17,
+      "done": 22
+    },
+    {
+      "t_s": 18,
+      "done": 21
+    },
+    {
+      "t_s": 19,
+      "done": 16
+    },
+    {
+      "t_s": 20,
+      "done": 24
+    },
+    {
+      "t_s": 21,
+      "done": 21
+    },
+    {
+      "t_s": 22,
+      "done": 20
+    },
+    {
+      "t_s": 23,
+      "done": 19
+    },
+    {
+      "t_s": 24,
+      "done": 13
+    },
+    {
+      "t_s": 25,
+      "done": 13
+    },
+    {
+      "t_s": 26,
+      "done": 31
+    },
+    {
+      "t_s": 27,
+      "done": 24
+    },
+    {
+      "t_s": 28,
+      "done": 20
+    },
+    {
+      "t_s": 29,
+      "done": 20
+    },
+    {
+      "t_s": 30,
+      "done": 20
+    },
+    {
+      "t_s": 31,
+      "done": 21
+    },
+    {
+      "t_s": 32,
+      "done": 20
+    },
+    {
+      "t_s": 33,
+      "done": 20
+    },
+    {
+      "t_s": 34,
+      "done": 14
+    },
+    {
+      "t_s": 35,
+      "done": 8
+    },
+    {
+      "t_s": 36,
+      "done": 33
+    },
+    {
+      "t_s": 37,
+      "done": 23
+    },
+    {
+      "t_s": 38,
+      "done": 24
+    },
+    {
+      "t_s": 39,
+      "done": 23
+    },
+    {
+      "t_s": 40,
+      "done": 23
+    },
+    {
+      "t_s": 41,
+      "done": 20
+    },
+    {
+      "t_s": 42,
+      "done": 17
+    },
+    {
+      "t_s": 43,
+      "done": 24
+    },
+    {
+      "t_s": 44,
+      "done": 10
+    },
+    {
+      "t_s": 45,
+      "done": 11
+    },
+    {
+      "t_s": 46,
+      "done": 23
+    },
+    {
+      "t_s": 47,
+      "done": 20
+    },
+    {
+      "t_s": 48,
+      "done": 19
+    },
+    {
+      "t_s": 49,
+      "done": 23
+    },
+    {
+      "t_s": 50,
+      "done": 34
+    },
+    {
+      "t_s": 51,
+      "done": 18
+    },
+    {
+      "t_s": 52,
+      "done": 15
+    },
+    {
+      "t_s": 53,
+      "done": 23
+    },
+    {
+      "t_s": 54,
+      "done": 12
+    },
+    {
+      "t_s": 55,
+      "done": 13
+    },
+    {
+      "t_s": 56,
+      "done": 18
+    },
+    {
+      "t_s": 57,
+      "done": 18
+    },
+    {
+      "t_s": 58,
+      "done": 23
+    },
+    {
+      "t_s": 59,
+      "done": 19
+    },
+    {
+      "t_s": 60,
+      "done": 24
+    },
+    {
+      "t_s": 61,
+      "done": 26
+    },
+    {
+      "t_s": 62,
+      "done": 26
+    },
+    {
+      "t_s": 63,
+      "done": 26
+    },
+    {
+      "t_s": 64,
+      "done": 15
+    },
+    {
+      "t_s": 65,
+      "done": 11
+    },
+    {
+      "t_s": 66,
+      "done": 36
+    },
+    {
+      "t_s": 67,
+      "done": 24
+    },
+    {
+      "t_s": 68,
+      "done": 21
+    },
+    {
+      "t_s": 69,
+      "done": 20
+    },
+    {
+      "t_s": 70,
+      "done": 22
+    },
+    {
+      "t_s": 71,
+      "done": 20
+    },
+    {
+      "t_s": 72,
+      "done": 20
+    },
+    {
+      "t_s": 73,
+      "done": 19
+    },
+    {
+      "t_s": 74,
+      "done": 13
+    },
+    {
+      "t_s": 75,
+      "done": 19
+    },
+    {
+      "t_s": 76,
+      "done": 30
+    },
+    {
+      "t_s": 77,
+      "done": 21
+    },
+    {
+      "t_s": 78,
+      "done": 18
+    },
+    {
+      "t_s": 79,
+      "done": 21
+    },
+    {
+      "t_s": 80,
+      "done": 21
+    },
+    {
+      "t_s": 81,
+      "done": 20
+    },
+    {
+      "t_s": 82,
+      "done": 21
+    },
+    {
+      "t_s": 83,
+      "done": 19
+    },
+    {
+      "t_s": 84,
+      "done": 14
+    },
+    {
+      "t_s": 85,
+      "done": 17
+    },
+    {
+      "t_s": 86,
+      "done": 29
+    },
+    {
+      "t_s": 87,
+      "done": 21
+    },
+    {
+      "t_s": 88,
+      "done": 20
+    },
+    {
+      "t_s": 89,
+      "done": 20
+    },
+    {
+      "t_s": 90,
+      "done": 20
+    },
+    {
+      "t_s": 91,
+      "done": 20
+    },
+    {
+      "t_s": 92,
+      "done": 19
+    },
+    {
+      "t_s": 93,
+      "done": 21
+    },
+    {
+      "t_s": 94,
+      "done": 14
+    },
+    {
+      "t_s": 95,
+      "done": 14
+    },
+    {
+      "t_s": 96,
+      "done": 36
+    },
+    {
+      "t_s": 97,
+      "done": 22
+    },
+    {
+      "t_s": 98,
+      "done": 21
+    },
+    {
+      "t_s": 99,
+      "done": 21
+    },
+    {
+      "t_s": 100,
+      "done": 20
+    },
+    {
+      "t_s": 101,
+      "done": 19
+    },
+    {
+      "t_s": 102,
+      "done": 22
+    },
+    {
+      "t_s": 103,
+      "done": 20
+    },
+    {
+      "t_s": 104,
+      "done": 13
+    },
+    {
+      "t_s": 105,
+      "done": 17
+    },
+    {
+      "t_s": 106,
+      "done": 30
+    },
+    {
+      "t_s": 107,
+      "done": 21
+    },
+    {
+      "t_s": 108,
+      "done": 19
+    },
+    {
+      "t_s": 109,
+      "done": 22
+    },
+    {
+      "t_s": 110,
+      "done": 19
+    },
+    {
+      "t_s": 111,
+      "done": 20
+    },
+    {
+      "t_s": 112,
+      "done": 20
+    },
+    {
+      "t_s": 113,
+      "done": 21
+    },
+    {
+      "t_s": 114,
+      "done": 12
+    },
+    {
+      "t_s": 115,
+      "done": 16
+    },
+    {
+      "t_s": 116,
+      "done": 31
+    },
+    {
+      "t_s": 117,
+      "done": 21
+    },
+    {
+      "t_s": 118,
+      "done": 19
+    },
+    {
+      "t_s": 119,
+      "done": 20
+    },
+    {
+      "t_s": 120,
+      "done": 5
+    },
+    {
+      "t_s": 121,
+      "done": 0
+    },
+    {
+      "t_s": 122,
+      "done": 0
+    },
+    {
+      "t_s": 123,
+      "done": 0
+    }
+  ]
+}

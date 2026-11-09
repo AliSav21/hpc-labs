@@ -1,0 +1,726 @@
+{
+  "label": "крок 8: коректна зупинка під прогоном",
+  "rate": 20.37,
+  "duration_s": 120.0,
+  "count": 2444,
+  "run_start_wall": 1794083212.4526293,
+  "restart_at_wall": 1794083254.4651108,
+  "run_end_wall": 1794083336.6020849,
+  "pods_before": [
+    {
+      "pod": "worker-675ddc64bc-cwb7s",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-675ddc64bc-hppqw",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-675ddc64bc-mnbl8",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-675ddc64bc-vgk4v",
+      "ready": true,
+      "restarts": 0
+    }
+  ],
+  "pods_after": [
+    {
+      "pod": "worker-6c968b8c4b-8jppb",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-6c968b8c4b-f6zvl",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-6c968b8c4b-vvm52",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-6c968b8c4b-xm5sh",
+      "ready": true,
+      "restarts": 0
+    }
+  ],
+  "exit_codes": [
+    {
+      "pod": "worker-675ddc64bc-mnbl8",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-07T20:27:35Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-675ddc64bc-vgk4v",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-07T20:27:42Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-675ddc64bc-hppqw",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-07T20:27:42Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-675ddc64bc-cwb7s",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-07T20:27:51Z",
+      "restart_count": 0,
+      "from": "state"
+    }
+  ],
+  "exit_codes_old_pods": [
+    {
+      "pod": "worker-675ddc64bc-mnbl8",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-07T20:27:35Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-675ddc64bc-vgk4v",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-07T20:27:42Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-675ddc64bc-hppqw",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-07T20:27:42Z",
+      "restart_count": 0,
+      "from": "state"
+    },
+    {
+      "pod": "worker-675ddc64bc-cwb7s",
+      "container": "worker",
+      "exit_code": 0,
+      "reason": "Completed",
+      "finished_at": "2026-11-07T20:27:51Z",
+      "restart_count": 0,
+      "from": "state"
+    }
+  ],
+  "sigterm_lines": [
+    {
+      "ts": 1794083270.871,
+      "worker": "worker-675ddc64bc-cwb7s",
+      "msg": "SIGTERM: припиняю захоплення нових задач",
+      "signal": 15,
+      "pod": "worker-675ddc64bc-cwb7s"
+    },
+    {
+      "ts": 1794083262.345,
+      "worker": "worker-675ddc64bc-hppqw",
+      "msg": "SIGTERM: припиняю захоплення нових задач",
+      "signal": 15,
+      "pod": "worker-675ddc64bc-hppqw"
+    },
+    {
+      "ts": 1794083254.957,
+      "worker": "worker-675ddc64bc-mnbl8",
+      "msg": "SIGTERM: припиняю захоплення нових задач",
+      "signal": 15,
+      "pod": "worker-675ddc64bc-mnbl8"
+    },
+    {
+      "ts": 1794083261.812,
+      "worker": "worker-675ddc64bc-vgk4v",
+      "msg": "SIGTERM: припиняю захоплення нових задач",
+      "signal": 15,
+      "pod": "worker-675ddc64bc-vgk4v"
+    }
+  ],
+  "graceful_exit_lines": [
+    {
+      "ts": 1794083270.874,
+      "worker": "worker-675ddc64bc-cwb7s",
+      "msg": "зупинка завершена",
+      "handled": 301,
+      "graceful": true,
+      "pod": "worker-675ddc64bc-cwb7s"
+    },
+    {
+      "ts": 1794083262.371,
+      "worker": "worker-675ddc64bc-hppqw",
+      "msg": "зупинка завершена",
+      "handled": 264,
+      "graceful": true,
+      "pod": "worker-675ddc64bc-hppqw"
+    },
+    {
+      "ts": 1794083254.958,
+      "worker": "worker-675ddc64bc-mnbl8",
+      "msg": "зупинка завершена",
+      "handled": 226,
+      "graceful": true,
+      "pod": "worker-675ddc64bc-mnbl8"
+    },
+    {
+      "ts": 1794083261.814,
+      "worker": "worker-675ddc64bc-vgk4v",
+      "msg": "зупинка завершена",
+      "handled": 250,
+      "graceful": true,
+      "pod": "worker-675ddc64bc-vgk4v"
+    }
+  ],
+  "old_pod_log_lines": 2094,
+  "requeued_by_workers": 0,
+  "requeued_records": [],
+  "tasks": {
+    "tasks_total": 2431,
+    "by_status": {
+      "done": 2431
+    },
+    "by_attempts": {
+      "1": 2431
+    },
+    "results_rows": 2431,
+    "tasks_with_result": 2431,
+    "tasks_with_many_results": 0,
+    "duplicates": [],
+    "attempts_gt1": 0
+  },
+  "wait": {
+    "n": 2431,
+    "mean_s": 0.05190257260386672,
+    "p50_s": 0.02408,
+    "p99_s": 0.4741273999999984,
+    "min_s": -0.48172,
+    "max_s": 0.664775
+  },
+  "log_duplicates": {
+    "tasks_done_lines": 2431,
+    "tasks_done_more_than_once": 0,
+    "of_them_by_different_workers": 0,
+    "examples": {}
+  },
+  "per_second_done": [
+    {
+      "t_s": 0,
+      "done": 22
+    },
+    {
+      "t_s": 1,
+      "done": 19
+    },
+    {
+      "t_s": 2,
+      "done": 21
+    },
+    {
+      "t_s": 3,
+      "done": 20
+    },
+    {
+      "t_s": 4,
+      "done": 17
+    },
+    {
+      "t_s": 5,
+      "done": 22
+    },
+    {
+      "t_s": 6,
+      "done": 20
+    },
+    {
+      "t_s": 7,
+      "done": 21
+    },
+    {
+      "t_s": 8,
+      "done": 19
+    },
+    {
+      "t_s": 9,
+      "done": 20
+    },
+    {
+      "t_s": 10,
+      "done": 19
+    },
+    {
+      "t_s": 11,
+      "done": 21
+    },
+    {
+      "t_s": 12,
+      "done": 18
+    },
+    {
+      "t_s": 13,
+      "done": 20
+    },
+    {
+      "t_s": 14,
+      "done": 20
+    },
+    {
+      "t_s": 15,
+      "done": 19
+    },
+    {
+      "t_s": 16,
+      "done": 20
+    },
+    {
+      "t_s": 17,
+      "done": 19
+    },
+    {
+      "t_s": 18,
+      "done": 20
+    },
+    {
+      "t_s": 19,
+      "done": 21
+    },
+    {
+      "t_s": 20,
+      "done": 37
+    },
+    {
+      "t_s": 21,
+      "done": 18
+    },
+    {
+      "t_s": 22,
+      "done": 20
+    },
+    {
+      "t_s": 23,
+      "done": 20
+    },
+    {
+      "t_s": 24,
+      "done": 15
+    },
+    {
+      "t_s": 25,
+      "done": 23
+    },
+    {
+      "t_s": 26,
+      "done": 18
+    },
+    {
+      "t_s": 27,
+      "done": 22
+    },
+    {
+      "t_s": 28,
+      "done": 20
+    },
+    {
+      "t_s": 29,
+      "done": 20
+    },
+    {
+      "t_s": 30,
+      "done": 19
+    },
+    {
+      "t_s": 31,
+      "done": 20
+    },
+    {
+      "t_s": 32,
+      "done": 19
+    },
+    {
+      "t_s": 33,
+      "done": 20
+    },
+    {
+      "t_s": 34,
+      "done": 17
+    },
+    {
+      "t_s": 35,
+      "done": 22
+    },
+    {
+      "t_s": 36,
+      "done": 20
+    },
+    {
+      "t_s": 37,
+      "done": 18
+    },
+    {
+      "t_s": 38,
+      "done": 21
+    },
+    {
+      "t_s": 39,
+      "done": 21
+    },
+    {
+      "t_s": 40,
+      "done": 20
+    },
+    {
+      "t_s": 41,
+      "done": 19
+    },
+    {
+      "t_s": 42,
+      "done": 21
+    },
+    {
+      "t_s": 43,
+      "done": 19
+    },
+    {
+      "t_s": 44,
+      "done": 20
+    },
+    {
+      "t_s": 45,
+      "done": 12
+    },
+    {
+      "t_s": 46,
+      "done": 25
+    },
+    {
+      "t_s": 47,
+      "done": 14
+    },
+    {
+      "t_s": 48,
+      "done": 23
+    },
+    {
+      "t_s": 49,
+      "done": 38
+    },
+    {
+      "t_s": 50,
+      "done": 15
+    },
+    {
+      "t_s": 51,
+      "done": 18
+    },
+    {
+      "t_s": 52,
+      "done": 21
+    },
+    {
+      "t_s": 53,
+      "done": 21
+    },
+    {
+      "t_s": 54,
+      "done": 16
+    },
+    {
+      "t_s": 55,
+      "done": 12
+    },
+    {
+      "t_s": 56,
+      "done": 27
+    },
+    {
+      "t_s": 57,
+      "done": 25
+    },
+    {
+      "t_s": 58,
+      "done": 20
+    },
+    {
+      "t_s": 59,
+      "done": 22
+    },
+    {
+      "t_s": 60,
+      "done": 20
+    },
+    {
+      "t_s": 61,
+      "done": 20
+    },
+    {
+      "t_s": 62,
+      "done": 20
+    },
+    {
+      "t_s": 63,
+      "done": 19
+    },
+    {
+      "t_s": 64,
+      "done": 17
+    },
+    {
+      "t_s": 65,
+      "done": 21
+    },
+    {
+      "t_s": 66,
+      "done": 20
+    },
+    {
+      "t_s": 67,
+      "done": 20
+    },
+    {
+      "t_s": 68,
+      "done": 20
+    },
+    {
+      "t_s": 69,
+      "done": 20
+    },
+    {
+      "t_s": 70,
+      "done": 20
+    },
+    {
+      "t_s": 71,
+      "done": 20
+    },
+    {
+      "t_s": 72,
+      "done": 20
+    },
+    {
+      "t_s": 73,
+      "done": 19
+    },
+    {
+      "t_s": 74,
+      "done": 20
+    },
+    {
+      "t_s": 75,
+      "done": 16
+    },
+    {
+      "t_s": 76,
+      "done": 22
+    },
+    {
+      "t_s": 77,
+      "done": 20
+    },
+    {
+      "t_s": 78,
+      "done": 36
+    },
+    {
+      "t_s": 79,
+      "done": 21
+    },
+    {
+      "t_s": 80,
+      "done": 18
+    },
+    {
+      "t_s": 81,
+      "done": 20
+    },
+    {
+      "t_s": 82,
+      "done": 21
+    },
+    {
+      "t_s": 83,
+      "done": 20
+    },
+    {
+      "t_s": 84,
+      "done": 17
+    },
+    {
+      "t_s": 85,
+      "done": 22
+    },
+    {
+      "t_s": 86,
+      "done": 18
+    },
+    {
+      "t_s": 87,
+      "done": 21
+    },
+    {
+      "t_s": 88,
+      "done": 21
+    },
+    {
+      "t_s": 89,
+      "done": 19
+    },
+    {
+      "t_s": 90,
+      "done": 20
+    },
+    {
+      "t_s": 91,
+      "done": 20
+    },
+    {
+      "t_s": 92,
+      "done": 19
+    },
+    {
+      "t_s": 93,
+      "done": 20
+    },
+    {
+      "t_s": 94,
+      "done": 18
+    },
+    {
+      "t_s": 95,
+      "done": 20
+    },
+    {
+      "t_s": 96,
+      "done": 21
+    },
+    {
+      "t_s": 97,
+      "done": 19
+    },
+    {
+      "t_s": 98,
+      "done": 19
+    },
+    {
+      "t_s": 99,
+      "done": 22
+    },
+    {
+      "t_s": 100,
+      "done": 19
+    },
+    {
+      "t_s": 101,
+      "done": 20
+    },
+    {
+      "t_s": 102,
+      "done": 20
+    },
+    {
+      "t_s": 103,
+      "done": 19
+    },
+    {
+      "t_s": 104,
+      "done": 20
+    },
+    {
+      "t_s": 105,
+      "done": 15
+    },
+    {
+      "t_s": 106,
+      "done": 24
+    },
+    {
+      "t_s": 107,
+      "done": 31
+    },
+    {
+      "t_s": 108,
+      "done": 23
+    },
+    {
+      "t_s": 109,
+      "done": 20
+    },
+    {
+      "t_s": 110,
+      "done": 22
+    },
+    {
+      "t_s": 111,
+      "done": 19
+    },
+    {
+      "t_s": 112,
+      "done": 21
+    },
+    {
+      "t_s": 113,
+      "done": 19
+    },
+    {
+      "t_s": 114,
+      "done": 17
+    },
+    {
+      "t_s": 115,
+      "done": 21
+    },
+    {
+      "t_s": 116,
+      "done": 19
+    },
+    {
+      "t_s": 117,
+      "done": 20
+    },
+    {
+      "t_s": 118,
+      "done": 21
+    },
+    {
+      "t_s": 119,
+      "done": 19
+    },
+    {
+      "t_s": 120,
+      "done": 0
+    },
+    {
+      "t_s": 121,
+      "done": 0
+    },
+    {
+      "t_s": 122,
+      "done": 0
+    },
+    {
+      "t_s": 123,
+      "done": 0
+    },
+    {
+      "t_s": 124,
+      "done": 0
+    }
+  ]
+}

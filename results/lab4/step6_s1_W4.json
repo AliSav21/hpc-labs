@@ -1,0 +1,342 @@
+{
+  "label": "крок 6: W = 4, 1000 задач у черзі",
+  "workers": 4,
+  "rate": 200,
+  "count": 1000,
+  "pre_queued": 1000,
+  "drained": true,
+  "gen": {
+    "base": "http://127.0.0.1:18080",
+    "resource": "/donor-registry",
+    "rate_target": 200,
+    "count": 1000,
+    "duration_s": 5.001,
+    "created": 1000,
+    "poisoned": 0,
+    "non2xx": 0,
+    "codes": {
+      "202": 1000
+    },
+    "stale_conn_retries": 0,
+    "sent_rps_mean": 200.0,
+    "ok_rps_mean": 200.0,
+    "started_at_wall": null,
+    "label": "крок 6: W = 4, 1000 задач у черзі",
+    "start_wall": 1794168512.6134758,
+    "end_wall": 1794168517.6179433,
+    "started_at": "2026-11-08T22:08:32"
+  },
+  "gen_rows": [
+    {
+      "t_s": 0,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 1,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 2,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 3,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 4,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    }
+  ],
+  "run_start_wall": 1794168517.7862816,
+  "run_end_wall": 1794168560.2650878,
+  "gen_start_wall": 1794168512.6134758,
+  "gen_end_wall": 1794168517.6202383,
+  "duration_s": 42.478806257247925,
+  "tasks": {
+    "tasks_total": 1000,
+    "by_status": {
+      "done": 1000
+    },
+    "by_attempts": {
+      "1": 1000
+    },
+    "results_rows": 1000,
+    "tasks_with_result": 1000,
+    "tasks_with_many_results": 0,
+    "duplicates": [],
+    "attempts_gt1": 0
+  },
+  "wait": {
+    "n": 1000,
+    "mean_s": 23.874267668,
+    "p50_s": 24.301848,
+    "p99_s": 37.47343925,
+    "min_s": 9.007011,
+    "max_s": 38.234713
+  },
+  "io_cpu": {
+    "n": 1000,
+    "t_io": {
+      "mean_s": 0.017747808,
+      "p50_s": 0.011445,
+      "p99_s": 0.07327216,
+      "min_s": 0.008438,
+      "max_s": 0.112196
+    },
+    "t_cpu": {
+      "mean_s": 0.106567453,
+      "p50_s": 0.09302099999999999,
+      "p99_s": 0.32525451,
+      "min_s": 0.036319,
+      "max_s": 0.417495
+    }
+  },
+  "log_duplicates": {
+    "tasks_done_lines": 1000,
+    "tasks_done_more_than_once": 0,
+    "of_them_by_different_workers": 0,
+    "examples": {}
+  },
+  "claim_p99": {
+    "q": 0.99,
+    "n": 1217.118455184588,
+    "rank": 1204.947270632742,
+    "value_s": 0.03370611638846347,
+    "bucket": [
+      0.025,
+      0.05
+    ],
+    "max_error_s": 0.025,
+    "beyond_last": false
+  },
+  "claims": {
+    "task": 1000.0,
+    "empty": 166.0
+  },
+  "db": {
+    "db_tps": 99.05651932613638,
+    "db_cpu_cores": 0.33396537547963007,
+    "worker_cpu_cores": 1.311250633725092
+  },
+  "locks": null,
+  "pods": [
+    {
+      "pod": "worker-59b4796899-hggvj",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-59b4796899-qdjws",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-59b4796899-vvkfg",
+      "ready": true,
+      "restarts": 0
+    },
+    {
+      "pod": "worker-59b4796899-zr55m",
+      "ready": true,
+      "restarts": 0
+    }
+  ],
+  "per_second_done": [
+    {
+      "t_s": 0,
+      "done": 0
+    },
+    {
+      "t_s": 1,
+      "done": 0
+    },
+    {
+      "t_s": 2,
+      "done": 0
+    },
+    {
+      "t_s": 3,
+      "done": 0
+    },
+    {
+      "t_s": 4,
+      "done": 19
+    },
+    {
+      "t_s": 5,
+      "done": 26
+    },
+    {
+      "t_s": 6,
+      "done": 37
+    },
+    {
+      "t_s": 7,
+      "done": 21
+    },
+    {
+      "t_s": 8,
+      "done": 24
+    },
+    {
+      "t_s": 9,
+      "done": 38
+    },
+    {
+      "t_s": 10,
+      "done": 35
+    },
+    {
+      "t_s": 11,
+      "done": 35
+    },
+    {
+      "t_s": 12,
+      "done": 27
+    },
+    {
+      "t_s": 13,
+      "done": 9
+    },
+    {
+      "t_s": 14,
+      "done": 39
+    },
+    {
+      "t_s": 15,
+      "done": 33
+    },
+    {
+      "t_s": 16,
+      "done": 21
+    },
+    {
+      "t_s": 17,
+      "done": 25
+    },
+    {
+      "t_s": 18,
+      "done": 15
+    },
+    {
+      "t_s": 19,
+      "done": 32
+    },
+    {
+      "t_s": 20,
+      "done": 38
+    },
+    {
+      "t_s": 21,
+      "done": 33
+    },
+    {
+      "t_s": 22,
+      "done": 31
+    },
+    {
+      "t_s": 23,
+      "done": 29
+    },
+    {
+      "t_s": 24,
+      "done": 33
+    },
+    {
+      "t_s": 25,
+      "done": 29
+    },
+    {
+      "t_s": 26,
+      "done": 31
+    },
+    {
+      "t_s": 27,
+      "done": 25
+    },
+    {
+      "t_s": 28,
+      "done": 26
+    },
+    {
+      "t_s": 29,
+      "done": 33
+    },
+    {
+      "t_s": 30,
+      "done": 36
+    },
+    {
+      "t_s": 31,
+      "done": 36
+    },
+    {
+      "t_s": 32,
+      "done": 35
+    },
+    {
+      "t_s": 33,
+      "done": 34
+    },
+    {
+      "t_s": 34,
+      "done": 37
+    },
+    {
+      "t_s": 35,
+      "done": 24
+    },
+    {
+      "t_s": 36,
+      "done": 31
+    },
+    {
+      "t_s": 37,
+      "done": 17
+    },
+    {
+      "t_s": 38,
+      "done": 6
+    },
+    {
+      "t_s": 39,
+      "done": 0
+    },
+    {
+      "t_s": 40,
+      "done": 0
+    },
+    {
+      "t_s": 41,
+      "done": 0
+    },
+    {
+      "t_s": 42,
+      "done": 0
+    }
+  ],
+  "X": {
+    "X_rps": 29.7,
+    "sd": 7.2547249763694435,
+    "window_s": 30,
+    "window": [
+      8,
+      37
+    ],
+    "secs": 30,
+    "drain_s": 35,
+    "requested_window_s": 30,
+    "dropped_last_partial_s": 38
+  }
+}

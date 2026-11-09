@@ -1,0 +1,28 @@
+{
+  "base": "http://127.0.0.1:18080",
+  "resource": "/donor-registry",
+  "rate_target": 100.0,
+  "count": 100,
+  "duration_s": 0.998,
+  "created": 100,
+  "poisoned": 0,
+  "non2xx": 0,
+  "codes": {
+    "202": 100
+  },
+  "sent_rps_mean": null,
+  "ok_rps_mean": 100.0,
+  "rows": [
+    {
+      "t_s": 0,
+      "sent": 100,
+      "ok": 100,
+      "non2xx": 0
+    }
+  ],
+  "started_at_wall": null,
+  "label": null,
+  "start_wall": 1794081323.5555022,
+  "end_wall": 1794081324.5579784,
+  "started_at": "2026-11-07T21:55:23"
+}

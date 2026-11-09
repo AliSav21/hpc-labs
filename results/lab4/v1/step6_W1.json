@@ -1,0 +1,366 @@
+{
+  "label": "крок 6: W = 1, 400 задач у черзі",
+  "workers": 1,
+  "rate": 200,
+  "count": 400,
+  "pre_queued": 400,
+  "drained": true,
+  "gen": {
+    "base": "http://127.0.0.1:18080",
+    "resource": "/donor-registry",
+    "rate_target": 200,
+    "count": 400,
+    "duration_s": 2.007,
+    "created": 400,
+    "poisoned": 0,
+    "non2xx": 0,
+    "codes": {
+      "202": 400
+    },
+    "sent_rps_mean": 199.5,
+    "ok_rps_mean": 199.5,
+    "started_at_wall": null,
+    "label": "крок 6: W = 1, 400 задач у черзі",
+    "start_wall": 1794081395.4563208,
+    "end_wall": 1794081397.4708765,
+    "started_at": "2026-11-07T21:56:35"
+  },
+  "gen_rows": [
+    {
+      "t_s": 0,
+      "sent": 200,
+      "ok": 200,
+      "non2xx": 0
+    },
+    {
+      "t_s": 1,
+      "sent": 199,
+      "ok": 199,
+      "non2xx": 0
+    },
+    {
+      "t_s": 2,
+      "sent": 1,
+      "ok": 1,
+      "non2xx": 0
+    }
+  ],
+  "run_start_wall": 1794081397.8541706,
+  "run_end_wall": 1794081450.3662617,
+  "gen_start_wall": 1794081395.4332392,
+  "gen_end_wall": 1794081397.4742825,
+  "duration_s": 52.51209115982056,
+  "tasks": {
+    "tasks_total": 400,
+    "by_status": {
+      "done": 400
+    },
+    "by_attempts": {
+      "1": 400
+    },
+    "results_rows": 400,
+    "tasks_with_result": 400,
+    "tasks_with_many_results": 0,
+    "duplicates": [],
+    "attempts_gt1": 0
+  },
+  "wait": {
+    "n": 400,
+    "mean_s": 28.2229183575,
+    "p50_s": 27.988569,
+    "p99_s": 48.40252494,
+    "min_s": 7.099554,
+    "max_s": 49.024793
+  },
+  "io_cpu": {
+    "n": 400,
+    "t_io": {
+      "mean_s": 0.0180833475,
+      "p50_s": 0.012345,
+      "p99_s": 0.07011052999999998,
+      "min_s": 0.008977,
+      "max_s": 0.101095
+    },
+    "t_cpu": {
+      "mean_s": 0.08728483000000001,
+      "p50_s": 0.084326,
+      "p99_s": 0.19184932999999996,
+      "min_s": 0.032747,
+      "max_s": 0.248863
+    }
+  },
+  "log_duplicates": {
+    "tasks_done_lines": 400,
+    "tasks_done_more_than_once": 0,
+    "of_them_by_different_workers": 0,
+    "examples": {}
+  },
+  "claim_p99": {
+    "q": 0.99,
+    "n": 423.7687736186293,
+    "rank": 419.53108588244305,
+    "value_s": 0.03504166666666664,
+    "bucket": [
+      0.025,
+      0.05
+    ],
+    "max_error_s": 0.025,
+    "beyond_last": false
+  },
+  "claims": {
+    "task": 397.0,
+    "empty": -620.0
+  },
+  "db": {
+    "db_tps": 41.08889834113143,
+    "db_cpu_cores": 0.07557428925894213,
+    "worker_cpu_cores": 0.43162378837065873
+  },
+  "locks": null,
+  "pods": [
+    {
+      "pod": "worker-7d859679f7-zv86t",
+      "ready": true,
+      "restarts": 0
+    }
+  ],
+  "per_second_done": [
+    {
+      "t_s": 0,
+      "done": 0
+    },
+    {
+      "t_s": 1,
+      "done": 0
+    },
+    {
+      "t_s": 2,
+      "done": 0
+    },
+    {
+      "t_s": 3,
+      "done": 0
+    },
+    {
+      "t_s": 4,
+      "done": 6
+    },
+    {
+      "t_s": 5,
+      "done": 10
+    },
+    {
+      "t_s": 6,
+      "done": 9
+    },
+    {
+      "t_s": 7,
+      "done": 8
+    },
+    {
+      "t_s": 8,
+      "done": 7
+    },
+    {
+      "t_s": 9,
+      "done": 8
+    },
+    {
+      "t_s": 10,
+      "done": 6
+    },
+    {
+      "t_s": 11,
+      "done": 9
+    },
+    {
+      "t_s": 12,
+      "done": 10
+    },
+    {
+      "t_s": 13,
+      "done": 11
+    },
+    {
+      "t_s": 14,
+      "done": 10
+    },
+    {
+      "t_s": 15,
+      "done": 10
+    },
+    {
+      "t_s": 16,
+      "done": 9
+    },
+    {
+      "t_s": 17,
+      "done": 9
+    },
+    {
+      "t_s": 18,
+      "done": 5
+    },
+    {
+      "t_s": 19,
+      "done": 10
+    },
+    {
+      "t_s": 20,
+      "done": 7
+    },
+    {
+      "t_s": 21,
+      "done": 9
+    },
+    {
+      "t_s": 22,
+      "done": 8
+    },
+    {
+      "t_s": 23,
+      "done": 8
+    },
+    {
+      "t_s": 24,
+      "done": 17
+    },
+    {
+      "t_s": 25,
+      "done": 10
+    },
+    {
+      "t_s": 26,
+      "done": 9
+    },
+    {
+      "t_s": 27,
+      "done": 7
+    },
+    {
+      "t_s": 28,
+      "done": 8
+    },
+    {
+      "t_s": 29,
+      "done": 9
+    },
+    {
+      "t_s": 30,
+      "done": 9
+    },
+    {
+      "t_s": 31,
+      "done": 8
+    },
+    {
+      "t_s": 32,
+      "done": 10
+    },
+    {
+      "t_s": 33,
+      "done": 11
+    },
+    {
+      "t_s": 34,
+      "done": 10
+    },
+    {
+      "t_s": 35,
+      "done": 9
+    },
+    {
+      "t_s": 36,
+      "done": 11
+    },
+    {
+      "t_s": 37,
+      "done": 9
+    },
+    {
+      "t_s": 38,
+      "done": 7
+    },
+    {
+      "t_s": 39,
+      "done": 9
+    },
+    {
+      "t_s": 40,
+      "done": 8
+    },
+    {
+      "t_s": 41,
+      "done": 9
+    },
+    {
+      "t_s": 42,
+      "done": 10
+    },
+    {
+      "t_s": 43,
+      "done": 10
+    },
+    {
+      "t_s": 44,
+      "done": 11
+    },
+    {
+      "t_s": 45,
+      "done": 10
+    },
+    {
+      "t_s": 46,
+      "done": 10
+    },
+    {
+      "t_s": 47,
+      "done": 7
+    },
+    {
+      "t_s": 48,
+      "done": 3
+    },
+    {
+      "t_s": 49,
+      "done": 0
+    },
+    {
+      "t_s": 50,
+      "done": 0
+    },
+    {
+      "t_s": 51,
+      "done": 0
+    },
+    {
+      "t_s": 52,
+      "done": 0
+    }
+  ],
+  "X": {
+    "X_rps": 9.166666666666666,
+    "sd": 2.0356026530046427,
+    "window_s": 30,
+    "window": [
+      18,
+      47
+    ],
+    "secs": 30,
+    "drain_s": 45,
+    "requested_window_s": 30,
+    "dropped_last_partial_s": 48
+  },
+  "claim_p50": {
+    "q": 0.5,
+    "n": 423.7687736186293,
+    "rank": 211.88438680931466,
+    "value_s": 0.0032939297124600637,
+    "bucket": [
+      0.001,
+      0.005
+    ],
+    "max_error_s": 0.004,
+    "beyond_last": false
+  }
+}
