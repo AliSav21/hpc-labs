@@ -1,0 +1,101 @@
+[
+  {
+    "mode": "cs",
+    "lock": "global",
+    "n": 6,
+    "n_w": 3,
+    "n_r": 3,
+    "capacity": 1024,
+    "write_mix": "random",
+    "samples_w": 1558905,
+    "samples_r": 1558905,
+    "t_cs_w_us": 1.9293761750648972,
+    "t_cs_r_us": 0.5442198875986864,
+    "t_cs_bar_us": 1.236798031331792,
+    "x_limit": 808539.4499886079,
+    "invariants": {
+      "ok": true,
+      "size": 144,
+      "max_size": 1024,
+      "capacity": 1024,
+      "pushed": 877818,
+      "popped": 877674,
+      "rejected_full": 1034,
+      "pops_on_empty": 301,
+      "nodes_forward": 144,
+      "nodes_backward": 144
+    },
+    "host": {
+      "python": "3.10.11",
+      "implementation": "CPython",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "logical_cores": 8
+    }
+  },
+  {
+    "mode": "cs",
+    "lock": "global",
+    "n": 6,
+    "n_w": 3,
+    "n_r": 3,
+    "capacity": 1024,
+    "write_mix": "random",
+    "samples_w": 1636539,
+    "samples_r": 1636539,
+    "t_cs_w_us": 1.8214336925895709,
+    "t_cs_r_us": 0.5192575872492662,
+    "t_cs_bar_us": 1.1703456399194185,
+    "x_limit": 854448.434625563,
+    "invariants": {
+      "ok": true,
+      "size": 360,
+      "max_size": 1024,
+      "capacity": 1024,
+      "pushed": 921582,
+      "popped": 921222,
+      "rejected_full": 1034,
+      "pops_on_empty": 301,
+      "nodes_forward": 360,
+      "nodes_backward": 360
+    },
+    "host": {
+      "python": "3.10.11",
+      "implementation": "CPython",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "logical_cores": 8
+    }
+  },
+  {
+    "mode": "cs",
+    "lock": "global",
+    "n": 6,
+    "n_w": 3,
+    "n_r": 3,
+    "capacity": 1024,
+    "write_mix": "random",
+    "samples_w": 1575147,
+    "samples_r": 1575147,
+    "t_cs_w_us": 1.9037003411432656,
+    "t_cs_r_us": 0.537176941434667,
+    "t_cs_bar_us": 1.2204386412889663,
+    "x_limit": 819377.5304785909,
+    "invariants": {
+      "ok": true,
+      "size": 162,
+      "max_size": 1024,
+      "capacity": 1024,
+      "pushed": 892068,
+      "popped": 891906,
+      "rejected_full": 1034,
+      "pops_on_empty": 301,
+      "nodes_forward": 162,
+      "nodes_backward": 162
+    },
+    "host": {
+      "python": "3.10.11",
+      "implementation": "CPython",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "logical_cores": 8
+    }
+  }
+]

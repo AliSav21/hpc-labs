@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "static": {
+    "checked": [
+      "peek_front",
+      "peek_back",
+      "size"
+    ],
+    "findings": [],
+    "ok": true
+  },
+  "dynamic_single": {
+    "ops": 200000,
+    "size": 512,
+    "unchanged": true
+  },
+  "dynamic_threads": {
+    "threads": 3,
+    "ops": 70191,
+    "ops_per_thread": [
+      28766,
+      20536,
+      20889
+    ],
+    "size": 512,
+    "unchanged": true,
+    "invariants_ok": true
+  }
+}

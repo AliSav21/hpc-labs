@@ -1,0 +1,203 @@
+[
+  {
+    "mode": "single",
+    "lock": "rw",
+    "n": 6,
+    "ratio": "3:3",
+    "capacity": 1024,
+    "write_mix": "random",
+    "duration_s": 10.021860300039407,
+    "write": {
+      "threads": 1,
+      "ops": 523248,
+      "ops_per_thread": [
+        523248
+      ],
+      "X": 52210.66591777802,
+      "x_per_thread": 52210.66591777802,
+      "p50_us": 7.099995855242014,
+      "p99_us": 19.2999723367393,
+      "h": 2.7183075497839755,
+      "wait_sum_s": 1.3606426363112405,
+      "wait_max_ms": 0.42699999175965786,
+      "w": 0.13576747186407,
+      "mu": 523248.0,
+      "sigma": 0.0,
+      "cv": 0.0
+    },
+    "read": {
+      "threads": 1,
+      "ops": 523248,
+      "ops_per_thread": [
+        523248
+      ],
+      "X": 52210.66591777802,
+      "x_per_thread": 52210.66591777802,
+      "p50_us": 5.600042641162872,
+      "p99_us": 13.899989426136017,
+      "h": 2.482122068850823,
+      "wait_sum_s": 1.1819937048712745,
+      "wait_max_ms": 0.4398999735713005,
+      "w": 0.11794154672727047,
+      "mu": 523248.0,
+      "sigma": 0.0,
+      "cv": 0.0
+    },
+    "total": {
+      "ops": 1046496,
+      "X1": 104421.33183555603
+    },
+    "invariants": {
+      "ok": true,
+      "size": 171,
+      "max_size": 1024,
+      "capacity": 1024,
+      "pushed": 291906,
+      "popped": 291735,
+      "rejected_full": 786,
+      "pops_on_empty": 69,
+      "nodes_forward": 171,
+      "nodes_backward": 171
+    },
+    "host": {
+      "python": "3.10.11",
+      "implementation": "CPython",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "logical_cores": 8
+    }
+  },
+  {
+    "mode": "single",
+    "lock": "rw",
+    "n": 6,
+    "ratio": "3:3",
+    "capacity": 1024,
+    "write_mix": "random",
+    "duration_s": 10.024806899949908,
+    "write": {
+      "threads": 1,
+      "ops": 511743,
+      "ops_per_thread": [
+        511743
+      ],
+      "X": 51047.666564286345,
+      "x_per_thread": 51047.666564286345,
+      "p50_us": 7.099995855242014,
+      "p99_us": 19.400031305849552,
+      "h": 2.7324003705616633,
+      "wait_sum_s": 1.3858932856819592,
+      "wait_max_ms": 5.403999995905906,
+      "w": 0.1382463821511499,
+      "mu": 511743.0,
+      "sigma": 0.0,
+      "cv": 0.0
+    },
+    "read": {
+      "threads": 1,
+      "ops": 511743,
+      "ops_per_thread": [
+        511743
+      ],
+      "X": 51047.666564286345,
+      "x_per_thread": 51047.666564286345,
+      "p50_us": 5.699985194951296,
+      "p99_us": 13.79998866468668,
+      "h": 2.4210569313249937,
+      "wait_sum_s": 1.1992779920692556,
+      "wait_max_ms": 6.1719000223092735,
+      "w": 0.11963103170348828,
+      "mu": 511743.0,
+      "sigma": 0.0,
+      "cv": 0.0
+    },
+    "total": {
+      "ops": 1023486,
+      "X1": 102095.33312857269
+    },
+    "invariants": {
+      "ok": true,
+      "size": 110,
+      "max_size": 1024,
+      "capacity": 1024,
+      "pushed": 286744,
+      "popped": 286634,
+      "rejected_full": 786,
+      "pops_on_empty": 69,
+      "nodes_forward": 110,
+      "nodes_backward": 110
+    },
+    "host": {
+      "python": "3.10.11",
+      "implementation": "CPython",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "logical_cores": 8
+    }
+  },
+  {
+    "mode": "single",
+    "lock": "rw",
+    "n": 6,
+    "ratio": "3:3",
+    "capacity": 1024,
+    "write_mix": "random",
+    "duration_s": 10.02634720003698,
+    "write": {
+      "threads": 1,
+      "ops": 501915,
+      "ops_per_thread": [
+        501915
+      ],
+      "X": 50059.606952185815,
+      "x_per_thread": 50059.606952185815,
+      "p50_us": 7.099995855242014,
+      "p99_us": 22.499996703118086,
+      "h": 3.1690154701296147,
+      "wait_sum_s": 1.3739690012298524,
+      "wait_max_ms": 0.5376999615691602,
+      "w": 0.13703584903032132,
+      "mu": 501915.0,
+      "sigma": 0.0,
+      "cv": 0.0
+    },
+    "read": {
+      "threads": 1,
+      "ops": 501915,
+      "ops_per_thread": [
+        501915
+      ],
+      "X": 50059.606952185815,
+      "x_per_thread": 50059.606952185815,
+      "p50_us": 5.600042641162872,
+      "p99_us": 15.600002370774746,
+      "h": 2.7856934974222516,
+      "wait_sum_s": 1.188714699121192,
+      "wait_max_ms": 1.2030000216327608,
+      "w": 0.11855909988004483,
+      "mu": 501915.0,
+      "sigma": 0.0,
+      "cv": 0.0
+    },
+    "total": {
+      "ops": 1003830,
+      "X1": 100119.21390437163
+    },
+    "invariants": {
+      "ok": true,
+      "size": 154,
+      "max_size": 1024,
+      "capacity": 1024,
+      "pushed": 282031,
+      "popped": 281877,
+      "rejected_full": 786,
+      "pops_on_empty": 38,
+      "nodes_forward": 154,
+      "nodes_backward": 154
+    },
+    "host": {
+      "python": "3.10.11",
+      "implementation": "CPython",
+      "platform": "Windows-10-10.0.26300-SP0",
+      "logical_cores": 8
+    }
+  }
+]
