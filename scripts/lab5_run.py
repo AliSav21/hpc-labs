@@ -46,9 +46,39 @@ def ratio(rw, g, digits=3):
 # ---------------------------------------------------------------- прогони
 
 
+GATE = {"max_bg": 10.0, "max_wait_s": 60.0, "require_ac": True}
+
+
+def wait_quiet(label):
+    """Не починати прогін, доки машина не в керованому стані.
+
+    На батареї або в режимі економії заряду серія зупиняється зовсім: абсолютні X
+    на ноутбуці в таких станах відрізняються в рази. Фонове завантаження процесора
+    іншими програмами чекаємо до порогу ``max_bg`` %; якщо за ``max_wait_s`` нижче
+    не опустилось, прогін іде, а завантаження записується в його умови.
+    """
+    if sys.platform != "win32":
+        return
+    t0 = time.time()
+    while True:
+        c = bench.run_conditions()
+        if GATE["require_ac"] and (c.get("ac_power") is False or c.get("battery_saver")):
+            raise SystemExit(f"{label}: ноутбук не від мережі або ввімкнено економію заряду "
+                             f"({c}); серію зупинено")
+        bg = c.get("background_cpu_percent")
+        if bg is None or bg <= GATE["max_bg"]:
+            return
+        if time.time() - t0 > GATE["max_wait_s"]:
+            print(f"  {label}: фон {bg} % не опустився до {GATE['max_bg']} % за "
+                  f"{GATE['max_wait_s']:.0f} с, прогін іде з записом умов", flush=True)
+            return
+        print(f"  {label}: фонове завантаження {bg} %, чекаю", flush=True)
+
+
 def repeat(fn, times, label):
     runs = []
     for i in range(1, times + 1):
+        wait_quiet(f"{label}, прогін {i}")
         print(f"  {label}: прогін {i} з {times}", flush=True)
         runs.append(fn())
         time.sleep(0.5)
@@ -268,6 +298,25 @@ def build_tables(series, n, capacity):
           f"{num(spread, 1)} |")
     a("")
 
+    a("### Умови прогонів\n")
+    a("| Конфігурація | Від мережі | Економія заряду | Таймер Windows, мс | "
+      "Фонове завантаження CPU перед прогоном, % |")
+    a("|---|---|---|---|---|")
+    for key in SERIES_FILES:
+        if key not in series:
+            continue
+        conds = [r.get("host", {}).get("conditions") for r in series[key]["runs"]]
+        if not all(conds):
+            a(f"| {key} | не записано | не записано | не записано | не записано |")
+            continue
+        ac = "так" if all(c.get("ac_power") for c in conds) else "НІ"
+        saver = "ні" if not any(c.get("battery_saver") for c in conds) else "ТАК"
+        tr = sorted({c.get("timer_resolution_ms") for c in conds})
+        bgs = [c.get("background_cpu_percent") for c in conds]
+        a(f"| {key} | {ac} | {saver} | {', '.join(num(t, 1) for t in tr)} | "
+          f"{', '.join(num(b, 1) for b in bgs)} |")
+    a("")
+
     a("### RWLock з перевагою писця (додатковий прогін)\n")
     a(lock_table(rp))
     a("")
@@ -378,7 +427,13 @@ def main(argv=None):
                     help="не знімати контрольну суміш запису push+pop")
     ap.add_argument("--tables-only", action="store_true",
                     help="перебудувати таблиці з уже знятих файлів, без прогонів")
+    ap.add_argument("--max-bg", type=float, default=10.0,
+                    help="поріг фонового завантаження CPU перед прогоном, %%")
+    ap.add_argument("--allow-battery", action="store_true",
+                    help="не зупиняти серію, якщо ноутбук не від мережі")
     a = ap.parse_args(argv)
+    GATE["max_bg"] = a.max_bg
+    GATE["require_ac"] = not a.allow_battery
 
     t0 = time.time()
     if a.tables_only:

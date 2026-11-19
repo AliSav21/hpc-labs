@@ -23,6 +23,7 @@ import sys
 import time
 
 from lab5 import bench
+from scripts.lab5_run import wait_quiet
 
 INTERVALS = (0.005, 0.001, 0.0002)
 
@@ -47,6 +48,9 @@ def main(argv=None):
             print(f"інтервал перемикання {iv * 1000:.1f} мс", flush=True)
             reps = []
             for i in range(a.repeats):
+                sys.setswitchinterval(default)
+                wait_quiet(f"інтервал {iv * 1000:.1f} мс, прогін {i + 1}")
+                sys.setswitchinterval(iv)
                 r = bench.run_threads(a.lock, a.n, a.capacity, a.warmup, a.duration,
                                       a.seed, "random")
                 reps.append({
@@ -61,12 +65,14 @@ def main(argv=None):
                     "w_r": r["read"]["w"],
                     "wait_max_ms": r["total"]["wait_max_ms"],
                     "cv": r["total"]["cv"],
+                    "conditions": r["host"].get("conditions"),
                 })
                 print(f"  прогін {i + 1}: X = {r['total']['X']:.0f} оп/с, "
                       f"p50 = {r['total']['p50_us']:.1f} мкс, "
                       f"p99 = {r['total']['p99_us']:.1f} мкс", flush=True)
                 time.sleep(0.5)
-            med = {k: statistics.median([x[k] for x in reps]) for k in reps[0]}
+            med = {k: statistics.median([x[k] for x in reps]) for k in reps[0]
+                   if k != "conditions"}
             rows.append({"switch_interval_ms": iv * 1000, "runs": reps, "median": med})
             print(f"  медіана: X = {med['X']:.0f} оп/с, p50 = {med['p50_us']:.1f} мкс, "
                   f"p99 = {med['p99_us']:.1f} мкс")

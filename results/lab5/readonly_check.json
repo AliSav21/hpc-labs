@@ -16,11 +16,11 @@
   },
   "dynamic_threads": {
     "threads": 3,
-    "ops": 70191,
+    "ops": 259577,
     "ops_per_thread": [
-      28766,
-      20536,
-      20889
+      96099,
+      86109,
+      77369
     ],
     "size": 512,
     "unchanged": true,

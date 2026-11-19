@@ -7,29 +7,37 @@
     "n_r": 3,
     "capacity": 1024,
     "write_mix": "random",
-    "samples_w": 1558905,
-    "samples_r": 1558905,
-    "t_cs_w_us": 1.9293761750648972,
-    "t_cs_r_us": 0.5442198875986864,
-    "t_cs_bar_us": 1.236798031331792,
-    "x_limit": 808539.4499886079,
+    "samples_w": 7159602,
+    "samples_r": 7159602,
+    "t_cs_w_us": 0.40107583431414684,
+    "t_cs_r_us": 0.11586849372059008,
+    "t_cs_bar_us": 0.25847216401736844,
+    "x_limit": 3868888.566015192,
     "invariants": {
       "ok": true,
-      "size": 144,
+      "size": 673,
       "max_size": 1024,
       "capacity": 1024,
-      "pushed": 877818,
-      "popped": 877674,
-      "rejected_full": 1034,
-      "pops_on_empty": 301,
-      "nodes_forward": 144,
-      "nodes_backward": 144
+      "pushed": 4054467,
+      "popped": 4053794,
+      "rejected_full": 5156,
+      "pops_on_empty": 1637,
+      "nodes_forward": 673,
+      "nodes_backward": 673
     },
     "host": {
       "python": "3.10.11",
       "implementation": "CPython",
       "platform": "Windows-10-10.0.26300-SP0",
-      "logical_cores": 8
+      "logical_cores": 8,
+      "conditions": {
+        "ac_power": true,
+        "battery_percent": 57,
+        "battery_saver": false,
+        "timer_resolution_ms": 1.0,
+        "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+        "background_cpu_percent": 8.1
+      }
     }
   },
   {
@@ -40,29 +48,37 @@
     "n_r": 3,
     "capacity": 1024,
     "write_mix": "random",
-    "samples_w": 1636539,
-    "samples_r": 1636539,
-    "t_cs_w_us": 1.8214336925895709,
-    "t_cs_r_us": 0.5192575872492662,
-    "t_cs_bar_us": 1.1703456399194185,
-    "x_limit": 854448.434625563,
+    "samples_w": 7264827,
+    "samples_r": 7264827,
+    "t_cs_w_us": 0.39911458731536265,
+    "t_cs_r_us": 0.11572330130780938,
+    "t_cs_bar_us": 0.257418944311586,
+    "x_limit": 3884717.9747174173,
     "invariants": {
       "ok": true,
-      "size": 360,
+      "size": 815,
       "max_size": 1024,
       "capacity": 1024,
-      "pushed": 921582,
-      "popped": 921222,
-      "rejected_full": 1034,
-      "pops_on_empty": 301,
-      "nodes_forward": 360,
-      "nodes_backward": 360
+      "pushed": 4079963,
+      "popped": 4079148,
+      "rejected_full": 5270,
+      "pops_on_empty": 1637,
+      "nodes_forward": 815,
+      "nodes_backward": 815
     },
     "host": {
       "python": "3.10.11",
       "implementation": "CPython",
       "platform": "Windows-10-10.0.26300-SP0",
-      "logical_cores": 8
+      "logical_cores": 8,
+      "conditions": {
+        "ac_power": true,
+        "battery_percent": 57,
+        "battery_saver": false,
+        "timer_resolution_ms": 1.0,
+        "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+        "background_cpu_percent": 10.0
+      }
     }
   },
   {
@@ -73,29 +89,37 @@
     "n_r": 3,
     "capacity": 1024,
     "write_mix": "random",
-    "samples_w": 1575147,
-    "samples_r": 1575147,
-    "t_cs_w_us": 1.9037003411432656,
-    "t_cs_r_us": 0.537176941434667,
-    "t_cs_bar_us": 1.2204386412889663,
-    "x_limit": 819377.5304785909,
+    "samples_w": 7100316,
+    "samples_r": 7100316,
+    "t_cs_w_us": 0.41314028228133554,
+    "t_cs_r_us": 0.11930409938002502,
+    "t_cs_bar_us": 0.2662221908306803,
+    "x_limit": 3756260.8769755373,
     "invariants": {
       "ok": true,
-      "size": 162,
+      "size": 818,
       "max_size": 1024,
       "capacity": 1024,
-      "pushed": 892068,
-      "popped": 891906,
-      "rejected_full": 1034,
-      "pops_on_empty": 301,
-      "nodes_forward": 162,
-      "nodes_backward": 162
+      "pushed": 3864982,
+      "popped": 3864164,
+      "rejected_full": 4924,
+      "pops_on_empty": 1637,
+      "nodes_forward": 818,
+      "nodes_backward": 818
     },
     "host": {
       "python": "3.10.11",
       "implementation": "CPython",
       "platform": "Windows-10-10.0.26300-SP0",
-      "logical_cores": 8
+      "logical_cores": 8,
+      "conditions": {
+        "ac_power": true,
+        "battery_percent": 57,
+        "battery_saver": false,
+        "timer_resolution_ms": 1.0,
+        "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+        "background_cpu_percent": 6.2
+      }
     }
   }
 ]

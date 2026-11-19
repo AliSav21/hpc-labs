@@ -6,64 +6,72 @@
     "ratio": "3:3",
     "capacity": 1024,
     "write_mix": "random",
-    "duration_s": 10.030162499984726,
+    "duration_s": 10.029342000023462,
     "write": {
       "threads": 1,
-      "ops": 1239708,
+      "ops": 5442078,
       "ops_per_thread": [
-        1239708
+        5442078
       ],
-      "X": 123597.99754010842,
-      "x_per_thread": 123597.99754010842,
-      "p50_us": 2.2999593056738377,
-      "p99_us": 5.300040356814861,
-      "h": 2.3044061448130995,
-      "wait_sum_s": 0.578523701929953,
-      "wait_max_ms": 0.4081000224687159,
-      "w": 0.057678397725942514,
-      "mu": 1239708.0,
+      "X": 542615.6571375539,
+      "x_per_thread": 542615.6571375539,
+      "p50_us": 0.500003807246685,
+      "p99_us": 1.100008375942707,
+      "h": 2.2,
+      "wait_sum_s": 0.5509774717502296,
+      "wait_max_ms": 0.17129996558651328,
+      "w": 0.05493655234300921,
+      "mu": 5442078.0,
       "sigma": 0.0,
       "cv": 0.0
     },
     "read": {
       "threads": 1,
-      "ops": 1239708,
+      "ops": 5442078,
       "ops_per_thread": [
-        1239708
+        5442078
       ],
-      "X": 123597.99754010842,
-      "x_per_thread": 123597.99754010842,
-      "p50_us": 1.00000761449337,
-      "p99_us": 2.00001522898674,
+      "X": 542615.6571375539,
+      "x_per_thread": 542615.6571375539,
+      "p50_us": 0.200001522898674,
+      "p99_us": 0.400003045797348,
       "h": 2.0,
-      "wait_sum_s": 0.5668984180665575,
-      "wait_max_ms": 0.4907000111415982,
-      "w": 0.05651936527124269,
-      "mu": 1239708.0,
+      "wait_sum_s": 0.5456352970213629,
+      "wait_max_ms": 0.4689000197686255,
+      "w": 0.05440389778512753,
+      "mu": 5442078.0,
       "sigma": 0.0,
       "cv": 0.0
     },
     "total": {
-      "ops": 2479416,
-      "X1": 247195.99508021685
+      "ops": 10884156,
+      "X1": 1085231.3142751078
     },
     "invariants": {
       "ok": true,
-      "size": 762,
+      "size": 861,
       "max_size": 1024,
       "capacity": 1024,
-      "pushed": 715964,
-      "popped": 715202,
-      "rejected_full": 1283,
-      "pops_on_empty": 69,
-      "nodes_forward": 762,
-      "nodes_backward": 762
+      "pushed": 3148707,
+      "popped": 3147846,
+      "rejected_full": 2926,
+      "pops_on_empty": 734,
+      "nodes_forward": 861,
+      "nodes_backward": 861
     },
     "host": {
       "python": "3.10.11",
       "implementation": "CPython",
       "platform": "Windows-10-10.0.26300-SP0",
-      "logical_cores": 8
+      "logical_cores": 8,
+      "conditions": {
+        "ac_power": true,
+        "battery_percent": 58,
+        "battery_saver": false,
+        "timer_resolution_ms": 1.0,
+        "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+        "background_cpu_percent": 8.1
+      }
     }
   },
   {
@@ -73,64 +81,72 @@
     "ratio": "3:3",
     "capacity": 1024,
     "write_mix": "random",
-    "duration_s": 10.015843599976506,
+    "duration_s": 10.027371699979994,
     "write": {
       "threads": 1,
-      "ops": 1243428,
+      "ops": 5713878,
       "ops_per_thread": [
-        1243428
+        5713878
       ],
-      "X": 124146.10787282228,
-      "x_per_thread": 124146.10787282228,
-      "p50_us": 2.2999593056738377,
-      "p99_us": 5.200039595365524,
-      "h": 2.260926783590211,
-      "wait_sum_s": 0.5714068745146506,
-      "wait_max_ms": 0.6021000444889069,
-      "w": 0.057050299239496,
-      "mu": 1243428.0,
+      "X": 569828.0836653736,
+      "x_per_thread": 569828.0836653736,
+      "p50_us": 0.500003807246685,
+      "p99_us": 1.00000761449337,
+      "h": 2.0,
+      "wait_sum_s": 0.5695605881046504,
+      "wait_max_ms": 0.13589998707175255,
+      "w": 0.056800585950731904,
+      "mu": 5713878.0,
       "sigma": 0.0,
       "cv": 0.0
     },
     "read": {
       "threads": 1,
-      "ops": 1243428,
+      "ops": 5713878,
       "ops_per_thread": [
-        1243428
+        5713878
       ],
-      "X": 124146.10787282228,
-      "x_per_thread": 124146.10787282228,
-      "p50_us": 0.9999494068324566,
-      "p99_us": 2.00001522898674,
-      "h": 2.0001164212119447,
-      "wait_sum_s": 0.5582904107868671,
-      "wait_max_ms": 0.4447000101208687,
-      "w": 0.05574072769947972,
-      "mu": 1243428.0,
+      "X": 569828.0836653736,
+      "x_per_thread": 569828.0836653736,
+      "p50_us": 0.200001522898674,
+      "p99_us": 0.400003045797348,
+      "h": 2.0,
+      "wait_sum_s": 0.5632989924633875,
+      "wait_max_ms": 0.24699995992705226,
+      "w": 0.056176135613334385,
+      "mu": 5713878.0,
       "sigma": 0.0,
       "cv": 0.0
     },
     "total": {
-      "ops": 2486856,
-      "X1": 248292.21574564456
+      "ops": 11427756,
+      "X1": 1139656.1673307472
     },
     "invariants": {
       "ok": true,
-      "size": 659,
+      "size": 922,
       "max_size": 1024,
       "capacity": 1024,
-      "pushed": 719961,
-      "popped": 719302,
-      "rejected_full": 1283,
-      "pops_on_empty": 69,
-      "nodes_forward": 659,
-      "nodes_backward": 659
+      "pushed": 3297191,
+      "popped": 3296269,
+      "rejected_full": 2926,
+      "pops_on_empty": 734,
+      "nodes_forward": 922,
+      "nodes_backward": 922
     },
     "host": {
       "python": "3.10.11",
       "implementation": "CPython",
       "platform": "Windows-10-10.0.26300-SP0",
-      "logical_cores": 8
+      "logical_cores": 8,
+      "conditions": {
+        "ac_power": true,
+        "battery_percent": 58,
+        "battery_saver": false,
+        "timer_resolution_ms": 1.0,
+        "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+        "background_cpu_percent": 18.4
+      }
     }
   },
   {
@@ -140,64 +156,72 @@
     "ratio": "3:3",
     "capacity": 1024,
     "write_mix": "random",
-    "duration_s": 10.019445099984296,
+    "duration_s": 10.026632099994458,
     "write": {
       "threads": 1,
-      "ops": 1209402,
+      "ops": 5645847,
       "ops_per_thread": [
-        1209402
+        5645847
       ],
-      "X": 120705.4869737143,
-      "x_per_thread": 120705.4869737143,
-      "p50_us": 2.300017513334751,
-      "p99_us": 5.699985194951296,
-      "h": 2.478235562079263,
-      "wait_sum_s": 0.5714822931331582,
-      "wait_max_ms": 0.42940001003444195,
-      "w": 0.05703731967492431,
-      "mu": 1209402.0,
+      "X": 563085.0861679786,
+      "x_per_thread": 563085.0861679786,
+      "p50_us": 0.500003807246685,
+      "p99_us": 1.00000761449337,
+      "h": 2.0,
+      "wait_sum_s": 0.5790303832036443,
+      "wait_max_ms": 0.16029999824240804,
+      "w": 0.05774923996702386,
+      "mu": 5645847.0,
       "sigma": 0.0,
       "cv": 0.0
     },
     "read": {
       "threads": 1,
-      "ops": 1209402,
+      "ops": 5645847,
       "ops_per_thread": [
-        1209402
+        5645847
       ],
-      "X": 120705.4869737143,
-      "x_per_thread": 120705.4869737143,
-      "p50_us": 1.00000761449337,
-      "p99_us": 2.00001522898674,
+      "X": 563085.0861679786,
+      "x_per_thread": 563085.0861679786,
+      "p50_us": 0.200001522898674,
+      "p99_us": 0.400003045797348,
       "h": 2.0,
-      "wait_sum_s": 0.5585942023899406,
-      "wait_max_ms": 0.355200027115643,
-      "w": 0.055751011839050464,
-      "mu": 1209402.0,
+      "wait_sum_s": 0.5704584146151319,
+      "wait_max_ms": 0.25670003378763795,
+      "w": 0.05689431993973801,
+      "mu": 5645847.0,
       "sigma": 0.0,
       "cv": 0.0
     },
     "total": {
-      "ops": 2418804,
-      "X1": 241410.9739474286
+      "ops": 11291694,
+      "X1": 1126170.1723359572
     },
     "invariants": {
       "ok": true,
-      "size": 604,
+      "size": 233,
       "max_size": 1024,
       "capacity": 1024,
-      "pushed": 699241,
-      "popped": 698637,
-      "rejected_full": 1283,
-      "pops_on_empty": 69,
-      "nodes_forward": 604,
-      "nodes_backward": 604
+      "pushed": 3253483,
+      "popped": 3253250,
+      "rejected_full": 2926,
+      "pops_on_empty": 734,
+      "nodes_forward": 233,
+      "nodes_backward": 233
     },
     "host": {
       "python": "3.10.11",
       "implementation": "CPython",
       "platform": "Windows-10-10.0.26300-SP0",
-      "logical_cores": 8
+      "logical_cores": 8,
+      "conditions": {
+        "ac_power": true,
+        "battery_percent": 58,
+        "battery_saver": false,
+        "timer_resolution_ms": 1.0,
+        "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+        "background_cpu_percent": 10.3
+      }
     }
   }
 ]
