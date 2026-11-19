@@ -9,8 +9,7 @@
 Docker Compose, а з ЛР3 — Kubernetes (kind), kube-prometheus-stack і HorizontalPodAutoscaler.
 У ЛР4 додано чергу задач у PostgreSQL і пул воркерів з окремим образом.
 Генератор навантаження і всі скрипти вимірювань — лише стандартна бібліотека Python
-(matplotlib потрібен тільки для діаграм, numpy — тільки для сортування мільйона
-тривалостей у ЛР5).
+(matplotlib потрібен тільки для діаграм).
 
 ## Пʼять лабораторних і два варіанти
 
@@ -129,6 +128,7 @@ Docker Compose, а з ЛР3 — Kubernetes (kind), kube-prometheus-stack і Hori
 | `lab5_run.py` | усі прогони ЛР5 по три повтори і таблиці 1-6 |
 | `lab5_readonly_check.py` | доказ, що операції читання не змінюють структуру ЛР5 |
 | `lab5_switch.py` | дослід ЛР5: чи створює хвіст p99 інтервал перемикання потоків |
+| `lab5_selfcheck.py` | 15 перевірок ЛР5: еталонна модель деку, інваріанти, обидва замки, гонка без замка, частки операцій, перерахунок метрик |
 | `lab5_charts.py` | три діаграми ЛР5 |
 
 ### Результати — `results/`
@@ -155,6 +155,7 @@ Docker Compose, а з ЛР3 — Kubernetes (kind), kube-prometheus-stack і Hori
 | `lab4/tables.md`, `lab4/charts/` | таблиці й діаграми ЛР4 |
 | `lab5/threads_*.json`, `lab5/single_*.json`, `lab5/cs_runs.json` | по три прогони кожної конфігурації ЛР5 з даними кожного потоку |
 | `lab5/readonly_check.json`, `lab5/switch_interval.json` | перевірка читальних операцій і дослід про хвіст тривалості |
+| `lab5/checks.md`, `lab5/checks.json` | протокол самоперевірки ЛР5 з очікуваним і фактичним результатом |
 | `lab5/summary.json`, `lab5/tables.md`, `lab5/charts/` | медіанні прогони, таблиці 1-6 і діаграми ЛР5 |
 
 ## Базові команди
@@ -293,6 +294,10 @@ python -m scripts.lab5_run --out-dir results/lab5
 
 ```powershell
 python -m scripts.lab5_readonly_check --out results/lab5/readonly_check.json
+```
+
+```powershell
+python -m scripts.lab5_selfcheck --out-dir results/lab5
 ```
 
 ```powershell

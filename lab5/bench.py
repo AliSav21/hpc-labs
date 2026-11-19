@@ -21,6 +21,7 @@ import sys
 import threading
 import time
 from array import array
+from fractions import Fraction
 
 from lab5.rwlock import make_lock
 from lab5.structure import CAPACITY, BoundedDeque
@@ -240,21 +241,22 @@ def cs_loop(dq, lock, state, n_w, n_r, result, mix="random"):
 
 
 def _sorted_values(arrays):
-    """Злити масиви тривалостей в один відсортований. numpy використовується лише тут,
-    щоб не тримати мільйони об'єктів float у списку Python."""
+    """Злити масиви тривалостей потоків однієї ролі в один відсортований список."""
     total = sum(len(a) for a in arrays)
     if total == 0:
         return None
     merged = array("d")
     for a in arrays:
         merged.extend(a)
-    try:
-        import numpy as np
-    except ImportError:
-        return sorted(merged)
-    buf = np.frombuffer(merged, dtype=np.float64).copy()
-    buf.sort()
-    return buf
+    return sorted(merged)
+
+
+def order_index(q, n):
+    """⌈q·N⌉ точно, у цілих числах: q береться як десятковий дріб (0,99 = 99/100),
+    а не як двійкове наближення float."""
+    frac = Fraction(str(q))
+    k = -((-frac.numerator * n) // frac.denominator)
+    return max(1, min(n, k))
 
 
 def percentiles(arrays):
@@ -265,8 +267,7 @@ def percentiles(arrays):
     n = len(data)
     out = {}
     for q in PERCENTILES:
-        k = max(1, min(n, math.ceil(q * n)))
-        out[f"p{int(q * 100)}"] = float(data[k - 1])
+        out[f"p{int(q * 100)}"] = float(data[order_index(q, n) - 1])
     return out
 
 
@@ -309,16 +310,91 @@ def mean(a):
 # ---------------------------------------------------------------- прогони
 
 
-def host_info():
-    return {
+def _windows_conditions(sample_s=1.0):
+    """Умови прогону на Windows: живлення, роздільність системного таймера і
+    завантаження процесора іншими програмами перед стартом потоків стенду.
+
+    Абсолютні X на ноутбуці залежать від живлення в рази, тож без цих полів два прогони
+    в різних умовах неможливо відрізнити за самими файлами.
+    """
+    import ctypes
+    from ctypes import wintypes
+
+    out = {}
+
+    class SYSTEM_POWER_STATUS(ctypes.Structure):
+        _fields_ = [("ACLineStatus", ctypes.c_ubyte), ("BatteryFlag", ctypes.c_ubyte),
+                    ("BatteryLifePercent", ctypes.c_ubyte),
+                    ("SystemStatusFlag", ctypes.c_ubyte),
+                    ("BatteryLifeTime", wintypes.DWORD),
+                    ("BatteryFullLifeTime", wintypes.DWORD)]
+
+    k32 = ctypes.WinDLL("kernel32")
+    ps = SYSTEM_POWER_STATUS()
+    if k32.GetSystemPowerStatus(ctypes.byref(ps)):
+        out["ac_power"] = {0: False, 1: True}.get(ps.ACLineStatus)
+        out["battery_percent"] = None if ps.BatteryLifePercent == 255 else ps.BatteryLifePercent
+        out["battery_saver"] = bool(ps.SystemStatusFlag & 1)
+
+    try:
+        ntdll = ctypes.WinDLL("ntdll")
+        lo, hi, cur = wintypes.ULONG(), wintypes.ULONG(), wintypes.ULONG()
+        ntdll.NtQueryTimerResolution(ctypes.byref(lo), ctypes.byref(hi), ctypes.byref(cur))
+        out["timer_resolution_ms"] = cur.value / 1e4
+    except OSError:
+        pass
+
+    try:
+        import re
+        import subprocess
+        txt = subprocess.run(["powercfg", "/getactivescheme"], capture_output=True,
+                             timeout=5).stdout.decode("ascii", "replace")
+        m = re.search(r"[0-9a-fA-F-]{36}", txt)
+        out["power_scheme_guid"] = m.group(0) if m else None
+    except (OSError, subprocess.SubprocessError):
+        pass
+
+    def times():
+        idle, kern, user = wintypes.FILETIME(), wintypes.FILETIME(), wintypes.FILETIME()
+        k32.GetSystemTimes(ctypes.byref(idle), ctypes.byref(kern), ctypes.byref(user))
+
+        def v(ft):
+            return (ft.dwHighDateTime << 32) | ft.dwLowDateTime
+
+        return v(idle), v(kern), v(user)
+
+    i0, k0, u0 = times()
+    time.sleep(sample_s)
+    i1, k1, u1 = times()
+    total = (k1 - k0) + (u1 - u0)  # час ядра включає простій
+    out["background_cpu_percent"] = (
+        round(100.0 * (total - (i1 - i0)) / total, 1) if total else None)
+    return out
+
+
+def host_info(conditions=None):
+    info = {
         "python": platform.python_version(),
         "implementation": platform.python_implementation(),
         "platform": platform.platform(),
         "logical_cores": os.cpu_count(),
     }
+    if conditions:
+        info["conditions"] = conditions
+    return info
+
+
+def run_conditions():
+    if sys.platform != "win32":
+        return {}
+    try:
+        return _windows_conditions()
+    except Exception as e:  # noqa: BLE001 — умови інформаційні, прогін не зупиняють
+        return {"error": f"{type(e).__name__}: {e}"}
 
 
 def run_threads(lock_kind, n, capacity, warmup, duration, seed, mix="random"):
+    cond = run_conditions()
     n_w = (n + 1) // 2
     n_r = n // 2
     dq = BoundedDeque(capacity)
@@ -387,11 +463,12 @@ def run_threads(lock_kind, n, capacity, warmup, duration, seed, mix="random"):
         "per_thread": [
             {"thread": x["thread"], "role": x["role"], "ops": x["ops"]} for x in results
         ],
-        "host": host_info(),
+        "host": host_info(cond),
     }
 
 
 def run_single(lock_kind, n, capacity, warmup, duration, seed, mix="random"):
+    cond = run_conditions()
     n_w = (n + 1) // 2
     n_r = n // 2
     dq = BoundedDeque(capacity)
@@ -426,11 +503,12 @@ def run_single(lock_kind, n, capacity, warmup, duration, seed, mix="random"):
         "read": r,
         "total": {"ops": total, "X1": total / d},
         "invariants": dq.check_invariants(),
-        "host": host_info(),
+        "host": host_info(cond),
     }
 
 
 def run_cs(lock_kind, n, capacity, warmup, duration, mix="random"):
+    cond = run_conditions()
     n_w = (n + 1) // 2
     n_r = n // 2
     dq = BoundedDeque(capacity)
@@ -463,7 +541,7 @@ def run_cs(lock_kind, n, capacity, warmup, duration, mix="random"):
         "t_cs_bar_us": t_bar * 1e6,
         "x_limit": 1.0 / t_bar if t_bar else None,
         "invariants": dq.check_invariants(),
-        "host": host_info(),
+        "host": host_info(cond),
     }
 
 

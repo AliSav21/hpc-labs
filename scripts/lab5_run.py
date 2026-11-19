@@ -121,8 +121,8 @@ def role_row(name, st, t_cs=None):
         name,
         num(st["ops"], 0),
         num(st["X"], 0),
-        num(st["p50_us"], 2),
-        num(st["p99_us"], 2),
+        num(st["p50_us"], 1),
+        num(st["p99_us"], 1),
         num(st["wait_max_ms"], 3),
         num(st["w"], 4),
         num(st["cv"], 4),
@@ -167,9 +167,10 @@ def build_tables(series, n, capacity):
     a("| n | n_w | n_r | Мова і версія | Логічних ядер | X_1, оп/с | "
       "Інваріанти після прогонів кроків 2 і 3 |")
     a("|---|---|---|---|---|---|---|")
-    inv_ok = all(series[k]["median"]["invariants"]["ok"] for k in series
-                 if k.startswith("threads_"))
-    inv_txt = ("виконані в усіх прогонах" if inv_ok else "ПОРУШЕНІ")
+    step23 = [r for k in ("threads_global_random", "threads_rw_random")
+              for r in series[k]["runs"]]
+    inv_ok = all(r["invariants"]["ok"] for r in step23)
+    inv_txt = (f"виконані в усіх {len(step23)} прогонах" if inv_ok else "ПОРУШЕНІ")
     a(f"| {n} | {n_w} | {n_r} | Python {host['python']} "
       f"({host['implementation']}) | {host['logical_cores']} | {num(x1_g, 0)} | "
       f"{inv_txt} |")
@@ -220,8 +221,8 @@ def build_tables(series, n, capacity):
     rows = [
         ("X, оп/с", "X", 0),
         ("x, на один потік ролі, оп/с", "x_per_thread", 0),
-        ("p50, мкс", "p50_us", 2),
-        ("p99, мкс", "p99_us", 2),
+        ("p50, мкс", "p50_us", 1),
+        ("p99, мкс", "p99_us", 1),
         ("h = p99 / p50", "h", 2),
         ("Найбільший t_wait, мс", "wait_max_ms", 3),
         ("w", "w", 4),
