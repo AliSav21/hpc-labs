@@ -1,0 +1,95 @@
+{
+  "label": "hpa, R=4",
+  "base": "http://127.0.0.1:8080",
+  "path": "/donor-registry/{id}",
+  "procs": 4,
+  "segments": [
+    {
+      "duration_s": 30.0,
+      "target_rps": 80.74499999999999
+    },
+    {
+      "duration_s": 60.0,
+      "target_rps": 403.72499999999997
+    },
+    {
+      "duration_s": 90.0,
+      "target_rps": 80.74499999999999
+    }
+  ],
+  "connections": {
+    "total": 1500,
+    "per_proc": [
+      375,
+      375,
+      375,
+      375
+    ],
+    "req_per_conn": 0,
+    "opened": 604,
+    "recycled": 0
+  },
+  "timeout_s": 5.0,
+  "segment_stats": [
+    {
+      "segment": 0,
+      "window_s": [
+        0.0,
+        30.0
+      ],
+      "target_rps": 80.74499999999999,
+      "achieved_rps": 80.7,
+      "achieved_sd": 0.47016234598162726,
+      "p99_ms_mean": 7.783910742885334,
+      "p99_ms_max": 24.826476426653706,
+      "non2xx": 0,
+      "non2xx_share": 0.0
+    },
+    {
+      "segment": 1,
+      "window_s": [
+        30.0,
+        90.0
+      ],
+      "target_rps": 403.72499999999997,
+      "achieved_rps": 393.78,
+      "achieved_sd": 53.386648946288865,
+      "p99_ms_mean": 86.37776598222302,
+      "p99_ms_max": 513.4177998001292,
+      "non2xx": 498,
+      "non2xx_share": 0.024669341655520878
+    },
+    {
+      "segment": 2,
+      "window_s": [
+        90.0,
+        180.0
+      ],
+      "target_rps": 80.74499999999999,
+      "achieved_rps": 79.8375,
+      "achieved_sd": 3.227428925376116,
+      "p99_ms_mean": 16.96308201153915,
+      "p99_ms_max": 87.36676690783158,
+      "non2xx": 72,
+      "non2xx_share": 0.01114723641430562
+    }
+  ],
+  "non2xx_total": 570,
+  "connerr_total": 570,
+  "start_wall": 1795114281.441389,
+  "started_at": "2026-11-19T20:51:21",
+  "mode": "hpa",
+  "replicas_fixed": null,
+  "x1": 269.15,
+  "xr": 472.95,
+  "spike_rps": 403.72499999999997,
+  "pods_at_start": [],
+  "conditions": {
+    "ac_power": true,
+    "battery_percent": 99,
+    "battery_saver": false,
+    "timer_resolution_ms": 1.0,
+    "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+    "background_cpu_percent": 28.5
+  }
+}

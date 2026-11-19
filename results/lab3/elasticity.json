@@ -5,6 +5,26 @@
   "fixed": {
     "T": 180,
     "theta_U": 0.0,
+    "theta_O": 1.0,
+    "a_U": 0.0,
+    "a_O": 2.6666666666666665,
+    "W": 720.0,
+    "threshold_violation_s": 38,
+    "non2xx": 35
+  },
+  "hpa": {
+    "T": 180,
+    "theta_U": 0.25555555555555554,
+    "theta_O": 0.35,
+    "a_U": 0.25555555555555554,
+    "a_O": 0.8944444444444445,
+    "W": 355.0,
+    "threshold_violation_s": 80,
+    "non2xx": 7362
+  },
+  "fixed_held": {
+    "T": 180,
+    "theta_U": 0.0,
     "theta_O": 0.6666666666666666,
     "a_U": 0.0,
     "a_O": 2.0,
@@ -12,7 +32,7 @@
     "threshold_violation_s": 38,
     "non2xx": 35
   },
-  "hpa": {
+  "hpa_held": {
     "T": 180,
     "theta_U": 0.3333333333333333,
     "theta_O": 0.2722222222222222,
@@ -22,6 +42,8 @@
     "threshold_violation_s": 80,
     "non2xx": 7362
   },
+  "level_def_rps": 403.72499999999997,
+  "level_held_rps": 339.39000000000004,
   "timings": {
     "t_first_desired_change": 22.0,
     "peak_ready": 4.0,

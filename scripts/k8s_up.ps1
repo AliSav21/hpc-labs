@@ -144,6 +144,6 @@ if (-not $SkipMonitoring) {
 
 Write-Host ""
 Write-Host "стенд готовий:"
-Write-Host "  сервіс     http://127.0.0.1:18080/donor-registry"
-Write-Host "  Prometheus http://127.0.0.1:19090"
+Write-Host "  сервіс     http://127.0.0.1:8080/donor-registry"
+Write-Host "  Prometheus http://127.0.0.1:9090"
 Invoke-Kubectl @("get", "pods", "-n", "donors", "-o", "wide")

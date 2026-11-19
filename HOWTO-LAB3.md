@@ -60,10 +60,33 @@ docker info --format "{{.NCPU}} CPU, {{.MemTotal}} bytes"
 Якщо ядер менше, у Docker Desktop: Settings -> Resources -> CPUs. Симптом нестачі — поди в
 стані `Pending` з причиною `Insufficient cpu`.
 
-> **Чому 18080 і 19090, а не 8080 і 9090.** Порт 8080 на цій машині тримає стороння програма
-> `ApplicationWebServer` (те саме було в ЛР1–ЛР2). `kind create cluster` на зайнятому порту падає з
-> `ports are not available ... bind`. Перевірити, хто тримає порт:
-> `Get-NetTCPConnection -LocalPort 8080 -State Listen | Select-Object OwningProcess`.
+**Порти 8080 і 9090.** Кластер створюється з портами хоста з умови.
+
+Порт 8080 на машині, де робилась робота, тримає служба Windows **NI Application Web Server**
+(`NIApplicationWebServer`, програма `ApplicationWebServer.exe` від National Instruments, запуск
+автоматичний). Поки вона працює, `kind create cluster` падає з `ports are not available ...
+bind`. Перед створенням кластера її треба зупинити від імені адміністратора, а щоб вона не
+займала порт після перезавантаження — перевести на ручний запуск:
+
+```powershell
+Stop-Service NIApplicationWebServer
+```
+
+```powershell
+Set-Service NIApplicationWebServer -StartupType Manual
+```
+
+Повернути, коли кластер не потрібен:
+
+```powershell
+Set-Service NIApplicationWebServer -StartupType Automatic; Start-Service NIApplicationWebServer
+```
+
+Перевірити, що 8080 і 9090 вільні (порожній вивід):
+
+```powershell
+Get-NetTCPConnection -LocalPort 8080,9090 -State Listen -ErrorAction SilentlyContinue
+```
 
 
 **2. Інструменти.** Потрібні `kind`, `kubectl` і `helm`:
@@ -117,7 +140,7 @@ kubectl get nodes -o wide; kubectl get pods -A -o wide
 `Completed`), жодного `Pending`, `CrashLoopBackOff` чи `ImagePullBackOff`.
 
 ```powershell
-(Invoke-WebRequest -UseBasicParsing http://127.0.0.1:18080/healthz).Content
+(Invoke-WebRequest -UseBasicParsing http://127.0.0.1:8080/healthz).Content
 ```
 
 Має бути `{"status":"ok"}`.
@@ -160,7 +183,7 @@ kubectl get nodes -L role
 docker port hpc-control-plane
 ```
 
-Має показати `30080 -> 127.0.0.1:18080` і `30090 -> 127.0.0.1:19090`.
+Має показати `30080 -> 127.0.0.1:8080` і `30090 -> 127.0.0.1:9090`.
 
 ### Крок 2. Одна команда розгортання і одна видалення
 
@@ -272,10 +295,10 @@ git check-ignore -v .env
 kubectl get deployment web -n donors -o jsonpath="{.spec.template.spec.containers[0].env}" | Select-String secretKeyRef
 ```
 
-**Повний цикл CRUD через `localhost:18080` із заголовком `X-Pod`:**
+**Повний цикл CRUD через `localhost:8080` із заголовком `X-Pod`:**
 
 ```powershell
-$body = '{"donor_code":"K8S-1","birth_year":1990,"blood_group":"O+","hla_typing":["A1"],"registered_on":"2026-01-01","available":true}'; $r = Invoke-WebRequest -UseBasicParsing http://127.0.0.1:18080/donor-registry -Method Post -ContentType application/json -Body $body; "POST -> $($r.StatusCode) под $($r.Headers['X-Pod'])"; $id = ($r.Content | ConvertFrom-Json).id; $r = Invoke-WebRequest -UseBasicParsing "http://127.0.0.1:18080/donor-registry/$id"; "GET -> $($r.StatusCode) под $($r.Headers['X-Pod'])"; $r = Invoke-WebRequest -UseBasicParsing "http://127.0.0.1:18080/donor-registry/$id" -Method Put -ContentType application/json -Body ($body -replace '"available":true','"available":false'); "PUT -> $($r.StatusCode) под $($r.Headers['X-Pod'])"; $r = Invoke-WebRequest -UseBasicParsing "http://127.0.0.1:18080/donor-registry/$id" -Method Delete; "DELETE -> $($r.StatusCode) под $($r.Headers['X-Pod'])"
+$body = '{"donor_code":"K8S-1","birth_year":1990,"blood_group":"O+","hla_typing":["A1"],"registered_on":"2026-01-01","available":true}'; $r = Invoke-WebRequest -UseBasicParsing http://127.0.0.1:8080/donor-registry -Method Post -ContentType application/json -Body $body; "POST -> $($r.StatusCode) под $($r.Headers['X-Pod'])"; $id = ($r.Content | ConvertFrom-Json).id; $r = Invoke-WebRequest -UseBasicParsing "http://127.0.0.1:8080/donor-registry/$id"; "GET -> $($r.StatusCode) под $($r.Headers['X-Pod'])"; $r = Invoke-WebRequest -UseBasicParsing "http://127.0.0.1:8080/donor-registry/$id" -Method Put -ContentType application/json -Body ($body -replace '"available":true','"available":false'); "PUT -> $($r.StatusCode) под $($r.Headers['X-Pod'])"; $r = Invoke-WebRequest -UseBasicParsing "http://127.0.0.1:8080/donor-registry/$id" -Method Delete; "DELETE -> $($r.StatusCode) под $($r.Headers['X-Pod'])"
 ```
 
 Очікується `201`, `200`, `200`, `204` і непорожнє імʼя пода в кожному рядку. На кількох репліках
@@ -312,7 +335,7 @@ kubectl get pods -n monitoring -o wide; kubectl get podmonitor,servicemonitor -A
 `kubectl top` має повертати числа (а не `error: Metrics API not available`) — це перевірка
 metrics-server. Усі поди моніторингу мають бути на вузлі `hpc-control-plane`.
 
-Далі Prometheus на http://127.0.0.1:19090 -> Graph. Перевірити кожен ряд:
+Далі Prometheus на http://127.0.0.1:9090 -> Graph. Перевірити кожен ряд:
 
 | Запит | Що має бути |
 |---|---|
@@ -393,7 +416,7 @@ powershell -File scripts\lab3_selfcheck.ps1 -Quick
 | # | Перевірка | Очікуване |
 |---|---|---|
 | 1 | `kubectl get nodes -L role` | 3 вузли `Ready`, control-plane має `role=infra` |
-| 2 | `docker port hpc-control-plane` | 30080 -> 18080, 30090 -> 19090 |
+| 2 | `docker port hpc-control-plane` | 30080 -> 8080, 30090 -> 9090 |
 | 3 | `kubectl get pods -A` | немає `Pending`, `Error`, `CrashLoopBackOff` |
 | 4 | `kubectl get pod db-0 -n donors -o wide` | на `hpc-control-plane` |
 | 5 | `show max_connections` | 100 |
@@ -402,7 +425,7 @@ powershell -File scripts\lab3_selfcheck.ps1 -Quick
 | 8 | ресурси пода web | 500m / 1 CPU, 512Mi |
 | 9 | проби і зупинка | `/healthz` 3-5-3, `/livez`, sleep 5, grace 15 |
 | 10 | пароль у ConfigMap, образі, git | ніде немає, лише в Secret |
-| 11 | CRUD через `localhost:18080` | 201, 200, 200, 204 і `X-Pod` у кожній відповіді |
+| 11 | CRUD через `localhost:8080` | 201, 200, 200, 204 і `X-Pod` у кожній відповіді |
 | 12 | розподіл 4 подів по вузлах | 2 + 2 (Д1) |
 | 13 | `kubectl top pods -n donors` | числа, не помилка |
 | 14 | ряди в Prometheus із таблиці вище | усі присутні |
@@ -441,7 +464,7 @@ Secret не той, що в базі. Secret створюється з `.env`, �
 `kubectl logs -n donors job/db-migrate`. Якщо помилка в SQL — поправити `db/schema.sql`,
 видалити Job (`kubectl delete job db-migrate -n donors`) і запустити скрипт розгортання знову.
 
-**`localhost:18080` не відповідає, а поди `Running`**
+**`localhost:8080` не відповідає, а поди `Running`**
 Перевірити `docker port hpc-control-plane` (перенаправлення є лише в кластері, створеному з
 `k8s/kind-cluster.yaml`; старий кластер із тим самим імʼям його не має) і готовність подів:
 `kubectl get endpoints web -n donors` має містити адреси.
@@ -462,10 +485,11 @@ PodMonitor знову.
 Хостовий порт зайнятий іншою програмою. Подивитися, ким:
 
 ```powershell
-Get-NetTCPConnection -LocalPort 18080 -State Listen | Select-Object OwningProcess
+Get-NetTCPConnection -LocalPort 8080,9090 -State Listen | Select-Object LocalPort, OwningProcess
 ```
 
-Вільний порт задається в `k8s/kind-cluster.yaml` (`hostPort`), після зміни кластер треба
+Якщо це служба NI Application Web Server — зупинити її, як описано в розділі про порти
+вище. Порти задані в `k8s/kind-cluster.yaml` (`hostPort`); після зміни кластер треба
 створити наново.
 
 **Маніфести поїхали не в той кластер**

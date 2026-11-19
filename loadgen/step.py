@@ -538,6 +538,22 @@ def default_base():
     return "http://127.0.0.1:" + port
 
 
+def _env_port(key, default):
+    env = Path(__file__).resolve().parent.parent / ".env"
+    port = default
+    if env.exists():
+        for line in env.read_text(encoding="utf-8").splitlines():
+            if line.startswith(key + "="):
+                port = line.split("=", 1)[1].strip()
+    return port
+
+
+def k8s_base():
+    """Адреса сервісу в кластері kind (ЛР3, ЛР4): порт хоста 8080 з умови, у .env —
+    K8S_WEB_PORT. Окремо від LB_PORT стенду Compose (ЛР1, ЛР2)."""
+    return "http://127.0.0.1:" + _env_port("K8S_WEB_PORT", "8080")
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawTextHelpFormatter)

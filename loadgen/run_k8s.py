@@ -68,13 +68,29 @@ def pods_by_node(only=None):
     return out
 
 
-def cadvisor(url, expr, at):
-    """Запит до лічильників cAdvisor"""
+def cadvisor(url, expr, at, pods=None):
+    """Запит до лічильників cAdvisor.
+
+    Спершу вікно 30 с; поди, для яких ряду немає, добираються вікном 60 с — окремо для
+    кожного пода, а не лише коли порожня вся відповідь (через це в серії ЛР3 для одного
+    пода на кількох сходинках не було частки дроселювання). Вікно, з якого взято
+    значення, повертається в ключі "_window" для кожного пода.
+    """
+    out, windows = {}, {}
     for win in ("30s", "60s"):      # WIN у виразі заміняємо самі: .format псує дужки PromQL
         res = prom.query(url, expr.replace("WIN", win), at)
-        if res:
-            return dict((lbl.get("pod", "?"), v) for lbl, v in res)
-    return {}
+        for lbl, v in res:
+            pod = lbl.get("pod", "?")
+            if pod not in out:
+                out[pod] = v
+                windows[pod] = win
+        if pods is None and out:
+            break
+        if pods is not None and set(pods) <= set(out):
+            break
+    if windows:
+        out["_window"] = windows
+    return out
 
 
 def step_metrics(url, start_wall, steps):
@@ -95,8 +111,12 @@ def step_metrics(url, start_wall, steps):
             throttle = cadvisor(
                 url,
                 f'(increase(container_cpu_cfs_throttled_periods_total{{{WEB}}}[WIN]) '
-                f'/ increase(container_cpu_cfs_periods_total{{{WEB}}}[WIN]))', w1)
-            cpu = cadvisor(url, f'rate(container_cpu_usage_seconds_total{{{WEB}}}[WIN])', w1)
+                f'/ increase(container_cpu_cfs_periods_total{{{WEB}}}[WIN]))', w1,
+                pods=list(per_pod))
+            throttle_win = throttle.pop("_window", {})
+            cpu = cadvisor(url, f'rate(container_cpu_usage_seconds_total{{{WEB}}}[WIN])', w1,
+                           pods=list(per_pod))
+            cpu.pop("_window", None)
             busiest = max(per_pod, key=per_pod.get) if per_pod else None
             idlest = min(per_pod, key=per_pod.get) if per_pod else None
             row = {
@@ -112,6 +132,8 @@ def step_metrics(url, start_wall, steps):
                         f'(rate(http_requests_total{{{SEL},code=~"2.."}}[{win}])) '
                         f'* on (pod) group_left(node) kube_pod_info{{{SEL}}})', w1)),
                 "throttle_per_pod": throttle,
+                "throttle_window": throttle_win,
+                "throttle_missing": [p for p in per_pod if p not in throttle],
                 "throttle_avg": (sum(throttle.values()) / len(throttle)) if throttle else None,
                 "throttle_max": max(throttle.values()) if throttle else None,
                 "cpu_cores_per_pod": cpu,
@@ -159,9 +181,34 @@ SERIES = {
 }
 
 
+def check_conditions(max_bg=35.0, allow_battery=False, wait_s=120):
+    """Умови прогону перед стартом: живлення від мережі і процесор, не зайнятий сторонніми
+    програмами (кластер теж входить у завантаження, тому поріг вищий, ніж у ЛР5).
+    Воркер ЛР4 зупиняється: він опитує базу кожні 50 мс, а в стенді ЛР3 його немає.
+    Повертає записані умови; на батареї або при зайнятому процесорі прогін не починається."""
+    from lab5.bench import run_conditions
+    cond = run_conditions()
+    if not allow_battery and (cond.get("ac_power") is False or cond.get("battery_saver")):
+        raise SystemExit(f"ноутбук не від мережі або ввімкнено економію заряду: {cond}")
+    t0 = time.time()
+    while (cond.get("background_cpu_percent") or 0) > max_bg and time.time() - t0 < wait_s:
+        print(f"завантаження CPU {cond['background_cpu_percent']} %, чекаю спаду до "
+              f"{max_bg:.0f} %", flush=True)
+        cond = run_conditions()
+    if (cond.get("background_cpu_percent") or 0) > max_bg:
+        raise SystemExit(f"процесор зайнятий ({cond['background_cpu_percent']} %) понад "
+                         f"{max_bg:.0f} % і за {wait_s} с не звільнився; прогін не починаю")
+    subprocess.run(["kubectl", "--context", CTX, "scale", "deployment", "worker", "-n", NS,
+                    "--replicas=0"], capture_output=True)
+    print(f"умови: {cond}", flush=True)
+    return cond
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawTextHelpFormatter)
+    ap.add_argument("--max-bg", type=float, default=35.0)
+    ap.add_argument("--allow-battery", action="store_true")
     ap.add_argument("--replicas", type=int, required=True)
     ap.add_argument("--max-rate", type=float, default=None, help="межа стенду G")
     ap.add_argument("--path", default="/donor-registry/{id}")
@@ -181,11 +228,12 @@ def main():
     # зʼєднання з закриттям після 100 запитів (крок 6)
     step.configure(step_s=30, transient_s=10, rate0=a.rate0, rate_step=a.rate_step,
                    conns=32, req_per_conn=100)
-    base = a.base or step.default_base()
-    url = a.prom or prom.default_url()
+    base = a.base or step.k8s_base()
+    url = a.prom or prom.k8s_url()
     name = a.name or f"N{a.replicas}"
     out = ROOT / a.out_dir / name
 
+    cond = check_conditions(a.max_bg, a.allow_battery)
     if not a.no_scale:
         scale(a.replicas)
     pods = wait_ready(base, a.replicas)
@@ -198,6 +246,7 @@ def main():
     summary = step.run(base, a.path, ids, out, a.procs, a.max_rate, a.max_steps,
                        label=f"Kubernetes, N={a.replicas}")
     summary["replicas"] = a.replicas
+    summary["conditions"] = cond
     summary["pods"] = pods
     summary["pods_by_node"] = by_node
     summary["prom"] = step_metrics(url, summary["start_wall"], summary["steps"])

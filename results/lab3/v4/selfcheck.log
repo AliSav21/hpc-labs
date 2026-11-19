@@ -1,0 +1,35 @@
+﻿== самоперевірка стенду ЛР3, контекст kind-hpc
+[ 1] ПРОЙДЕНО  три вузли Ready, control-plane з міткою role=infra
+      вийшло:   hpc-control-plane=infra hpc-worker= hpc-worker2= 
+[ 2] ПРОЙДЕНО  перенаправлення портів NodePort на хост
+      вийшло:   6443/tcp -> 127.0.0.1:60251 30080/tcp -> 127.0.0.1:8080 30090/tcp -> 127.0.0.1:9090
+[ 3] ПРОЙДЕНО  немає подів поза станами Running і Completed
+[ 4] ПРОЙДЕНО  под бази на вузлі з міткою role=infra
+      вийшло:   hpc-control-plane
+[ 5] ПРОЙДЕНО  max_connections бази
+      вийшло:   100
+[ 6] ПРОЙДЕНО  дані збереглися після видалення пода бази
+      вийшло:   1
+[ 7] ПРОЙДЕНО  у маніфесті web немає поля replicas
+[ 8] ПРОЙДЕНО  ресурси web: requests 500m, limits 1 CPU і 512Mi
+      вийшло:   {"limits":{"cpu":"1","memory":"512Mi"},"requests":{"cpu":"500m","memory":"128Mi"}}
+[ 9] ПРОЙДЕНО  readiness /healthz 3-5-3, liveness /livez, preStop 5 с, grace 15 с
+      вийшло:   {"failureThreshold":3,"httpGet":{"path":"/healthz","port":"http","scheme":"HTTP"},"periodSeconds":5,"su
+ccessThreshold":1,"timeoutSeconds":3} | {"preStop":{"sleep":{"seconds":5}}} | 15
+[10] ПРОЙДЕНО  пароль лише в Secret, POD_NAME через Downward API
+      вийшло:   {"name":"POSTGRES_PASSWORD","valueFrom":{"secretKeyRef":{"key":"POSTGRES_PASSWORD","name":"db-secret"}}
+} | {"name":"POD_NAME","valueFrom":{"fieldRef":{"apiVersion":"v1","fieldPath":"metadata.name"}}}
+[11] ПРОЙДЕНО  CRUD через NodePort повертає 201, 200, 200, 204 із заголовком X-Pod
+      вийшло:   POST 201 web-66fdc54dcf-wzpdp | GET 200 web-66fdc54dcf-wzpdp | PUT 200 web-66fdc54dcf-wzpdp | DELETE 20
+4 web-66fdc54dcf-wzpdp
+[12] ПРОЙДЕНО  репліки web рівномірно по робочих вузлах (Д1)
+      вийшло:   hpc-worker=2, hpc-worker2=2
+[13] ПРОЙДЕНО  kubectl top pods повертає дані
+      вийшло:   db-0                                                        88m   37Mi    | pg-exporter-prometheus-post
+gres-exporter-796c7cc5c4-xff45   8m    9Mi    
+[14] ПРОЙДЕНО  у Prometheus є всі потрібні ряди, інтервал збору 5 с
+      вийшло:   інтервал 5s
+[15] ПРОЙДЕНО  HPA бачить використання CPU (не <unknown>)
+      вийшло:   web   Deployment/web   cpu: 1%/50%   1     4     4     31s
+
+ПРОЙДЕНО 15, НЕ ПРОЙДЕНО 0

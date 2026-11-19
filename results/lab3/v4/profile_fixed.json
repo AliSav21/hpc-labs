@@ -1,0 +1,92 @@
+{
+  "label": "fixed, R=4",
+  "base": "http://127.0.0.1:8080",
+  "path": "/donor-registry/{id}",
+  "procs": 4,
+  "segments": [
+    {
+      "duration_s": 30.0,
+      "target_rps": 80.74499999999999
+    },
+    {
+      "duration_s": 60.0,
+      "target_rps": 403.72499999999997
+    },
+    {
+      "duration_s": 90.0,
+      "target_rps": 80.74499999999999
+    }
+  ],
+  "connections": {
+    "total": 1500,
+    "per_proc": [
+      375,
+      375,
+      375,
+      375
+    ],
+    "req_per_conn": 0,
+    "opened": 617,
+    "recycled": 0
+  },
+  "timeout_s": 5.0,
+  "segment_stats": [
+    {
+      "segment": 0,
+      "window_s": [
+        0.0,
+        30.0
+      ],
+      "target_rps": 80.74499999999999,
+      "achieved_rps": 80.35,
+      "achieved_sd": 2.4553914898486253,
+      "p99_ms_mean": 66.00871460224592,
+      "p99_ms_max": 142.57830333207457,
+      "non2xx": 8,
+      "non2xx_share": 0.004953560371517028
+    },
+    {
+      "segment": 1,
+      "window_s": [
+        30.0,
+        90.0
+      ],
+      "target_rps": 403.72499999999997,
+      "achieved_rps": 402.16,
+      "achieved_sd": 78.47379908515417,
+      "p99_ms_mean": 822.6217122548471,
+      "p99_ms_max": 2892.109792677098,
+      "non2xx": 355,
+      "non2xx_share": 0.017348384889801106
+    },
+    {
+      "segment": 2,
+      "window_s": [
+        90.0,
+        180.0
+      ],
+      "target_rps": 80.74499999999999,
+      "achieved_rps": 79.8125,
+      "achieved_sd": 2.1233705591925234,
+      "p99_ms_mean": 52.03197204734697,
+      "p99_ms_max": 145.24391898954153,
+      "non2xx": 73,
+      "non2xx_share": 0.011303809228863424
+    }
+  ],
+  "non2xx_total": 439,
+  "connerr_total": 439,
+  "start_wall": 1795112816.7615137,
+  "started_at": "2026-11-19T20:26:56",
+  "mode": "fixed",
+  "replicas_fixed": 4,
+  "x1": 269.15,
+  "xr": 472.95,
+  "spike_rps": 403.72499999999997,
+  "pods_at_start": [
+    "web-66fdc54dcf-7qzwv",
+    "web-66fdc54dcf-gdvxh",
+    "web-66fdc54dcf-wjv4v",
+    "web-66fdc54dcf-wzpdp"
+  ]
+}

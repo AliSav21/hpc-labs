@@ -1,0 +1,158 @@
+{
+  "label": null,
+  "base": "http://127.0.0.1:8080",
+  "path": "/livez",
+  "procs": 4,
+  "profile": {
+    "warmup_s": 10.0,
+    "warmup_rate": 200.0,
+    "step_s": 20.0,
+    "rate0": 200.0,
+    "rate_step": 200.0,
+    "transient_s": 5.0,
+    "timeout_s": 5.0
+  },
+  "connections": {
+    "total": 1500,
+    "per_proc": [
+      375,
+      375,
+      375,
+      375
+    ],
+    "req_per_conn": 0,
+    "opened": 14543,
+    "recycled": 0
+  },
+  "statuses": {
+    "200": 55861,
+    "0": 818,
+    "-1": 30583
+  },
+  "max_rate_G": null,
+  "stop_reason": "two_low_steps",
+  "steps": [
+    {
+      "step": 0,
+      "target_rps": 200.0,
+      "window_s": [
+        15,
+        30
+      ],
+      "achieved_rps": 199.46666666666667,
+      "achieved_sd": 1.7674302033770737,
+      "sent_rps": 200.0,
+      "p50_ms": 2.6597779500292518,
+      "p95_ms": 8.915156157570086,
+      "p99_ms": 33.37404057862941,
+      "responses": 2998,
+      "non2xx": 6,
+      "non2xx_share": 0.0020013342228152103,
+      "connerr": 6
+    },
+    {
+      "step": 1,
+      "target_rps": 400.0,
+      "window_s": [
+        35,
+        50
+      ],
+      "achieved_rps": 395.2,
+      "achieved_sd": 16.354117000227888,
+      "sent_rps": 400.0,
+      "p50_ms": 2.4647538166000516,
+      "p95_ms": 14.99495448684234,
+      "p99_ms": 61.475330026309095,
+      "responses": 5998,
+      "non2xx": 70,
+      "non2xx_share": 0.011670556852284094,
+      "connerr": 70
+    },
+    {
+      "step": 2,
+      "target_rps": 600.0,
+      "window_s": [
+        55,
+        70
+      ],
+      "achieved_rps": 583.1333333333333,
+      "achieved_sd": 60.74521341127178,
+      "sent_rps": 600.0,
+      "p50_ms": 2.562698974895028,
+      "p95_ms": 103.72071756026386,
+      "p99_ms": 217.4639944836437,
+      "responses": 8854,
+      "non2xx": 107,
+      "non2xx_share": 0.012084933363451547,
+      "connerr": 107
+    },
+    {
+      "step": 3,
+      "target_rps": 800.0,
+      "window_s": [
+        75,
+        90
+      ],
+      "achieved_rps": 776.8666666666667,
+      "achieved_sd": 124.50695142192244,
+      "sent_rps": 800.0,
+      "p50_ms": 5.061064471959753,
+      "p95_ms": 135.6974607098408,
+      "p99_ms": 1091.864981805909,
+      "responses": 11999,
+      "non2xx": 346,
+      "non2xx_share": 0.02883573631135928,
+      "connerr": 346
+    },
+    {
+      "step": 4,
+      "target_rps": 1000.0,
+      "window_s": [
+        95,
+        110
+      ],
+      "achieved_rps": 387.4,
+      "achieved_sd": 119.76035594946624,
+      "sent_rps": 999.3333333333334,
+      "p50_ms": 5014.999090368391,
+      "p95_ms": 5140.948481775308,
+      "p99_ms": 5209.507988866835,
+      "responses": 13510,
+      "non2xx": 7699,
+      "non2xx_share": 0.5698741672834937,
+      "connerr": 19
+    },
+    {
+      "step": 5,
+      "target_rps": 1200.0,
+      "window_s": [
+        115,
+        130
+      ],
+      "achieved_rps": 224.66666666666666,
+      "achieved_sd": 175.9625230661618,
+      "sent_rps": 1198.9333333333334,
+      "p50_ms": 5060.383624758884,
+      "p95_ms": 5186.529406316112,
+      "p99_ms": 5283.727479389306,
+      "responses": 16653,
+      "non2xx": 13283,
+      "non2xx_share": 0.7976340599291419,
+      "connerr": 133
+    }
+  ],
+  "X": 199.46666666666667,
+  "X_sd": 1.7674302033770737,
+  "X_step": 0,
+  "X_target_rps": 200.0,
+  "X_p50_ms": 2.6597779500292518,
+  "X_p95_ms": 8.915156157570086,
+  "X_p99_ms": 33.37404057862941,
+  "X_non2xx_share": 0.0020013342228152103,
+  "X_held": true,
+  "peak_achieved_rps": 776.8666666666667,
+  "peak_step": 3,
+  "last_step_held": false,
+  "start_wall": 1795114544.7085207,
+  "started_at": "2026-11-19T20:55:44"
+}

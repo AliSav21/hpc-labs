@@ -1,0 +1,78 @@
+умови: {'ac_power': True, 'battery_percent': 99, 'battery_saver': False, 'timer_resolution_ms': 1.0, 'power_scheme_guid': '381b4222-f694-41f0-9685-ff5bb260df2e', 'background_cpu_percent': 11.1}
+профіль: 30 с на 81 rps, 60 с на 404 rps, 90 с на 81 rps
+$ kubectl --context kind-hpc delete hpa web -n donors --ignore-not-found
+$ kubectl --context kind-hpc scale deployment/web -n donors --replicas=4
+$ kubectl --context kind-hpc rollout status deployment/web -n donors --timeout=300s
+Waiting for deployment "web" rollout to finish: 2 of 4 updated replicas are available...
+Waiting for deployment "web" rollout to finish: 3 of 4 updated replicas are available...
+deployment "web" successfully rolled out
+подів видно: 4
+  10 с із 180
+  20 с із 180
+  30 с із 180
+  40 с із 180
+  50 с із 180
+  60 с із 180
+  70 с із 180
+  80 с із 180
+  90 с із 180
+  100 с із 180
+  110 с із 180
+  120 с із 180
+  130 с із 180
+  140 с із 180
+  150 с із 180
+  160 с із 180
+  170 с із 180
+  180 с із 180
+відрізок 0: задано 81, досягнуто 80.8 ±0.9, p99 15 мс, не-2xx 0
+відрізок 1: задано 404, досягнуто 400.1 ±21.9, p99 55 мс, не-2xx 181
+відрізок 2: задано 81, досягнуто 80.7 ±0.8, p99 11 мс, не-2xx 1
+  C:\Users\alink\PycharmProjects\HPC\results\lab3\v5\profile_fixed.json, C:\Users\alink\PycharmProjects\HPC\results\lab3\v5\profile_fixed.csv, C:\Users\alink\PycharmProjects\HPC\results\lab3\v5\profile_fixed_prom.json
+fixed exit 0
+завантаження CPU 42.6 %, чекаю спаду до 35 %
+завантаження CPU 37.9 %, чекаю спаду до 35 %
+умови: {'ac_power': True, 'battery_percent': 99, 'battery_saver': False, 'timer_resolution_ms': 1.0, 'power_scheme_guid': '381b4222-f694-41f0-9685-ff5bb260df2e', 'background_cpu_percent': 28.5}
+профіль: 30 с на 81 rps, 60 с на 404 rps, 90 с на 81 rps
+$ kubectl --context kind-hpc scale deployment/web -n donors --replicas=1
+$ kubectl --context kind-hpc rollout status deployment/web -n donors --timeout=300s
+deployment "web" successfully rolled out
+$ kubectl --context kind-hpc apply -f k8s/hpa/web-hpa.yaml
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+$ kubectl --context kind-hpc get hpa web -n donors -o json
+HPA тримає одну репліку 61 с
+  10 с із 180
+  20 с із 180
+  30 с із 180
+  40 с із 180
+  50 с із 180
+  60 с із 180
+  70 с із 180
+  80 с із 180
+  90 с із 180
+  100 с із 180
+  110 с із 180
+  120 с із 180
+  130 с із 180
+  140 с із 180
+  150 с із 180
+  160 с із 180
+  170 с із 180
+  180 с із 180
+відрізок 0: задано 81, досягнуто 80.7 ±0.5, p99 8 мс, не-2xx 0
+відрізок 1: задано 404, досягнуто 393.8 ±53.4, p99 86 мс, не-2xx 498
+відрізок 2: задано 81, досягнуто 79.8 ±3.2, p99 17 мс, не-2xx 72
+  C:\Users\alink\PycharmProjects\HPC\results\lab3\v5\profile_hpa.json, C:\Users\alink\PycharmProjects\HPC\results\lab3\v5\profile_hpa.csv, C:\Users\alink\PycharmProjects\HPC\results\lab3\v5\profile_hpa_prom.json
+$ kubectl --context kind-hpc delete hpa web -n donors --ignore-not-found
+hpa exit 0

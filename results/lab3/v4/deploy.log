@@ -1,0 +1,244 @@
+Deleting cluster "hpc" ...
+Deleted nodes: ["hpc-worker" "hpc-control-plane" "hpc-worker2"]
+??????? hpc ???????? ????? ?? ??????
+k8s_down exit 0
+== ??????? ??????? hpc
+Creating cluster "hpc" ...
+ • Ensuring node image (kindest/node:v1.37.0) 🖼️  ...
+ ✓ Ensuring node image (kindest/node:v1.37.0) 🖼️
+ • Preparing nodes 📦 📦 📦   ...
+ ✓ Preparing nodes 📦 📦 📦 
+ • Writing configuration 📜  ...
+ ✓ Writing configuration 📜
+ • Starting control-plane 🕹️  ...
+ ✓ Starting control-plane 🕹️
+ • Installing CNI 🔌  ...
+ ✓ Installing CNI 🔌
+ • Installing StorageClass 💾  ...
+ ✓ Installing StorageClass 💾
+ • Joining worker nodes 🚜  ...
+ ✓ Joining worker nodes 🚜
+Set kubectl context to "kind-hpc"
+You can now use your cluster with:
+System.Management.Automation.RemoteException
+kubectl cluster-info --context kind-hpc
+System.Management.Automation.RemoteException
+Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
+node/hpc-control-plane labeled
+== ?????? ????? donor-registry:lab3
+#0 building with "desktop-linux" instance using docker driver
+System.Management.Automation.RemoteException
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 838B 0.1s done
+#1 DONE 0.1s
+System.Management.Automation.RemoteException
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 3.1s
+System.Management.Automation.RemoteException
+#3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.1s done
+#3 CACHED
+System.Management.Automation.RemoteException
+#4 [internal] load metadata for docker.io/library/python:3.12-slim
+#4 DONE 1.0s
+System.Management.Automation.RemoteException
+#5 [internal] load .dockerignore
+#5 transferring context: 166B 0.0s done
+#5 DONE 0.0s
+System.Management.Automation.RemoteException
+#6 [builder 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#6 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.1s done
+#6 DONE 0.1s
+System.Management.Automation.RemoteException
+#7 [internal] load build context
+#7 transferring context: 16.96kB 0.1s done
+#7 DONE 0.1s
+System.Management.Automation.RemoteException
+#8 [stage-1 4/5] WORKDIR /srv
+#8 CACHED
+System.Management.Automation.RemoteException
+#9 [stage-1 2/5] RUN useradd --system --uid 10001 --no-create-home app
+#9 CACHED
+System.Management.Automation.RemoteException
+#10 [builder 2/4] RUN python -m venv /opt/venv
+#10 CACHED
+System.Management.Automation.RemoteException
+#11 [stage-1 3/5] COPY --from=builder /opt/venv /opt/venv
+#11 CACHED
+System.Management.Automation.RemoteException
+#12 [builder 3/4] COPY requirements.txt .
+#12 CACHED
+System.Management.Automation.RemoteException
+#13 [builder 4/4] RUN /opt/venv/bin/pip install -r requirements.txt
+#13 CACHED
+System.Management.Automation.RemoteException
+#14 [stage-1 5/5] COPY app ./app
+#14 CACHED
+System.Management.Automation.RemoteException
+#15 exporting to image
+#15 exporting layers done
+#15 exporting manifest sha256:b9960138979006486b1e001dfc9ad571cd98e1d1e2ec0f0ed56f4f291f97f650 done
+#15 exporting config sha256:e2bbfa85bce4436fde6e2d545d3e8d1c5f69120d5d7eaea22749c5b57a28e51c done
+#15 exporting attestation manifest sha256:ef872a6a4e5eece23d425f928942025b83850a3f45493052f01c6b3dbd78afdb 0.1s done
+#15 exporting manifest list sha256:eda12c22a0a5ec08e262bd80a1f53f1904bed8a727e3e3fd5b7ac6cc88e53f0e 0.0s done
+#15 naming to docker.io/library/donor-registry:lab3 done
+#15 unpacking to docker.io/library/donor-registry:lab3 0.0s done
+#15 DONE 0.2s
+Image: "donor-registry:lab3" with ID "sha256:eda12c22a0a5ec08e262bd80a1f53f1904bed8a727e3e3fd5b7ac6cc88e53f0e" not yet present on node "hpc-worker", loading...
+Image: "donor-registry:lab3" with ID "sha256:eda12c22a0a5ec08e262bd80a1f53f1904bed8a727e3e3fd5b7ac6cc88e53f0e" not yet present on node "hpc-control-plane", loading...
+Image: "donor-registry:lab3" with ID "sha256:eda12c22a0a5ec08e262bd80a1f53f1904bed8a727e3e3fd5b7ac6cc88e53f0e" not yet present on node "hpc-worker2", loading...
+== ?????? ????? donor-worker:lab4
+#0 building with "desktop-linux" instance using docker driver
+System.Management.Automation.RemoteException
+#1 [internal] load build definition from Dockerfile.worker
+#1 transferring dockerfile: 961B 0.0s done
+#1 DONE 0.1s
+System.Management.Automation.RemoteException
+#2 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#2 DONE 0.7s
+System.Management.Automation.RemoteException
+#3 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#3 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e 0.1s done
+#3 CACHED
+System.Management.Automation.RemoteException
+#4 [internal] load metadata for docker.io/library/python:3.12-slim
+#4 DONE 0.6s
+System.Management.Automation.RemoteException
+#5 [internal] load .dockerignore
+#5 transferring context: 166B done
+#5 DONE 0.0s
+System.Management.Automation.RemoteException
+#6 [internal] load build context
+#6 transferring context: 35.59kB 0.1s done
+#6 DONE 0.3s
+System.Management.Automation.RemoteException
+#7 [builder 1/4] FROM docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#7 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#7 resolve docker.io/library/python:3.12-slim@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.3s done
+#7 DONE 0.4s
+System.Management.Automation.RemoteException
+#8 [stage-1 2/5] RUN useradd --system --uid 10002 --no-create-home worker
+#8 CACHED
+System.Management.Automation.RemoteException
+#9 [builder 2/4] RUN python -m venv /opt/venv
+#9 CACHED
+System.Management.Automation.RemoteException
+#10 [builder 4/4] RUN /opt/venv/bin/pip install -r requirements-worker.txt
+#10 CACHED
+System.Management.Automation.RemoteException
+#11 [stage-1 4/5] WORKDIR /srv
+#11 CACHED
+System.Management.Automation.RemoteException
+#12 [builder 3/4] COPY requirements-worker.txt .
+#12 CACHED
+System.Management.Automation.RemoteException
+#13 [stage-1 3/5] COPY --from=builder /opt/venv /opt/venv
+#13 CACHED
+System.Management.Automation.RemoteException
+#14 [stage-1 5/5] COPY worker ./worker
+#14 CACHED
+System.Management.Automation.RemoteException
+#15 exporting to image
+#15 exporting layers done
+#15 exporting manifest sha256:54ed1b5ec08919dd852de336cb38d75f5a6d362aa6042d5ccabf658d746362a6 done
+#15 exporting config sha256:cb144e99fd4d2b3392b2a875b3e3fda0e0ab989c0058b427d4459eaee17da705 done
+#15 exporting attestation manifest sha256:ca4f648850aa6a5a98be474ab858979d1dc7680a30647adffee3b6a1eab95f6d 0.1s done
+#15 exporting manifest list sha256:3a97c5b6b28126ee7f4571670c8b50e5e5e1ca1ee1ea6f62606a06e995fffbf3
+#15 exporting manifest list sha256:3a97c5b6b28126ee7f4571670c8b50e5e5e1ca1ee1ea6f62606a06e995fffbf3 0.0s done
+#15 naming to docker.io/library/donor-worker:lab4 done
+#15 unpacking to docker.io/library/donor-worker:lab4 0.0s done
+#15 DONE 0.3s
+Image: "donor-worker:lab4" with ID "sha256:3a97c5b6b28126ee7f4571670c8b50e5e5e1ca1ee1ea6f62606a06e995fffbf3" not yet present on node "hpc-worker", loading...
+Image: "donor-worker:lab4" with ID "sha256:3a97c5b6b28126ee7f4571670c8b50e5e5e1ca1ee1ea6f62606a06e995fffbf3" not yet present on node "hpc-control-plane", loading...
+Image: "donor-worker:lab4" with ID "sha256:3a97c5b6b28126ee7f4571670c8b50e5e5e1ca1ee1ea6f62606a06e995fffbf3" not yet present on node "hpc-worker2", loading...
+namespace/donors created
+secret/db-secret created
+configmap/db-schema created
+configmap/db-schema-lab4 created
+namespace/donors unchanged
+service/db created
+statefulset.apps/db created
+job.batch/db-migrate created
+job.batch/db-migrate-lab4 created
+configmap/web-config created
+deployment.apps/web created
+service/web created
+configmap/worker-config created
+deployment.apps/worker created
+== ????? ???? ? ????????
+Waiting for 1 pods to be ready...
+partitioned roll out complete: 1 new pods have been updated...
+job.batch/db-migrate condition met
+job.batch/db-migrate-lab4 condition met
+Waiting for deployment "web" rollout to finish: 0 of 1 updated replicas are available...
+deployment "web" successfully rolled out
+== metrics-server
+serviceaccount/metrics-server created
+clusterrole.rbac.authorization.k8s.io/system:aggregated-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/system:metrics-server created
+rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader created
+clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator created
+clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server created
+service/metrics-server created
+deployment.apps/metrics-server created
+apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io created
+deployment.apps/metrics-server patched
+Waiting for deployment "metrics-server" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "metrics-server" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "metrics-server" rollout to finish: 1 old replicas are pending termination...
+deployment "metrics-server" successfully rolled out
+== kube-prometheus-stack ? postgres-exporter
+Release "monitoring" does not exist. Installing it now.
+NAME: monitoring
+LAST DEPLOYED: Thu Nov 19 20:17:02 2026
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+NOTES:
+kube-prometheus-stack has been installed. Check its status by running:
+  kubectl --namespace monitoring get pods -l "release=monitoring"
+
+Get Grafana 'admin' user password by running:
+
+  kubectl --namespace monitoring get secrets monitoring-grafana -o jsonpath="{.data.admin-password}" | base64 -d ; echo
+
+Access Grafana local instance:
+
+  export POD_NAME=$(kubectl --namespace monitoring get pod -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=monitoring" -oname)
+  kubectl --namespace monitoring port-forward $POD_NAME 3000
+
+Get your grafana admin user password by running:
+
+  kubectl get secret --namespace monitoring -l app.kubernetes.io/component=admin-secret -o jsonpath="{.items[0].data.admin-password}" | base64 --decode ; echo
+
+
+Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.
+Release "pg-exporter" does not exist. Installing it now.
+NAME: pg-exporter
+LAST DEPLOYED: Thu Nov 19 20:22:49 2026
+NAMESPACE: donors
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
+NOTES:
+1. Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace donors -l "app.kubernetes.io/name=prometheus-postgres-exporter,app.kubernetes.io/instance=pg-exporter" -o jsonpath="{.items[0].metadata.name}")
+  echo "Visit http://127.0.0.1:8080 to use your application"
+  kubectl port-forward $POD_NAME 8080:9187 --namespace donors
+podmonitor.monitoring.coreos.com/web created
+podmonitor.monitoring.coreos.com/worker created
+
+????? ???????:
+  ??????     http://127.0.0.1:8080/donor-registry
+  Prometheus http://127.0.0.1:9090
+NAME                                                        READY   STATUS      RESTARTS   AGE    IP            NODE                NOMINATED NODE   READINESS GATES
+db-0                                                        1/1     Running     0          9m6s   10.244.0.8    hpc-control-plane   <none>           <none>
+db-migrate-lab4-c5xxf                                       0/1     Completed   0          9m6s   10.244.0.6    hpc-control-plane   <none>           <none>
+db-migrate-wkxgw                                            0/1     Completed   0          9m6s   10.244.0.5    hpc-control-plane   <none>           <none>
+pg-exporter-prometheus-postgres-exporter-796c7cc5c4-xff45   1/1     Running     0          44s    10.244.0.12   hpc-control-plane   <none>           <none>
+web-66fdc54dcf-wzpdp                                        1/1     Running     0          9m6s   10.244.2.2    hpc-worker          <none>           <none>
+worker-cbb44d866-h8rsc                                      1/1     Running     0          9m6s   10.244.1.2    hpc-worker2         <none>           <none>
+k8s_up exit 0

@@ -20,6 +20,7 @@ if str(sys_path) not in _sys.path:
     _sys.path.insert(0, str(sys_path))
 
 from loadgen.usl import fit, model  # noqa: E402
+from scripts.lab3_tables import x_definition  # noqa: E402
 
 ROOT = sys_path
 K8S = ROOT / "results" / "lab3"
@@ -93,9 +94,12 @@ def chart_cn(runs, compose):
                 label=f"Compose: σ = {f_c['sigma']:.3f}, κ = {f_c['kappa']:.4f}")
 
     ax.plot(xs, xs, color="#999999", linestyle=":", label="ідеальне масштабування")
-    if f_k.get("N_star"):
+    if f_k.get("N_star") and f_k["N_star"] <= 6.0:
         ax.axvline(f_k["N_star"], color="#4c72b0", linestyle="-.", alpha=0.6)
         ax.text(f_k["N_star"] + 0.05, 0.4, f"N* = {f_k['N_star']:.2f}",
+                color="#4c72b0", fontsize=9)
+    elif f_k.get("N_star"):
+        ax.text(4.3, 0.4, f"Kubernetes: N* = {f_k['N_star']:.1f}, поза віссю",
                 color="#4c72b0", fontsize=9)
     ax.set_title("Відносна пропускна здатність C(N) = X(N) / X(1)")
     ax.set_xlabel("кількість реплік N")
@@ -228,6 +232,11 @@ def chart_elasticity():
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     runs = {n: load(K8S, n) for n in REPLICAS}
+    # X(N) за визначенням ЛР2 (найбільша серед сходинок середня досягнута), як у
+    # таблицях кроків 7-9; у Compose (ЛР2) X уже за цим визначенням
+    for n in REPLICAS:
+        d = x_definition(runs[n])
+        runs[n]["X"], runs[n]["X_sd"], runs[n]["X_step"] = d["X"], d["sd"], d["step"]
     compose = ({n: load(COMPOSE, n) for n in REPLICAS}
                if (COMPOSE / "N1.json").exists() else None)
     chart_pods(runs)

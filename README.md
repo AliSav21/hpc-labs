@@ -63,7 +63,7 @@ Docker Compose, а з ЛР3 — Kubernetes (kind), kube-prometheus-stack і Hori
 
 | Шлях | Навіщо |
 |---|---|
-| `kind-cluster.yaml` | кластер з трьох вузлів і перенаправлення портів на `127.0.0.1:18080` та `:19090` |
+| `kind-cluster.yaml` | кластер з трьох вузлів і перенаправлення портів на `127.0.0.1:8080` та `:9090` (порти з умови ЛР3) |
 | `base/` | namespace, база (StatefulSet з PVC, headless Service, Job міграції), сервіс web (Deployment, NodePort, ConfigMap) |
 | `hpa/web-hpa.yaml` | HorizontalPodAutoscaler: CPU 50 %, 1–4 репліки, вікно зменшення 30 с |
 | `monitoring/` | values для kube-prometheus-stack і postgres-exporter, PodMonitor для подів web |
@@ -248,7 +248,7 @@ powershell -File scripts\lab3_selfcheck.ps1
 ```
 
 ```powershell
-.\.venv\Scripts\python.exe -m loadgen.run_elastic --mode hpa --x1 240.7 --xr 377.1
+.\.venv\Scripts\python.exe -m loadgen.run_elastic --mode hpa --x1 269.15 --xr 472.95
 ```
 
 ```powershell
@@ -329,6 +329,10 @@ docker compose down -v
 ```bash
 netstat -ano | findstr :18080
 ```
+
+Це стосується стенду Compose (ЛР1, ЛР2). Кластер kind (ЛР3, ЛР4) створюється з портами хоста
+8080 і 9090 з умови ЛР3; на машині, де робилась робота, 8080 тримає служба NI Application Web
+Server, і її треба зупинити перед створенням кластера ([RUN-LAB3.md](RUN-LAB3.md), розділ 0).
 
 ## Застереження до чисел
 

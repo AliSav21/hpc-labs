@@ -1,0 +1,100 @@
+{
+  "label": "fixed, R=4",
+  "base": "http://127.0.0.1:8080",
+  "path": "/donor-registry/{id}",
+  "procs": 4,
+  "segments": [
+    {
+      "duration_s": 30.0,
+      "target_rps": 80.74499999999999
+    },
+    {
+      "duration_s": 60.0,
+      "target_rps": 403.72499999999997
+    },
+    {
+      "duration_s": 90.0,
+      "target_rps": 80.74499999999999
+    }
+  ],
+  "connections": {
+    "total": 1500,
+    "per_proc": [
+      375,
+      375,
+      375,
+      375
+    ],
+    "req_per_conn": 0,
+    "opened": 214,
+    "recycled": 0
+  },
+  "timeout_s": 5.0,
+  "segment_stats": [
+    {
+      "segment": 0,
+      "window_s": [
+        0.0,
+        30.0
+      ],
+      "target_rps": 80.74499999999999,
+      "achieved_rps": 80.75,
+      "achieved_sd": 0.8506963092234007,
+      "p99_ms_mean": 14.514099392195888,
+      "p99_ms_max": 62.87274074766627,
+      "non2xx": 0,
+      "non2xx_share": 0.0
+    },
+    {
+      "segment": 1,
+      "window_s": [
+        30.0,
+        90.0
+      ],
+      "target_rps": 403.72499999999997,
+      "achieved_rps": 400.12,
+      "achieved_sd": 21.882468987287332,
+      "p99_ms_mean": 55.1955963870134,
+      "p99_ms_max": 919.239922957594,
+      "non2xx": 181,
+      "non2xx_share": 0.008966166344677267
+    },
+    {
+      "segment": 2,
+      "window_s": [
+        90.0,
+        180.0
+      ],
+      "target_rps": 80.74499999999999,
+      "achieved_rps": 80.725,
+      "achieved_sd": 0.7626569147527957,
+      "p99_ms_mean": 10.744283256360557,
+      "p99_ms_max": 51.13616228234722,
+      "non2xx": 1,
+      "non2xx_share": 0.00015482272797646694
+    }
+  ],
+  "non2xx_total": 186,
+  "connerr_total": 186,
+  "start_wall": 1795114022.1207294,
+  "started_at": "2026-11-19T20:47:02",
+  "mode": "fixed",
+  "replicas_fixed": 4,
+  "x1": 269.15,
+  "xr": 472.95,
+  "spike_rps": 403.72499999999997,
+  "pods_at_start": [
+    "web-66fdc54dcf-65h2x",
+    "web-66fdc54dcf-cvjxw",
+    "web-66fdc54dcf-qjb9v",
+    "web-66fdc54dcf-wzpdp"
+  ],
+  "conditions": {
+    "ac_power": true,
+    "battery_percent": 99,
+    "battery_saver": false,
+    "timer_resolution_ms": 1.0,
+    "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+    "background_cpu_percent": 11.1
+  }
+}

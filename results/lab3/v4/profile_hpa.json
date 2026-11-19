@@ -1,0 +1,87 @@
+{
+  "label": "hpa, R=4",
+  "base": "http://127.0.0.1:8080",
+  "path": "/donor-registry/{id}",
+  "procs": 4,
+  "segments": [
+    {
+      "duration_s": 30.0,
+      "target_rps": 80.74499999999999
+    },
+    {
+      "duration_s": 60.0,
+      "target_rps": 403.72499999999997
+    },
+    {
+      "duration_s": 90.0,
+      "target_rps": 80.74499999999999
+    }
+  ],
+  "connections": {
+    "total": 1500,
+    "per_proc": [
+      375,
+      375,
+      375,
+      375
+    ],
+    "req_per_conn": 0,
+    "opened": 15430,
+    "recycled": 0
+  },
+  "timeout_s": 5.0,
+  "segment_stats": [
+    {
+      "segment": 0,
+      "window_s": [
+        0.0,
+        30.0
+      ],
+      "target_rps": 80.74499999999999,
+      "achieved_rps": 80.15,
+      "achieved_sd": 1.8994459025837258,
+      "p99_ms_mean": 72.22406063025184,
+      "p99_ms_max": 148.60657730842493,
+      "non2xx": 13,
+      "non2xx_share": 0.008044554455445545
+    },
+    {
+      "segment": 1,
+      "window_s": [
+        30.0,
+        90.0
+      ],
+      "target_rps": 403.72499999999997,
+      "achieved_rps": 22.2,
+      "achieved_sd": 55.28479142825182,
+      "p99_ms_mean": 5541.677826081384,
+      "p99_ms_max": 8725.589675810948,
+      "non2xx": 19015,
+      "non2xx_share": 0.9448447204968944
+    },
+    {
+      "segment": 2,
+      "window_s": [
+        90.0,
+        180.0
+      ],
+      "target_rps": 80.74499999999999,
+      "achieved_rps": 58.1875,
+      "achieved_sd": 27.992808185792693,
+      "p99_ms_mean": 84.22701287468777,
+      "p99_ms_max": 399.15486419132696,
+      "non2xx": 1806,
+      "non2xx_share": 0.27952329360780065
+    }
+  ],
+  "non2xx_total": 24074,
+  "connerr_total": 6780,
+  "start_wall": 1795113079.9799073,
+  "started_at": "2026-11-19T20:31:19",
+  "mode": "hpa",
+  "replicas_fixed": null,
+  "x1": 269.15,
+  "xr": 472.95,
+  "spike_rps": 403.72499999999997,
+  "pods_at_start": []
+}

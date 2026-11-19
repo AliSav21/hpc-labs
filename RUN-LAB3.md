@@ -34,14 +34,44 @@ powershell -File scripts\k8s_up.ps1
 ```
 
 Скрипт: створює кластер за [k8s/kind-cluster.yaml](k8s/kind-cluster.yaml) з перенаправленням
-`30080 -> localhost:18080` і `30090 -> localhost:19090`, ставить на control-plane мітку
+`30080 -> localhost:8080` і `30090 -> localhost:9090`, ставить на control-plane мітку
 `role=infra`, збирає образ `donor-registry:lab3` і завантажує його в кластер, створює Secret
 `db-secret` з `.env` і ConfigMap `db-schema` з [db/schema.sql](db/schema.sql), застосовує
 [k8s/base](k8s/base), чекає базу, Job міграції і под web, потім ставить metrics-server
 (з `--kubelet-insecure-tls`), `kube-prometheus-stack`, `prometheus-postgres-exporter` і PodMonitor.
 
-Порти хоста — **18080** (сервіс) і **19090** (Prometheus): 8080 на цій машині зайнятий
-стороннім процесом `ApplicationWebServer`, і kind на ньому не стартує.
+Порти хоста — **8080** (сервіс) і **9090** (Prometheus), як вимагає умова. Опубліковані
+вимірювання в `results/lab3/` зняті, коли кластер ще був створений із портами 18080 і 19090;
+на шлях запиту всередині кластера (NodePort 30080, kube-proxy, поди) номер порту хоста не
+впливає.
+
+### 0. Звільнити порт 8080
+
+Порт 8080 на машині, де робилась робота, тримає служба Windows **NI Application Web Server**
+(`NIApplicationWebServer`, програма `ApplicationWebServer.exe` від National Instruments, запуск
+автоматичний). Поки вона працює, `kind create cluster` падає з `ports are not available ...
+bind`. Перед створенням кластера її треба зупинити від імені адміністратора, а щоб вона не
+займала порт після перезавантаження — перевести на ручний запуск:
+
+```powershell
+Stop-Service NIApplicationWebServer
+```
+
+```powershell
+Set-Service NIApplicationWebServer -StartupType Manual
+```
+
+Повернути, коли кластер не потрібен:
+
+```powershell
+Set-Service NIApplicationWebServer -StartupType Automatic; Start-Service NIApplicationWebServer
+```
+
+Перевірити, що 8080 і 9090 вільні (порожній вивід):
+
+```powershell
+Get-NetTCPConnection -LocalPort 8080,9090 -State Listen -ErrorAction SilentlyContinue
+```
 
 Повне видалення кластера:
 
@@ -88,11 +118,11 @@ kubectl get configmap web-config -n donors -o yaml
 
 ```powershell
 $body = '{"donor_code":"K8S-1","birth_year":1990,"blood_group":"O+","hla_typing":["A1"],"registered_on":"2026-01-01","available":true}'
-$r = Invoke-WebRequest -Uri http://127.0.0.1:18080/donor-registry -Method Post -ContentType application/json -Body $body
+$r = Invoke-WebRequest -Uri http://127.0.0.1:8080/donor-registry -Method Post -ContentType application/json -Body $body
 $r.Headers["X-Pod"]; $id = ($r.Content | ConvertFrom-Json).id
-(Invoke-WebRequest "http://127.0.0.1:18080/donor-registry/$id").Headers["X-Pod"]
-Invoke-WebRequest "http://127.0.0.1:18080/donor-registry/$id" -Method Put -ContentType application/json -Body ($body -replace '"available":true','"available":false')
-Invoke-WebRequest "http://127.0.0.1:18080/donor-registry/$id" -Method Delete
+(Invoke-WebRequest "http://127.0.0.1:8080/donor-registry/$id").Headers["X-Pod"]
+Invoke-WebRequest "http://127.0.0.1:8080/donor-registry/$id" -Method Put -ContentType application/json -Body ($body -replace '"available":true','"available":false')
+Invoke-WebRequest "http://127.0.0.1:8080/donor-registry/$id" -Method Delete
 ```
 
 Поля пода, Д1 і коректна зупинка. Поле `replicas` перевіряється саме в маніфесті: `kubectl get`
@@ -111,7 +141,7 @@ kubectl top pods -n donors
 kubectl get podmonitor,servicemonitor -A
 ```
 
-Prometheus на http://127.0.0.1:19090 — перевірити, що є ряди:
+Prometheus на http://127.0.0.1:9090 — перевірити, що є ряди:
 
 | Запит | Що показує |
 |---|---|
@@ -150,7 +180,7 @@ kubectl delete hpa web -n donors --ignore-not-found
 Межу стенду без бази (крок 7, контроль обмеження генератором) можна перезняти так:
 
 ```powershell
-.\.venv\Scripts\python.exe -m loadgen.step --path /livez --out results/lab3/ladder_livez --max-steps 8
+.\.venv\Scripts\python.exe -m loadgen.step --base http://127.0.0.1:8080 --path /livez --out results/lab3/ladder_livez --max-steps 8
 ```
 
 > У Git Bash шлях у `--path` треба брати в лапки і ставити `MSYS_NO_PATHCONV=1`, інакше `/livez`
@@ -158,11 +188,15 @@ kubectl delete hpa web -n donors --ignore-not-found
 
 ## 6. Прогони за профілем (кроки 10 і 11)
 
-X(1) і X(R) беруться з результатів кроку 7; рівні профілю скрипт рахує сам.
+X(1) і X(R) беруться з результатів кроку 7 за визначенням (найбільша серед сходинок середня
+досягнута, `results/lab3/tables.md`); рівні профілю скрипт рахує сам: база 0,3·X(1) ≈ 81 rps,
+стрибок min(1,5·X(1), 0,9·X(R)) ≈ 404 rps. Опубліковані прогони `profile_fixed` і `profile_hpa`
+зняті раніше з `--x1 240.7 --xr 377.1` (власне правило), тобто з рівнями 72 і 339 rps — див.
+розділ «Кроки 10 і 11. Прогони за профілем» звіту.
 
 ```powershell
-.\.venv\Scripts\python.exe -m loadgen.run_elastic --mode fixed --replicas 4 --x1 240.7 --xr 377.1
-.\.venv\Scripts\python.exe -m loadgen.run_elastic --mode hpa --x1 240.7 --xr 377.1
+.\.venv\Scripts\python.exe -m loadgen.run_elastic --mode fixed --replicas 4 --x1 269.15 --xr 472.95
+.\.venv\Scripts\python.exe -m loadgen.run_elastic --mode hpa --x1 269.15 --xr 472.95
 ```
 
 Режим `fixed` знімає HPA і фіксує 4 репліки, режим `hpa` масштабує до однієї репліки, застосовує

@@ -21,6 +21,18 @@ def default_url():
     return "http://127.0.0.1:" + port
 
 
+def k8s_url():
+    """Адреса Prometheus у кластері kind (ЛР3, ЛР4): порт хоста 9090 з умови, у .env —
+    K8S_PROM_PORT. Окремо від PROM_PORT стенду Compose (ЛР1, ЛР2)."""
+    env = Path(__file__).resolve().parent.parent / ".env"
+    port = "9090"
+    if env.exists():
+        for line in env.read_text(encoding="utf-8").splitlines():
+            if line.startswith("K8S_PROM_PORT="):
+                port = line.split("=", 1)[1].strip()
+    return "http://127.0.0.1:" + port
+
+
 def api(url, path, **params):
     q = urllib.parse.urlencode(params)
     with urllib.request.urlopen(f"{url}/api/v1/{path}?{q}", timeout=TIMEOUT) as r:

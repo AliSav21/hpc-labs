@@ -138,8 +138,10 @@ def fmt(v, digits=2, dash="не досягнуто"):
 
 
 def main():
-    x_by_n = {int(k): v for k, v in
-              json.load(io.open(K8S / "usl.json", encoding="utf-8"))["k8s"]["X"].items()}
+    usl = json.load(io.open(K8S / "usl.json", encoding="utf-8"))
+    # X(N) за визначенням (основне) і за власним правилом (окремо), див. lab3_tables.py
+    x_by_n = {int(k): v for k, v in usl["k8s"]["X"].items()}
+    x_held = {int(k): v for k, v in usl.get("k8s_held", usl["k8s"])["X"].items()}
 
     fixed, f_rows, f_series = load_run("profile_fixed")
     hpa, h_rows, h_series = load_run("profile_hpa")
@@ -156,7 +158,13 @@ def main():
     h_s = series_at(h_series, "replicas_ready", hpa["start_wall"], total, "max")
     f_m = elasticity(f_rows[:total], f_s, x_by_n, threshold)
     h_m = elasticity(h_rows[:total], h_s, x_by_n, threshold)
-    timings = hpa_timings(hpa, h_rows, h_series, spike_begin, spike_end, p99_spike_fixed)
+    f_mh = elasticity(f_rows[:total], f_s, x_held, threshold)
+    h_mh = elasticity(h_rows[:total], h_s, x_held, threshold)
+    base_z = fixed["segments"][0]["target_rps"]
+    spike_z = fixed["segments"][1]["target_rps"]
+    level_def = min(1.5 * x_by_n[1], 0.9 * x_by_n[R])
+    level_held = min(1.5 * x_held[1], 0.9 * x_held[R])
+    timings =hpa_timings(hpa, h_rows, h_series, spike_begin, spike_end, p99_spike_fixed)
 
     out = []
     w = out.append
@@ -165,13 +173,19 @@ def main():
       f"{fixed['segments'][0]['target_rps']:.0f} rps (0,3·X(1)), "
       f"{int(fixed['segments'][1]['duration_s'])} с на "
       f"{fixed['segments'][1]['target_rps']:.0f} rps "
-      f"(стрибок = min(1,5·X(1), 0,9·X(4))), "
+      f"(стрибок = min(1,5·X(1), 0,9·X(4)) за власним правилом X(N), чинним на момент "
+      f"прогонів: {level_held:.0f} rps), "
       f"{int(fixed['segments'][2]['duration_s'])} с на "
       f"{fixed['segments'][2]['target_rps']:.0f} rps. T = {total} с.\n")
-    w(f"Потрібна кількість реплік d(t) за X(N) серії кроку 7: "
+    w(f"За X(N) за визначенням рівні профілю були б: база 0,3·X(1) = "
+      f"{0.3 * x_by_n[1]:.0f} rps, стрибок min(1,5·X(1), 0,9·X(4)) = {level_def:.0f} rps. "
+      f"Прогонів із цими рівнями немає.\n")
+    w(f"Потрібна кількість реплік d(t) за X(N) серії кроку 7 за визначенням: "
       + ", ".join(f"X({n}) = {x_by_n[n]:.0f}" for n in sorted(x_by_n))
-      + f". На базовому рівні d = {demand(fixed['segments'][0]['target_rps'], x_by_n)}, "
-      f"на стрибку d = {demand(fixed['segments'][1]['target_rps'], x_by_n)}.\n")
+      + f". На базовому рівні d = {demand(base_z, x_by_n)}, "
+      f"на стрибку d = {demand(spike_z, x_by_n)}. За власним правилом: "
+      + ", ".join(f"X({n}) = {x_held[n]:.0f}" for n in sorted(x_held))
+      + f"; d = {demand(base_z, x_held)} і {demand(spike_z, x_held)}.\n")
     w(f"Поріг порушення: 2·p99₀ = {threshold:.0f} мс, де p99₀ = {p99_0:.0f} мс — p99 клієнта")
     w("на першому відрізку прогону без автомасштабування.\n")
 
@@ -197,6 +211,15 @@ def main():
       f"| {f_m['threshold_violation_s']} | {h_m['threshold_violation_s']} |")
     w(f"| Відповідей не 2xx | {f_m['non2xx']} | {h_m['non2xx']} |")
     w("")
+    w("Ті самі метрики, якщо d(t) рахувати за власним правилом X(N) "
+      "(W, порушення порога і не-2xx від d(t) не залежать):\n")
+    w("| Метрика | Фіксовані R = 4 | HPA |")
+    w("|---|---|---|")
+    w(f"| θ_U | {f_mh['theta_U']:.3f} | {h_mh['theta_U']:.3f} |")
+    w(f"| θ_O | {f_mh['theta_O']:.3f} | {h_mh['theta_O']:.3f} |")
+    w(f"| a_U | {f_mh['a_U']:.3f} | {h_mh['a_U']:.3f} |")
+    w(f"| a_O | {f_mh['a_O']:.3f} | {h_mh['a_O']:.3f} |")
+    w("")
 
     w("## Крок 11. Часові показники HPA\n")
     w("| Показник | Значення, с |")
@@ -217,7 +240,8 @@ def main():
     (K8S / "elasticity.json").write_text(json.dumps(
         {"threshold_ms": threshold, "p99_0_ms": p99_0,
          "p99_spike_fixed_ms": p99_spike_fixed,
-         "fixed": f_m, "hpa": h_m, "timings": timings,
+         "fixed": f_m, "hpa": h_m, "fixed_held": f_mh, "hpa_held": h_mh,
+         "level_def_rps": level_def, "level_held_rps": level_held, "timings": timings,
          "s_fixed": f_s, "s_hpa": h_s}, indent=2, ensure_ascii=False), encoding="utf-8")
     print(path)
     print(K8S / "elasticity.json")

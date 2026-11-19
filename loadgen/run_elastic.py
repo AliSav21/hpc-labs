@@ -9,9 +9,9 @@ import time
 from pathlib import Path
 
 from loadgen import profile, prom, step as step_mod
-from loadgen.run_k8s import CTX, NS, SEL, WEB, kubectl, scale, wait_ready
+from loadgen.run_k8s import CTX, NS, SEL, WEB, check_conditions, kubectl, scale, wait_ready
 from loadgen.seed import ensure_ids
-from loadgen.step import default_base
+from loadgen.step import k8s_base
 
 ROOT = Path(__file__).resolve().parent.parent
 HPA_FILE = "k8s/hpa/web-hpa.yaml"
@@ -79,12 +79,19 @@ def main():
     ap.add_argument("--procs", type=int, default=None)
     ap.add_argument("--base", default=None)
     ap.add_argument("--prom", default=None)
+    ap.add_argument("--max-bg", type=float, default=35.0,
+                    help="поріг завантаження CPU хоста перед прогоном, %% (кластер теж входить)")
+    ap.add_argument("--allow-battery", action="store_true")
     a = ap.parse_args()
+
+    # Умови прогону: на батареї або при зайнятому сторонніми програмами процесорі прогін
+    # не показує стенд (спроба 19.11.2026 у results/lab3/v4/ — саме такий випадок).
+    cond = check_conditions(a.max_bg, a.allow_battery)
 
     # той самий клієнт, що й у серії кроку 7: 32 зʼєднання по 100 запитів
     step_mod.configure(conns=32, req_per_conn=100)
-    base = a.base or default_base()
-    url = a.prom or prom.default_url()
+    base = a.base or k8s_base()
+    url = a.prom or prom.k8s_url()
     name = a.name or ("profile_fixed" if a.mode == "fixed" else "profile_hpa")
     out = ROOT / a.out_dir / name
     segments = profile.build_profile(a.x1, a.xr, a.spike_factor)
@@ -117,6 +124,7 @@ def main():
     summary["xr"] = a.xr
     summary["spike_rps"] = segments[1][1]
     summary["pods_at_start"] = pods
+    summary["conditions"] = cond
     Path(f"{out}.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False),
                                    encoding="utf-8")
 

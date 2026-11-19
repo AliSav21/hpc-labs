@@ -7,13 +7,15 @@ nodes:
   - role: control-plane
     # NodePort доступний на кожному вузлі кластера, тому перенаправлення портів
     # достатньо зробити на control-plane, хоча поди web працюють на worker-вузлах.
+    # Порти хоста 8080 і 9090 з умови. 8080 має бути вільним: на машині, де робилась
+    # робота, його тримає служба NI Application Web Server (RUN-LAB3.md, розділ 0).
     extraPortMappings:
       - containerPort: 30080   # Service web
-        hostPort: 18080
+        hostPort: 8080
         listenAddress: "127.0.0.1"
         protocol: TCP
       - containerPort: 30090   # Prometheus
-        hostPort: 19090
+        hostPort: 9090
         listenAddress: "127.0.0.1"
         protocol: TCP
   - role: worker
