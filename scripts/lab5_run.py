@@ -1,8 +1,8 @@
 """Оркестратор ЛР5: прогони кроків 1-5 за варіантом 19 і таблиці 1-6.
 
 Кожна конфігурація знімається тричі по D = 10 с після прогріву 1 с; у таблиці йде
-медіанний прогін, вибраний за сумарною пропускною здатністю X, щоб усі числа одного
-рядка належали одному прогону, а не склеювались з різних.
+медіана трьох прогонів: кожна виміряна величина — медіана цієї величини за прогонами,
+похідні величини — за формулами умови з цих медіан (``median_view``).
 
 Запуск:  python -m scripts.lab5_run --out-dir results/lab5
 """
@@ -85,20 +85,53 @@ def repeat(fn, times, label):
     return runs
 
 
-def median_run(runs, key):
-    """Прогін із медіанним значенням key (шлях у словнику через точку)."""
-    def get(r):
-        cur = r
-        for part in key.split("."):
-            cur = cur[part]
-        return cur
+ROLE_KEYS = ("ops", "X", "x_per_thread", "p50_us", "p99_us", "wait_max_ms", "w", "cv",
+             "wait_sum_s", "mu", "sigma", "threads")
+TOTAL_KEYS = ("p50_us", "p99_us", "wait_max_ms", "w", "cv")
 
-    values = sorted(get(r) for r in runs)
-    mid = values[len(values) // 2]
-    for r in runs:
-        if get(r) == mid:
-            return r
-    return runs[0]
+
+def _med(values):
+    vals = [v for v in values if v is not None]
+    return statistics.median(vals) if vals else None
+
+
+def median_view(runs, kind):
+    """Медіана трьох прогонів за умовою: кожна величина таблиці — медіана цієї самої
+    величини за прогонами. Похідні величини рахуються з медіан за формулами умови:
+    X = X_w + X_r, φ = X_роль / X, h = p99 / p50, x = X / n_ролі, t̄_cs і 1 / t̄_cs."""
+    if kind == "cs":
+        t_w = _med(r["t_cs_w_us"] for r in runs)
+        t_r = _med(r["t_cs_r_us"] for r in runs)
+        r0 = runs[0]
+        t_bar = (r0["n_w"] * t_w + r0["n_r"] * t_r) / r0["n"]
+        return {"mode": "cs", "lock": r0["lock"], "n": r0["n"], "n_w": r0["n_w"],
+                "n_r": r0["n_r"], "t_cs_w_us": t_w, "t_cs_r_us": t_r, "t_cs_bar_us": t_bar,
+                "x_limit": 1e6 / t_bar, "samples_w": _med(r["samples_w"] for r in runs),
+                "samples_r": _med(r["samples_r"] for r in runs), "host": r0["host"]}
+    if kind == "single":
+        return {"mode": "single", "lock": runs[0]["lock"], "host": runs[0]["host"],
+                "total": {"X1": _med(r["total"]["X1"] for r in runs)}}
+    r0 = runs[0]
+    out = {k: r0[k] for k in ("mode", "lock", "n", "n_w", "n_r", "capacity", "write_mix",
+                              "host") if k in r0}
+    out["duration_s"] = _med(r["duration_s"] for r in runs)
+    for role in ("write", "read"):
+        st = {k: _med(r[role][k] for r in runs) for k in ROLE_KEYS if k in r0[role]}
+        st["h"] = st["p99_us"] / st["p50_us"] if st.get("p50_us") else None
+        st["x_per_thread"] = st["X"] / out["n_w" if role == "write" else "n_r"]
+        out[role] = st
+    x = out["write"]["X"] + out["read"]["X"]
+    tot = {k: _med(r["total"][k] for r in runs) for k in TOTAL_KEYS}
+    tot.update({"ops": out["write"]["ops"] + out["read"]["ops"], "X": x,
+                "phi_w": out["write"]["X"] / x, "phi_r": out["read"]["X"] / x})
+    out["total"] = tot
+    out["per_thread"] = [
+        {"thread": t["thread"], "role": t["role"],
+         "ops": _med(next(p["ops"] for p in r["per_thread"] if p["thread"] == t["thread"])
+                     for r in runs)}
+        for t in r0["per_thread"]]
+    out["runs"] = len(runs)
+    return out
 
 
 def run_all(out_dir, repeats, duration, warmup, n, capacity, seed, with_control):
@@ -115,8 +148,7 @@ def run_all(out_dir, repeats, duration, warmup, n, capacity, seed, with_control)
         lambda: bench.run_cs("global", n, capacity, warmup, duration),
         repeats, "t_cs")
     save("cs_runs.json", cs_runs)
-    cs = median_run(cs_runs, "t_cs_bar_us")
-    series["cs"] = {"runs": cs_runs, "median": cs}
+    series["cs"] = {"runs": cs_runs, "median": median_view(cs_runs, "cs")}
 
     for lock in ("global", "rw"):
         print(f"Крок {2 if lock == 'global' else 3}: X_1, один потік, замок {lock}")
@@ -125,7 +157,7 @@ def run_all(out_dir, repeats, duration, warmup, n, capacity, seed, with_control)
             repeats, f"X_1 {lock}")
         save(f"single_{lock}.json", runs)
         series[f"single_{lock}"] = {
-            "runs": runs, "median": median_run(runs, "total.X1")}
+            "runs": runs, "median": median_view(runs, "single")}
 
     configs = [("global", "random"), ("rw", "random"), ("rw-writer", "random")]
     if with_control:
@@ -138,7 +170,7 @@ def run_all(out_dir, repeats, duration, warmup, n, capacity, seed, with_control)
             repeats, f"{lock}/{mix}")
         save(f"threads_{lock}_{mix}.json", runs)
         series[f"threads_{lock}_{mix}"] = {
-            "runs": runs, "median": median_run(runs, "total.X")}
+            "runs": runs, "median": median_view(runs, "threads")}
 
     return series
 
@@ -329,13 +361,16 @@ def build_tables(series, n, capacity):
         for key, label in (("threads_global_pair", "глобальний"),
                            ("threads_rw_pair", "RWLock")):
             m = series[key]["median"]
+            mx = max(r["invariants"]["max_size"] for r in series[key]["runs"])
             a(f"| {label} | {num(m['write']['X'], 0)} | {num(m['read']['X'], 0)} | "
-              f"{num(m['total']['X'], 0)} | {m['invariants']['max_size']} | "
+              f"{num(m['total']['X'], 0)} | {mx} | "
               f"{num(m['write']['w'], 4)} | {num(m['read']['w'], 4)} |")
         a("")
 
     a("### Інваріанти структури після прогонів\n")
-    a("| Прогін | Розмір на кінець | Найбільший за прогін | Покладено | Вийнято | "
+    a("Стан структури — окремо по кожному з трьох прогонів конфігурації, через кому. "
+      "Лічильники охоплюють і прогрів.\n")
+    a("| Конфігурація | Розмір на кінець | Найбільший за прогін | Покладено | Вийнято | "
       "Відмов push через повноту | pop на порожньому | Інваріанти |")
     a("|---|---|---|---|---|---|---|---|")
     for key, label in (
@@ -347,11 +382,15 @@ def build_tables(series, n, capacity):
     ):
         if key not in series:
             continue
-        inv = series[key]["median"]["invariants"]
-        a(f"| {label} | {inv['size']} | {inv['max_size']} з {inv['capacity']} | "
-          f"{num(inv['pushed'], 0)} | {num(inv['popped'], 0)} | "
-          f"{num(inv['rejected_full'], 0)} | {num(inv['pops_on_empty'], 0)} | "
-          f"{'виконані' if inv['ok'] else 'ПОРУШЕНІ'} |")
+        invs = [r["invariants"] for r in series[key]["runs"]]
+
+        def col(k):
+            return ", ".join(str(i[k]) if k in ("size", "max_size") else num(i[k], 0)
+                             for i in invs)
+        ok = all(i["ok"] for i in invs)
+        a(f"| {label} | {col('size')} | {col('max_size')} з {invs[0]['capacity']} | "
+          f"{col('pushed')} | {col('popped')} | {col('rejected_full')} | "
+          f"{col('pops_on_empty')} | {'виконані в усіх трьох' if ok else 'ПОРУШЕНІ'} |")
     a("")
 
     return "\n".join(out)
@@ -388,21 +427,21 @@ def summary_numbers(series, n):
 
 
 SERIES_FILES = {
-    "cs": ("cs_runs.json", "t_cs_bar_us"),
-    "single_global": ("single_global.json", "total.X1"),
-    "single_rw": ("single_rw.json", "total.X1"),
-    "threads_global_random": ("threads_global_random.json", "total.X"),
-    "threads_rw_random": ("threads_rw_random.json", "total.X"),
-    "threads_rw-writer_random": ("threads_rw-writer_random.json", "total.X"),
-    "threads_global_pair": ("threads_global_pair.json", "total.X"),
-    "threads_rw_pair": ("threads_rw_pair.json", "total.X"),
+    "cs": ("cs_runs.json", "cs"),
+    "single_global": ("single_global.json", "single"),
+    "single_rw": ("single_rw.json", "single"),
+    "threads_global_random": ("threads_global_random.json", "threads"),
+    "threads_rw_random": ("threads_rw_random.json", "threads"),
+    "threads_rw-writer_random": ("threads_rw-writer_random.json", "threads"),
+    "threads_global_pair": ("threads_global_pair.json", "threads"),
+    "threads_rw_pair": ("threads_rw_pair.json", "threads"),
 }
 
 
 def load_series(out_dir):
     """Зібрати серії з уже знятих файлів, щоб перебудувати таблиці без прогонів."""
     series = {}
-    for key, (name, med_key) in SERIES_FILES.items():
+    for key, (name, kind) in SERIES_FILES.items():
         path = os.path.join(out_dir, name)
         if not os.path.exists(path):
             continue
@@ -410,7 +449,7 @@ def load_series(out_dir):
             runs = json.load(f)
         if not isinstance(runs, list):
             runs = [runs]
-        series[key] = {"runs": runs, "median": median_run(runs, med_key)}
+        series[key] = {"runs": runs, "median": median_view(runs, kind)}
     return series
 
 
@@ -455,8 +494,11 @@ def main(argv=None):
     tables_path = os.path.join(a.out_dir, "tables.md")
     with open(tables_path, "w", encoding="utf-8") as f:
         f.write("# Таблиці ЛР5 (варіант 19: С9, n = 6, місткість 1024)\n\n")
-        f.write("Числа кожного рядка взяті з медіанного прогону конфігурації, "
-                "вибраного за сумарною X; усі три прогони — у розділі про розкид.\n\n")
+        f.write("Кожна виміряна величина таблиць — медіана цієї величини за трьома "
+                "прогонами конфігурації, як вимагає умова. Похідні величини (X = X_w + X_r, "
+                "φ, x, h, t̄_cs, межа 1 / t̄_cs, метрики кроку 4 і відношення RW / G) "
+                "пораховані за формулами умови з цих медіан. Усі три прогони — у розділі "
+                "про розкид і у файлах прогонів.\n\n")
         f.write(tables)
     summary = summary_numbers(series, a.n)
     with open(os.path.join(a.out_dir, "summary.json"), "w", encoding="utf-8") as f:
