@@ -40,7 +40,7 @@ kubectl rollout restart deployment/web -n donors; kubectl rollout status deploym
 `loadgen/ids.json`):
 
 ```powershell
-.\.venv\Scripts\python.exe -m loadgen.seed --base http://127.0.0.1:18080
+.\.venv\Scripts\python.exe -m loadgen.seed --base http://127.0.0.1:8080
 ```
 
 ## 1a. Самоперевірка

@@ -20,13 +20,13 @@ import threading
 import time
 from pathlib import Path
 
-from loadgen import prom, tasks
+from loadgen import prom, step, tasks
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "results" / "lab4"
 NS = "donors"
 CTX = "kind-hpc"
-BASE = "http://127.0.0.1:18080"
+BASE = step.k8s_base()  # кластер kind: порт 8080 з умови (K8S_WEB_PORT у .env)
 RESOURCE = "/donor-registry"
 IDS = json.loads((ROOT / "loadgen" / "ids.json").read_text())
 
@@ -225,7 +225,7 @@ def save(name, data):
 
 # ---------------------------------------------------------------- метрики
 
-PROM = prom.default_url()
+PROM = prom.k8s_url()
 WRK = 'namespace="donors",container="worker"'
 
 

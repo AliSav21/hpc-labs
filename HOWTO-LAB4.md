@@ -188,17 +188,17 @@ kubectl --context kind-hpc exec -n donors deployment/worker -- python -c "import
 ### Крок 1: ендпоінти
 
 ```powershell
-$rid = (Invoke-RestMethod "http://127.0.0.1:18080/donor-registry?limit=1").items[0].id
-$t = Invoke-RestMethod "http://127.0.0.1:18080/donor-registry/$rid/tasks" -Method Post
-Invoke-RestMethod "http://127.0.0.1:18080/tasks/$($t.id)"
-Invoke-RestMethod "http://127.0.0.1:18080/tasks?status=done&limit=3&offset=0"
+$rid = (Invoke-RestMethod "http://127.0.0.1:8080/donor-registry?limit=1").items[0].id
+$t = Invoke-RestMethod "http://127.0.0.1:8080/donor-registry/$rid/tasks" -Method Post
+Invoke-RestMethod "http://127.0.0.1:8080/tasks/$($t.id)"
+Invoke-RestMethod "http://127.0.0.1:8080/tasks?status=done&limit=3&offset=0"
 ```
 
 404 на неіснуючий запис і на неіснуючу задачу:
 
 ```powershell
-try { Invoke-RestMethod "http://127.0.0.1:18080/donor-registry/999999999/tasks" -Method Post } catch { $_.Exception.Response.StatusCode.value__ }
-try { Invoke-RestMethod "http://127.0.0.1:18080/tasks/999999999" } catch { $_.Exception.Response.StatusCode.value__ }
+try { Invoke-RestMethod "http://127.0.0.1:8080/donor-registry/999999999/tasks" -Method Post } catch { $_.Exception.Response.StatusCode.value__ }
+try { Invoke-RestMethod "http://127.0.0.1:8080/tasks/999999999" } catch { $_.Exception.Response.StatusCode.value__ }
 ```
 
 ### Крок 3: дублі наївного захоплення
@@ -278,23 +278,23 @@ kubectl --context kind-hpc exec -n donors deployment/worker -- python -c "import
 ### Межові випадки ендпоінтів
 
 ```powershell
-curl.exe -s -o NUL -w "%{http_code}`n" http://127.0.0.1:18080/tasks/999999999
-curl.exe -s -o NUL -w "%{http_code}`n" "http://127.0.0.1:18080/tasks?limit=0"
-curl.exe -s -o NUL -w "%{http_code}`n" "http://127.0.0.1:18080/tasks?status=bogus"
+curl.exe -s -o NUL -w "%{http_code}`n" http://127.0.0.1:8080/tasks/999999999
+curl.exe -s -o NUL -w "%{http_code}`n" "http://127.0.0.1:8080/tasks?limit=0"
+curl.exe -s -o NUL -w "%{http_code}`n" "http://127.0.0.1:8080/tasks?status=bogus"
 ```
 
 Очікувано 404, 400 і 400. Пагінація:
 
 ```powershell
-Invoke-RestMethod "http://127.0.0.1:18080/tasks?limit=2&offset=2"
+Invoke-RestMethod "http://127.0.0.1:8080/tasks?limit=2&offset=2"
 ```
 
 Те, що 404 від порушення зовнішнього ключа не псує зʼєднання пулу, перевіряється серією
 невдалих запитів і одразу за ними валідних — усі мають дати 202:
 
 ```powershell
-1..12 | ForEach-Object { try { Invoke-WebRequest "http://127.0.0.1:18080/donor-registry/999999999/tasks" -Method Post -UseBasicParsing | Out-Null } catch { } }
-1..12 | ForEach-Object { (Invoke-WebRequest "http://127.0.0.1:18080/donor-registry/5/tasks" -Method Post -UseBasicParsing).StatusCode }
+1..12 | ForEach-Object { try { Invoke-WebRequest "http://127.0.0.1:8080/donor-registry/999999999/tasks" -Method Post -UseBasicParsing | Out-Null } catch { } }
+1..12 | ForEach-Object { (Invoke-WebRequest "http://127.0.0.1:8080/donor-registry/5/tasks" -Method Post -UseBasicParsing).StatusCode }
 ```
 
 ### Коректна зупинка окремо від rollout restart
@@ -336,7 +336,7 @@ kubectl --context kind-hpc set env deployment/worker -n donors --list
 ```powershell
 kubectl --context kind-hpc set env deployment/worker -n donors SLICE_SIZE=2048 LEASE_S=3 GRACE_S=0
 kubectl --context kind-hpc rollout status deployment/worker -n donors
-1..3 | ForEach-Object { Invoke-WebRequest "http://127.0.0.1:18080/donor-registry/5/tasks" -Method Post -UseBasicParsing | Out-Null }
+1..3 | ForEach-Object { Invoke-WebRequest "http://127.0.0.1:8080/donor-registry/5/tasks" -Method Post -UseBasicParsing | Out-Null }
 $p = kubectl --context kind-hpc get pods -n donors -l app=worker -o jsonpath="{.items[0].metadata.name}"
 kubectl --context kind-hpc exec -n donors $p -c worker -- sh -c "kill -TERM 1"
 kubectl --context kind-hpc logs -n donors $p -c worker --previous --tail=6

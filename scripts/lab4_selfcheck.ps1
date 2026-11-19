@@ -5,8 +5,8 @@
 [CmdletBinding()]
 param(
     [string]$Cluster = "hpc",
-    [int]$WebPort = 18080,
-    [int]$PromPort = 19090
+    [int]$WebPort = 8080,
+    [int]$PromPort = 9090
 )
 
 $ctx = "kind-$Cluster"

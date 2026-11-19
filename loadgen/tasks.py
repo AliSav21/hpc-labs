@@ -14,7 +14,7 @@ from collections import defaultdict
 from pathlib import Path
 from urllib.parse import urlparse
 
-from loadgen.step import default_base, sharpen_timer
+from loadgen.step import k8s_base, sharpen_timer
 
 TIMEOUT = 5.0
 # скільки разів довелося повторити запит через закрите сервером keep-alive зʼєднання
@@ -245,7 +245,7 @@ def run(base, resource, ids, rate, count, poison=0, poison_at=0.0, out=None, out
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawTextHelpFormatter)
-    ap.add_argument("--base", default=default_base())
+    ap.add_argument("--base", default=k8s_base())
     ap.add_argument("--resource", default="/donor-registry")
     ap.add_argument("--ids", default=str(Path(__file__).with_name("ids.json")))
     ap.add_argument("--rate", type=float, required=True, help="інтенсивність створення, задач/с")
