@@ -72,9 +72,16 @@ def chart_step_parts(s, out_dir):
            label="обмін, не перекритий обчисленням")
     for p, (t, c) in enumerate(zip(total, comm)):
         ax.text(p, t, f"{spaced(t, 2)} мс", ha="center", va="bottom", fontsize=8)
-        if c:
-            ax.text(p, t - c / 2, f"{spaced(c, 2)}", ha="center", va="center",
+        if not c:
+            continue
+        if c / t > 0.05:  # смуга обміну достатньо висока, щоб підписати всередині
+            ax.text(p, t - c / 2, spaced(c, 2), ha="center", va="center",
                     fontsize=8, color="white")
+        else:            # 0,16 мс усередині стовпця не видно — підпис збоку зі стрілкою
+            ax.annotate(f"{spaced(c, 2)} мс", (p + 0.28, t - c / 2),
+                        xytext=(p + 0.52, t * 0.74), fontsize=8, color=COLOR2,
+                        ha="left", va="center",
+                        arrowprops=dict(arrowstyle="->", color=COLOR2, lw=0.9))
     ax.set_xticks(list(pos))
     ax.set_xticklabels(labels, fontsize=9)
     ax.set_ylabel("t_step, мс")

@@ -342,6 +342,33 @@ def check_scaling(out_dir):
           "перерахунок із X і t_step дає ті самі числа" if not bad else str(bad))
 
 
+def measure_division_cost(out_dir):
+    """Скільки в t_sync займає ділення градієнтів на P між викликами all-reduce.
+
+    Умова визначає t_sync як час від першого виклику all-reduce до повернення з
+    останнього, а в циклі ручної синхронізації між викликами стоїть ще `p.grad /= P`.
+    Замір показує, яку частку t_sync це ділення додає.
+    """
+    import time
+
+    torch.manual_seed(0)
+    model = Net(3, 16, 32, 128, 7)
+    for p in model.parameters():
+        p.grad = torch.randn_like(p)
+    times = []
+    for _ in range(200):
+        t0 = time.perf_counter()
+        for p in model.parameters():
+            p.grad /= T.VARIANT["p_max"]
+        times.append((time.perf_counter() - t0) * 1e3)
+    div = statistics.median(times)
+    s = load(os.path.join(out_dir, "summary.json")) or {}
+    t_sync = (s.get("speed", {}).get("manual", {}) or {}).get("t_sync_ms")
+    share = f", тобто {div / t_sync * 100:.1f} % від t_sync = {t_sync:.2f} мс" if t_sync else ""
+    note("ділення градієнтів на P усередині t_sync",
+         f"медіана 200 замірів {div:.3f} мс{share}")
+
+
 def check_spec_compliance(out_dir):
     """Параметри кожного знятого прогону проти того, що вимагає умова варіанта."""
     v = T.VARIANT
@@ -366,7 +393,8 @@ def check_spec_compliance(out_dir):
         if name == "summary.json":  # зведення, а не прогін
             continue
         r = load(path)
-        if r and "n_th" in r:
+        # у прогонів equiv і grad-single поля n_th немає, але воно є в описі стенду
+        if r and ("n_th" in r or "torch_num_threads" in r.get("host", {})):
             all_runs.append((name, r))
     for extra in ("s5_failure/result.json", "s5_nofail/result.json"):
         r = load(os.path.join(out_dir, extra))
@@ -374,7 +402,10 @@ def check_spec_compliance(out_dir):
             all_runs.append((extra, r))
     phys = T.physical_cores()
     want_th = max(1, phys // v["p_max"]) if phys else 1
-    bad = [n for n, r in all_runs if r["n_th"] != want_th]
+    def threads_of(r):
+        return r.get("n_th", r.get("host", {}).get("torch_num_threads"))
+
+    bad = [n for n, r in all_runs if threads_of(r) != want_th]
     check("n_th = ⌊C_phys / P_max⌋ в усіх прогонах, включно з прогонами в одному процесі",
           not bad and want_th == 2,
           f"n_th = {want_th} (⌊{phys} / {v['p_max']}⌋) у всіх {len(all_runs)} прогонах"
@@ -481,9 +512,10 @@ def check_failure(out_dir):
           not diff,
           f"{len(common)} спільних кроків, розбіжностей {len(diff)}"
           + (f", перші {diff[:5]}" if diff else ""))
-    check("ACC після n_ep епох однаковий з прогоном без відмови",
-          fail.get("acc") == ok.get("acc"),
-          f"з відмовою {fail.get('acc'):.6f}, без відмови {ok.get('acc'):.6f}")
+    check("ACC і AUC після n_ep епох однакові з прогоном без відмови",
+          fail.get("acc") == ok.get("acc") and fail.get("auc") == ok.get("auc"),
+          f"ACC {fail.get('acc')!r} проти {ok.get('acc')!r}, "
+          f"AUC {fail.get('auc')!r} проти {ok.get('auc')!r}")
     if ctrl:
         lc = losses_by_step(ctrl)
         d2 = [s for s in sorted(set(lc) & set(lo)) if lc[s] != lo[s]]
@@ -529,6 +561,7 @@ def main(argv=None):
     check_metrics(train, test)
     check_throughput(a.out_dir)
     check_scaling(a.out_dir)
+    measure_division_cost(a.out_dir)
     check_spec_compliance(a.out_dir)
     check_failure(a.out_dir)
 
