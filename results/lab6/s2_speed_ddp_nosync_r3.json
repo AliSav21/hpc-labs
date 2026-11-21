@@ -1,0 +1,52 @@
+{
+  "task": "speed",
+  "tag": "P_max процесів, DDP, no_sync",
+  "sync": "ddp-nosync",
+  "P": 2,
+  "b": 48,
+  "B": 96,
+  "lr": 0.02,
+  "n_th": 2,
+  "warmup_steps": 10,
+  "measure_steps": 50,
+  "steps_per_epoch": 72,
+  "t_step_ms": 21.518650028156117,
+  "t_step_mean_ms": 25.35894000902772,
+  "t_step_min_ms": 14.317100052721798,
+  "t_step_max_ms": 54.611100000329316,
+  "t_block_s": 1.267947000451386,
+  "throughput": 3785.647190530213,
+  "t_sync_ms": 0.0,
+  "loss_last": 0.9692904353141785,
+  "n_params": 206823,
+  "rank": 0,
+  "restart_count": 0,
+  "host": {
+    "python": "3.10.11",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "torch": "2.14.0+cpu",
+    "logical_cores": 8,
+    "physical_cores": 4,
+    "torch_num_threads": 2,
+    "omp_num_threads": "2",
+    "conditions": {
+      "ac_power": true,
+      "battery_percent": 92,
+      "battery_saver": false,
+      "timer_resolution_ms": 1.0,
+      "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "background_cpu_percent": 27.7
+    },
+    "conditions_before": {
+      "ac_power": true,
+      "battery_percent": 92,
+      "battery_saver": false,
+      "timer_resolution_ms": 1.0,
+      "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "background_cpu_percent": 7.6
+    }
+  },
+  "wall_s": 28.061555000022054,
+  "cmd": "C:\\Users\\alink\\AppData\\Local\\Programs\\Python\\Python310\\python.exe -m scripts.lab6_torchrun --standalone --nproc_per_node=2 -m lab6.train --task speed --sync ddp-nosync --global-batch 96 --tag P_max процесів, DDP, no_sync --out results/lab6\\s2_speed_ddp_nosync_r3.json"
+}

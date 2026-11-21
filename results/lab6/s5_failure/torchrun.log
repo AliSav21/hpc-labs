@@ -1,0 +1,60 @@
+$ C:\Users\alink\AppData\Local\Programs\Python\Python310\python.exe -m scripts.lab6_torchrun --nnodes=1 --nproc_per_node=2 --max-restarts=1 --rdzv-backend=c10d --rdzv-endpoint=127.0.0.1:29500 --rdzv-id=lab6 -m lab6.train --task train --sync ddp --global-batch 96 --lr 0.02 --epochs 3 --ckpt-dir results/lab6\s5_failure --ckpt-interval 15 --fail-step 37 --tag DDP з відмовою на кроці s_f --out results/lab6\s5_failure\result.json
+
+--- stdout ---
+{
+  "task": "train",
+  "tag": "DDP з відмовою на кроці s_f",
+  "sync": "ddp",
+  "P": 2,
+  "b": 48,
+  "B": 96,
+  "lr": 0.02,
+  "epochs": 3,
+  "n_th": 2,
+  "steps_per_epoch": 72,
+  "steps_total": 216,
+  "attempt": 1,
+  "ckpt_interval": 15,
+  "fail_step": 37,
+  "loss_max_last_epoch": 1.1629864573478699,
+  "acc": 0.6822942643391521,
+  "auc": 0.8299865708422676,
+  "n_params": 206823,
+  "rank": 0,
+  "restart_count": 1
+}
+
+--- stderr ---
+[W1121 13:11:17.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [kubernetes.docker.internal]:29500 (system error: 10049 - The requested address is not valid in its context.).
+[W1121 13:11:18.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [Alina]:54616 (system error: 10049 - The requested address is not valid in its context.).
+W1121 13:11:20.176000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGHUP
+W1121 13:11:20.176000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 13:11:20.176000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 13:11:20.176000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 13:11:20.176000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGHUP'
+W1121 13:11:22.973000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGQUIT
+W1121 13:11:22.973000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 13:11:22.973000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 13:11:22.973000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 13:11:22.973000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGQUIT'
+[W1121 13:11:34.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [Alina]:54616 (system error: 10049 - The requested address is not valid in its context.).
+[W1121 13:11:34.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [Alina]:54616 (system error: 10049 - The requested address is not valid in its context.).
+rank 1: os._exit(1) на початку кроку 37
+W1121 13:11:43.586000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:1028] Sending process 3304 closing signal CTRL_C_EVENT
+W1121 13:12:13.604000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:1047] Unable to shutdown process 3304 via Signals.CTRL_C_EVENT, forcefully exiting via Signals.CTRL_C_EVENT
+E1121 13:12:43.620000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:1061] Process 3304 did not exit after CTRL_C_EVENT within 30s; abandoning and continuing teardown. Worker may be in uninterruptible kernel sleep (e.g. wedged on GPU/NIC); host may need to be recycled.
+E1121 13:12:43.620000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:1002] failed (exitcode: 1) local_rank: 1 (pid: 40900) of binary: C:\Users\alink\AppData\Local\Programs\Python\Python310\python.exe
+W1121 13:12:43.620000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:1028] Sending process 3304 closing signal SIGTERM
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGHUP
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGHUP'
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGQUIT
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 13:12:43.788000 22964 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGQUIT'
+[W1121 13:12:50.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [Alina]:54616 (system error: 10049 - The requested address is not valid in its context.).
+[W1121 13:12:50.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [Alina]:54616 (system error: 10049 - The requested address is not valid in its context.).
+

@@ -1,0 +1,52 @@
+{
+  "task": "speed",
+  "tag": "1 процес, батч B",
+  "sync": "none",
+  "P": 1,
+  "b": 96,
+  "B": 96,
+  "lr": 0.02,
+  "n_th": 2,
+  "warmup_steps": 10,
+  "measure_steps": 50,
+  "steps_per_epoch": 72,
+  "t_step_ms": 36.40170002472587,
+  "t_step_mean_ms": 36.53308600420132,
+  "t_step_min_ms": 19.987799983937293,
+  "t_step_max_ms": 80.24250000016764,
+  "t_block_s": 1.8266543002100661,
+  "throughput": 2627.755016068447,
+  "t_sync_ms": 0.0,
+  "loss_last": 0.9855590462684631,
+  "n_params": 206823,
+  "rank": 0,
+  "restart_count": 0,
+  "host": {
+    "python": "3.10.11",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "torch": "2.14.0+cpu",
+    "logical_cores": 8,
+    "physical_cores": 4,
+    "torch_num_threads": 2,
+    "omp_num_threads": "2",
+    "conditions": {
+      "ac_power": true,
+      "battery_percent": 92,
+      "battery_saver": false,
+      "timer_resolution_ms": 1.0,
+      "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "background_cpu_percent": 22.9
+    },
+    "conditions_before": {
+      "ac_power": true,
+      "battery_percent": 92,
+      "battery_saver": false,
+      "timer_resolution_ms": 1.0,
+      "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "background_cpu_percent": 8.2
+    }
+  },
+  "wall_s": 16.159828400006518,
+  "cmd": "C:\\Users\\alink\\AppData\\Local\\Programs\\Python\\Python310\\python.exe -m lab6.train --task speed --sync none --global-batch 96 --tag 1 процес, батч B --out results/lab6\\s1_single_speed_r1.json"
+}

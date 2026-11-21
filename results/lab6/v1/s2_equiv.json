@@ -1,0 +1,104 @@
+{
+  "task": "equiv",
+  "P": 2,
+  "B": 96,
+  "b": 48,
+  "t_sync_first_ms": 8.23469995521009,
+  "shard_sizes": 48,
+  "max_rel_grad_diff": 2.107577302422824e-06,
+  "per_tensor": [
+    {
+      "tensor": 0,
+      "numel": 432,
+      "max_abs_g": 0.005027501843869686,
+      "max_abs_diff": 1.0244548320770264e-08,
+      "rel": 2.037701554154975e-06
+    },
+    {
+      "tensor": 1,
+      "numel": 16,
+      "max_abs_g": 0.007954064756631851,
+      "max_abs_diff": 1.6763806343078613e-08,
+      "rel": 2.107577302422824e-06
+    },
+    {
+      "tensor": 2,
+      "numel": 4608,
+      "max_abs_g": 0.027648217976093292,
+      "max_abs_diff": 3.3527612686157227e-08,
+      "rel": 1.2126500418633743e-06
+    },
+    {
+      "tensor": 3,
+      "numel": 32,
+      "max_abs_g": 0.039759017527103424,
+      "max_abs_diff": 1.4901161193847656e-08,
+      "rel": 3.747869570391081e-07
+    },
+    {
+      "tensor": 4,
+      "numel": 200704,
+      "max_abs_g": 0.01680111326277256,
+      "max_abs_diff": 7.450580596923828e-09,
+      "rel": 4.4345755429389417e-07
+    },
+    {
+      "tensor": 5,
+      "numel": 128,
+      "max_abs_g": 0.060206785798072815,
+      "max_abs_diff": 7.450580596923828e-09,
+      "rel": 1.2374984809706146e-07
+    },
+    {
+      "tensor": 6,
+      "numel": 896,
+      "max_abs_g": 0.07547113299369812,
+      "max_abs_diff": 1.4901161193847656e-08,
+      "rel": 1.9744186423028672e-07
+    },
+    {
+      "tensor": 7,
+      "numel": 7,
+      "max_abs_g": 0.4829719364643097,
+      "max_abs_diff": 2.9802322387695312e-08,
+      "rel": 6.17061161065983e-08
+    }
+  ],
+  "steps_before_sum": 50,
+  "weight_sums": [
+    22.76598694107443,
+    22.76598694107443
+  ],
+  "weight_sum_spread": 0.0,
+  "n_params": 206823,
+  "rank": 0,
+  "restart_count": 0,
+  "host": {
+    "python": "3.10.11",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "torch": "2.14.0+cpu",
+    "logical_cores": 8,
+    "physical_cores": 4,
+    "torch_num_threads": 2,
+    "omp_num_threads": "2",
+    "conditions": {
+      "ac_power": true,
+      "battery_percent": 92,
+      "battery_saver": false,
+      "timer_resolution_ms": 1.0,
+      "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "background_cpu_percent": 23.7
+    },
+    "conditions_before": {
+      "ac_power": true,
+      "battery_percent": 92,
+      "battery_saver": false,
+      "timer_resolution_ms": 1.0,
+      "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "background_cpu_percent": 8.8
+    }
+  },
+  "wall_s": 31.180057500023395,
+  "cmd": "C:\\Users\\alink\\AppData\\Local\\Programs\\Python\\Python310\\python.exe -m scripts.lab6_torchrun --standalone --nproc_per_node=2 -m lab6.train --task equiv --sync manual --global-batch 96 --grad-file results/lab6\\grad_single.pt --out results/lab6\\s2_equiv.json"
+}

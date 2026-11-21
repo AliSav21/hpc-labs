@@ -1,0 +1,41 @@
+$ C:\Users\alink\AppData\Local\Programs\Python\Python310\python.exe -m scripts.lab6_torchrun --standalone --nproc_per_node=2 -m lab6.train --task train --sync ddp --global-batch 96 --lr 0.02 --epochs 3 --ckpt-dir results/lab6\s5_nofail --ckpt-interval 15 --tag DDP без відмови, контрольні точки --out results/lab6\s5_nofail\result.json
+
+--- stdout ---
+{
+  "task": "train",
+  "tag": "DDP без відмови, контрольні точки",
+  "sync": "ddp",
+  "P": 2,
+  "b": 48,
+  "B": 96,
+  "lr": 0.02,
+  "epochs": 3,
+  "n_th": 2,
+  "steps_per_epoch": 72,
+  "steps_total": 216,
+  "attempt": 0,
+  "ckpt_interval": 15,
+  "fail_step": 0,
+  "loss_max_last_epoch": 1.1629864573478699,
+  "acc": 0.6822942643391521,
+  "auc": 0.8299865708422676,
+  "n_params": 206823,
+  "rank": 0,
+  "restart_count": 0
+}
+
+--- stderr ---
+[W1121 13:13:17.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [Alina]:49271 (system error: 10049 - The requested address is not valid in its context.).
+W1121 13:13:19.304000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGHUP
+W1121 13:13:19.304000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 13:13:19.304000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 13:13:19.304000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 13:13:19.304000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGHUP'
+W1121 13:13:22.885000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGQUIT
+W1121 13:13:22.885000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 13:13:22.885000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 13:13:22.885000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 13:13:22.885000 3204 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGQUIT'
+[W1121 13:13:31.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [Alina]:49271 (system error: 10049 - The requested address is not valid in its context.).
+[W1121 13:13:31.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [Alina]:49271 (system error: 10049 - The requested address is not valid in its context.).
+

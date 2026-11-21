@@ -1,0 +1,60 @@
+{
+  "task": "stand",
+  "variant": {
+    "number": 19,
+    "dataset": "Д1",
+    "width": "Ш1",
+    "p_max": 2,
+    "batch": 96,
+    "ckpt_interval": 15,
+    "fail_step": 37
+  },
+  "dataset": "dermamnist",
+  "K": 7,
+  "C": 3,
+  "c1": 16,
+  "c2": 32,
+  "h": 128,
+  "n_params": 206823,
+  "n_params_formula": 206823,
+  "M_bytes": 827292,
+  "M_mib": 0.7889671325683594,
+  "param_tensors": 8,
+  "N_train": 7000,
+  "N_test": 2005,
+  "B": 96,
+  "eta0": 0.02,
+  "momentum": 0.9,
+  "n_epochs": 3,
+  "n_th": 2,
+  "host": {
+    "python": "3.10.11",
+    "implementation": "CPython",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "torch": "2.14.0+cpu",
+    "logical_cores": 8,
+    "physical_cores": 4,
+    "torch_num_threads": 2,
+    "omp_num_threads": "2",
+    "cpu": "11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz",
+    "memory_gb": 15.8,
+    "conditions": {
+      "ac_power": true,
+      "battery_percent": 92,
+      "battery_saver": false,
+      "timer_resolution_ms": 1.0,
+      "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "background_cpu_percent": 40.6
+    },
+    "conditions_before": {
+      "ac_power": true,
+      "battery_percent": 92,
+      "battery_saver": false,
+      "timer_resolution_ms": 1.0,
+      "power_scheme_guid": "381b4222-f694-41f0-9685-ff5bb260df2e",
+      "background_cpu_percent": 5.6
+    }
+  },
+  "wall_s": 11.280896500044037,
+  "cmd": "C:\\Users\\alink\\AppData\\Local\\Programs\\Python\\Python310\\python.exe -m lab6.train --task stand --out results/lab6\\stand.json"
+}

@@ -1,0 +1,39 @@
+{"kind": "start", "rank": 0, "attempt": 0, "t": 1795263164.2905047, "P": 2, "b": 48, "B": 96, "lr": 0.02, "epochs": 1, "ckpt_interval": 15, "fail_step": 37, "n_e": 72}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.4464762, "step": 1, "epoch": 0, "loss": 1.9927734732627869, "loss_local": 2.0003769397735596}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.4736943, "step": 2, "epoch": 0, "loss": 1.9664425253868103, "loss_local": 1.964655876159668}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.497031, "step": 3, "epoch": 0, "loss": 1.9357576370239258, "loss_local": 1.9425150156021118}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.5171018, "step": 4, "epoch": 0, "loss": 1.8675265312194824, "loss_local": 1.8813520669937134}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.5474088, "step": 5, "epoch": 0, "loss": 1.7912269234657288, "loss_local": 1.7937742471694946}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.5708766, "step": 6, "epoch": 0, "loss": 1.7078860402107239, "loss_local": 1.6741267442703247}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.5972981, "step": 7, "epoch": 0, "loss": 1.5924529433250427, "loss_local": 1.5586657524108887}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.6186886, "step": 8, "epoch": 0, "loss": 1.4424676895141602, "loss_local": 1.4616355895996094}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.640866, "step": 9, "epoch": 0, "loss": 1.0381901264190674, "loss_local": 0.9480230808258057}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.6641755, "step": 10, "epoch": 0, "loss": 1.0583713352680206, "loss_local": 1.4541093111038208}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.689634, "step": 11, "epoch": 0, "loss": 1.7857006192207336, "loss_local": 2.2432408332824707}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.7390418, "step": 12, "epoch": 0, "loss": 1.5210949182510376, "loss_local": 1.2973090410232544}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.767825, "step": 13, "epoch": 0, "loss": 1.3246724605560303, "loss_local": 1.3355993032455444}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263164.9539855, "step": 14, "epoch": 0, "loss": 1.2295219898223877, "loss_local": 1.0429056882858276}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.0729156, "step": 15, "epoch": 0, "loss": 1.1634381413459778, "loss_local": 1.1218774318695068}
+{"kind": "ckpt", "rank": 0, "attempt": 0, "t": 1795263165.1037352, "step": 15, "epoch": 0, "step_in_epoch": 15}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.2289698, "step": 16, "epoch": 0, "loss": 1.3944072723388672, "loss_local": 1.369219422340393}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.3055835, "step": 17, "epoch": 0, "loss": 1.419817328453064, "loss_local": 1.452072024345398}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.4027996, "step": 18, "epoch": 0, "loss": 1.348046600818634, "loss_local": 1.381293773651123}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.4460874, "step": 19, "epoch": 0, "loss": 1.271982491016388, "loss_local": 1.3210806846618652}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.4801314, "step": 20, "epoch": 0, "loss": 1.2319406867027283, "loss_local": 1.1550157070159912}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.5152185, "step": 21, "epoch": 0, "loss": 1.170670986175537, "loss_local": 1.1496773958206177}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.5586104, "step": 22, "epoch": 0, "loss": 0.998356968164444, "loss_local": 1.0199178457260132}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.6012473, "step": 23, "epoch": 0, "loss": 0.8686946928501129, "loss_local": 0.7105181813240051}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.652426, "step": 24, "epoch": 0, "loss": 1.0992630422115326, "loss_local": 0.952795684337616}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.7146773, "step": 25, "epoch": 0, "loss": 1.1013144254684448, "loss_local": 1.1905491352081299}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.754634, "step": 26, "epoch": 0, "loss": 1.0226616561412811, "loss_local": 1.1363660097122192}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.786317, "step": 27, "epoch": 0, "loss": 1.1866201758384705, "loss_local": 1.2067348957061768}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.8188074, "step": 28, "epoch": 0, "loss": 1.191881000995636, "loss_local": 1.0450351238250732}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.8528178, "step": 29, "epoch": 0, "loss": 0.9869211316108704, "loss_local": 1.0468069314956665}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.889789, "step": 30, "epoch": 0, "loss": 0.9773370325565338, "loss_local": 1.168326497077942}
+{"kind": "ckpt", "rank": 0, "attempt": 0, "t": 1795263165.9018433, "step": 30, "epoch": 0, "step_in_epoch": 30}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.935576, "step": 31, "epoch": 0, "loss": 1.145373284816742, "loss_local": 1.279427409172058}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263165.9695692, "step": 32, "epoch": 0, "loss": 0.9864452481269836, "loss_local": 0.820319652557373}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263166.0024476, "step": 33, "epoch": 0, "loss": 1.0849138498306274, "loss_local": 0.8213512897491455}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263166.0407643, "step": 34, "epoch": 0, "loss": 1.0055565237998962, "loss_local": 0.979076623916626}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263166.0734184, "step": 35, "epoch": 0, "loss": 1.038559377193451, "loss_local": 0.9692826271057129}
+{"kind": "step", "rank": 0, "attempt": 0, "t": 1795263166.1036599, "step": 36, "epoch": 0, "loss": 1.1238008439540863, "loss_local": 1.2495883703231812}

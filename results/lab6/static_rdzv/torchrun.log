@@ -1,0 +1,31 @@
+[W1121 14:12:16.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [kubernetes.docker.internal]:29500 (system error: 10049 - The requested address is not valid in its context.).
+W1121 14:12:16.623000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGHUP
+W1121 14:12:16.623000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 14:12:16.623000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 14:12:16.623000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 14:12:16.623000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGHUP'
+W1121 14:12:20.745000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGQUIT
+W1121 14:12:20.745000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 14:12:20.745000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 14:12:20.745000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 14:12:20.745000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGQUIT'
+[default1]:[W1121 14:12:36.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [kubernetes.docker.internal]:29500 (system error: 10049 - The requested address is not valid in its context.).
+[default0]:[W1121 14:12:36.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [kubernetes.docker.internal]:29500 (system error: 10049 - The requested address is not valid in its context.).
+[default1]:rank 1: os._exit(1) на початку кроку 37
+W1121 14:12:46.573000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:1028] Sending process 33700 closing signal CTRL_C_EVENT
+W1121 14:13:16.575000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:1047] Unable to shutdown process 33700 via Signals.CTRL_C_EVENT, forcefully exiting via Signals.CTRL_C_EVENT
+E1121 14:13:46.576000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:1061] Process 33700 did not exit after CTRL_C_EVENT within 30s; abandoning and continuing teardown. Worker may be in uninterruptible kernel sleep (e.g. wedged on GPU/NIC); host may need to be recycled.
+E1121 14:13:46.686000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:1002] failed (exitcode: 1) local_rank: 1 (pid: 43100) of binary: C:\Users\alink\AppData\Local\Programs\Python\Python310\python.exe
+W1121 14:13:46.686000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:1028] Sending process 33700 closing signal SIGTERM
+W1121 14:13:46.778000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGHUP
+W1121 14:13:46.778000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 14:13:46.778000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 14:13:46.778000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 14:13:46.778000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGHUP'
+W1121 14:13:46.779000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Failed to register signal handler for SIGQUIT
+W1121 14:13:46.779000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] Traceback (most recent call last):
+W1121 14:13:46.779000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]   File "C:\Users\alink\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\distributed\elastic\multiprocessing\api.py", line 545, in start
+W1121 14:13:46.779000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549]     sig = getattr(signal, sig_name.strip())
+W1121 14:13:46.779000 28876 site-packages\torch\distributed\elastic\multiprocessing\api.py:549] AttributeError: module 'signal' has no attribute 'SIGQUIT'
+[default0]:[W1121 14:14:02.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [kubernetes.docker.internal]:29500 (system error: 10049 - The requested address is not valid in its context.).
+[default1]:[W1121 14:14:02.000000000 socket.cpp:764] [c10d] The client socket has failed to connect to [kubernetes.docker.internal]:29500 (system error: 10049 - The requested address is not valid in its context.).
